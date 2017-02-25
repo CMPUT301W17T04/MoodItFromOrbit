@@ -1,8 +1,10 @@
 package com.assign1.brianlu.mooditfromorbit;
 
+import android.app.Activity;
 import android.content.Context;
 import android.support.test.InstrumentationRegistry;
 import android.support.test.runner.AndroidJUnit4;
+import android.test.ActivityInstrumentationTestCase2;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -14,8 +16,17 @@ import static org.junit.Assert.*;
  *
  * @see <a href="http://d.android.com/tools/testing">Testing documentation</a>
  */
-@RunWith(AndroidJUnit4.class)
-public class ExampleInstrumentedTest {
+//@RunWith(AndroidJUnit4.class)
+public class ExampleInstrumentedTest extends ActivityInstrumentationTestCase2 {
+
+    public ExampleInstrumentedTest() {
+        super(com.assign1.brianlu.mooditfromorbit.MoodMainActivity.class);
+    }
+
+    public void testStart() throws Exception {
+        Activity activity = getActivity();
+
+    }
     @Test
     public void useAppContext() throws Exception {
         // Context of the app under test.

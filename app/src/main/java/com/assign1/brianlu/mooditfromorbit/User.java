@@ -1,6 +1,8 @@
 package com.assign1.brianlu.mooditfromorbit;
 
 import android.os.Parcelable;
+import android.text.BoringLayout;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 
@@ -17,7 +19,6 @@ public class User{
 
     public User(String userName){
         this.userName = userName;
-//        this.userID = userID;
     }
 
     public String getUserName(){
@@ -29,9 +30,7 @@ public class User{
         return this.moodList;
     }
 
-//    public Integer getUserID(){
-//        return this.userID;
-//    }
+
     public void setMoods( ArrayList<Mood> moods){
         this.moodList = moods;
     }
@@ -44,5 +43,42 @@ public class User{
         this.userName = userName;
     }
 
+    public Boolean setFollowing(User user){
+        Boolean add = true;
+        for(int i =0; i<this.sharing.size();i++){
+            if(user.getUserName().equals(this.following.get(i).getUserName())){
+                add =false;
 
+            }
+        }
+        if(add){
+            this.following.add(user);
+            return true;
+        }else{
+            return false;
+        }
+    }
+
+    public Boolean setSharing(User user){
+        Boolean add = true;
+        for(int i =0; i<this.sharing.size();i++){
+            if(user.getUserName().equals(this.sharing.get(i).getUserName())){
+                add =false;
+
+            }
+        }
+        if(add){
+            this.sharing.add(user);
+            return true;
+        }else{
+            return false;
+        }
+    }
+
+    public ArrayList<User> getFollowing(){
+        return this.following;
+    }
+    public ArrayList<User> getSharing(){
+        return this.sharing;
+    }
 }
