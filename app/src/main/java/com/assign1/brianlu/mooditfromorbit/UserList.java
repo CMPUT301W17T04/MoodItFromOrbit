@@ -18,13 +18,14 @@ public class UserList {
         }
         if(add){
             users.add(user);
+
         }
     }
 
     public boolean hasUser (User user){
         boolean has = false;
         for(int i = 0; i< users.size();i++){
-            if(users.get(i).getUserName().equals(user.getUserName())){
+            if(this.users.get(i).getUserName().equals(user.getUserName())){
                 has = true;
             }
         }
@@ -32,11 +33,13 @@ public class UserList {
     }
 
     public void deleteUser(User user){
-        users.remove(user);
+        if(hasUser(user)){
+            this.users.remove(user);
+        }
     }
 
     public User getUser(int index){
-        return users.get(index);
+        return this.users.get(index);
 
     }
 
