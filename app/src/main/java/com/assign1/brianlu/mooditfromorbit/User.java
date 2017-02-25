@@ -53,9 +53,9 @@ public class User{
         }
         if(add){
             this.following.add(user);
-            return true;
+            return add;
         }else{
-            return false;
+            return add;
         }
     }
 
@@ -69,9 +69,9 @@ public class User{
         }
         if(add){
             this.sharing.add(user);
-            return true;
+            return add;
         }else{
-            return false;
+            return add;
         }
     }
 

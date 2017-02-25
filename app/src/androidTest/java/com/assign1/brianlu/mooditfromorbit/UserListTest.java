@@ -14,7 +14,7 @@ public class UserListTest extends ActivityInstrumentationTestCase2 {
 
     public void testAddTweet(){
         UserList users = new UserList();
-        User user = new User("blu2");
+        User user = new User("blu1");
 
         users.add(user);
 
@@ -23,8 +23,8 @@ public class UserListTest extends ActivityInstrumentationTestCase2 {
 
     public void testGetUser(){
         UserList users = new UserList();
-        User user = new User("blu2");
-
-//        users.add()
+        User user = new User("blu1");
+        User returnedUser = users.getUser(0);
+        assertEquals(returnedUser.getUserName(),user.getUserName());
     }
 }

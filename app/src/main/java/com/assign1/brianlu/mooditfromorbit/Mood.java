@@ -14,12 +14,12 @@ public class Mood {
     private ArrayList<String> states;
     private Date date;
 //    private GeolocationPermissions geo;
-    private String message;
+    protected String message;
 
 
-    public Mood(ArrayList<String> states, String message, Date date){
+    public Mood(ArrayList<String> states, String message){
         this.states = states;
-        this.date = date;
+        this.date = new Date(System.currentTimeMillis());
         this.message = message;
     }
 

@@ -1,15 +1,17 @@
 package com.assign1.brianlu.mooditfromorbit;
 
+import java.util.ArrayList;
+
 /**
  * Created by FENGYI on 2017-02-24.
  */
 
 public class Important extends Mood implements Moodable {
-    public Important(String message) {
-        super(message);
+    public Important(ArrayList<String> states, String message) {
+        super(states,message);
     }
 
-    @Override
+
     public boolean Important() {
         return true;
     }
