@@ -20,4 +20,11 @@ public class UserListTest extends ActivityInstrumentationTestCase2 {
 
         assertTrue(users.hasUser(user));
     }
+
+    public void testGetUser(){
+        UserList users = new UserList();
+        User user = new User("blu2");
+
+//        users.add()
+    }
 }
