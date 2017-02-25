@@ -2,4 +2,7 @@
     <string name="app_name">MoodItFromOrbit</string>
     <string name="signIn">Sign In</string>
     <string name="signUp">SignUp</string>
+    <string name="signUpInput">User name</string>
+    <string name="signUpConfirm">Confirm user name</string>
+    <string name="signUpMessage">Please sign up here: </string>
 </resources>

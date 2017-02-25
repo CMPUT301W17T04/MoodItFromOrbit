@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <TextView
+        android:id="@+id/signUpHeader"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="30dp"
+        android:textSize="15sp"
+        android:text="@string/signUpMessage" />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:gravity="center_horizontal">
+        <EditText
+            android:id="@+id/userInput"
+            android:layout_marginTop="70dp"
+            android:layout_width="300dp"
+            android:layout_height="60dp"
+            android:textSize="20sp"
+            android:textColorHint="#ff444444"
+            android:hint="@string/signUpInput"
+            />
+        <EditText
+            android:id="@+id/inputConfirm"
+            android:layout_marginTop="70dp"
+            android:layout_width="300dp"
+            android:layout_height="60dp"
+            android:textSize="20sp"
+            android:textColorHint="#ff444444"
+            android:hint="@string/signUpConfirm"
+            />
+
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal">
+        <Button
+            android:id="@+id/signIn"
+            android:layout_marginTop="70dp"
+            android:layout_width="300dp"
+            android:layout_height="80dp"
+            android:textSize="20sp"
+            android:text="@string/signIn" />
+
+    </LinearLayout>
+
+
+</LinearLayout>
