@@ -11,20 +11,20 @@ import java.util.Date;
  */
 
 public class Mood {
-    private ArrayList<String> moods;
+    private ArrayList<String> states;
     private Date date;
 //    private GeolocationPermissions geo;
     private String message;
 
 
-    public Mood(ArrayList<String> moods, String message, Date date){
-        this.moods = moods;
+    public Mood(ArrayList<String> states, String message, Date date){
+        this.states = states;
         this.date = date;
         this.message = message;
     }
 
     public ArrayList<String> getMood (){
-        return this.moods;
+        return this.states;
     }
 
     public Date getDate() {
@@ -35,12 +35,12 @@ public class Mood {
         return this.message;
     }
 
-    public void setMoods(ArrayList<String> moods){
-        this.moods = moods;
+    public void setStates(ArrayList<String> states){
+        this.states = states;
     }
 
-    public void setSingleMood(String mood){
-        this.moods.add(mood);
+    public void setSingleState(String state){
+        this.states.add(state);
 
     }
 
