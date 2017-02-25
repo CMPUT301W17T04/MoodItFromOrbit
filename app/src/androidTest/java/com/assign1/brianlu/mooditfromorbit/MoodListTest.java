@@ -16,7 +16,10 @@ public class MoodListTest extends ActivityInstrumentationTestCase2 {
 
     public void testgetMood(){
         MoodList moods = new MoodList();
-        Mood mood = new GMood("Test Mood");
+        ArrayList<String> states = new ArrayList<String>();
+        states.add("happy");
+        states.add("bored");
+        Mood mood = new GMood(states, "Test Mood");
 
         moods.add(mood);
         Mood returnedMood = moods.getMood(0);
@@ -27,7 +30,10 @@ public class MoodListTest extends ActivityInstrumentationTestCase2 {
 
     public void testaddMood(){
         MoodList moods = new MoodList();
-        Mood mood = new GMood("Test mood");
+        ArrayList<String> states = new ArrayList<String>();
+        states.add("happy");
+        states.add("bored");
+        Mood mood = new GMood(states, "Test mood");
 
         moods.add(mood);
 
@@ -36,7 +42,10 @@ public class MoodListTest extends ActivityInstrumentationTestCase2 {
 
     public void testDeleteMood(){
         MoodList moods = new MoodList();
-        Mood mood = new GMood("Last mood");
+        ArrayList<String> states = new ArrayList<String>();
+        states.add("happy");
+        states.add("bored");
+        Mood mood = new GMood(states,"Last mood");
 
         moods.add(mood);
         moods.delete(mood);
@@ -51,9 +60,19 @@ public class MoodListTest extends ActivityInstrumentationTestCase2 {
 
     public void testGetMoods(){
         MoodList moods = new MoodList();
-        Mood mood = new GMood("test1");
-        Mood mood1 = new GMood("test2");
-        Mood mood2 = new GMood("test3");
+        ArrayList<String> states = new ArrayList<String>();
+        states.add("happy");
+        states.add("interested");
+        ArrayList<String> states1 = new ArrayList<String>();
+        states.add("happy");
+        states.add("depressed");
+        ArrayList<String> states2 = new ArrayList<String>();
+        states.add("happy");
+        states.add("angry");
+
+        Mood mood = new GMood(states,"test1");
+        Mood mood1 = new GMood(states1,"test2");
+        Mood mood2 = new GMood(states2,"test3");
         moods.add(mood);
         moods.add(mood1);
         moods.add(mood2);
@@ -72,16 +91,28 @@ public class MoodListTest extends ActivityInstrumentationTestCase2 {
     public void testGetCount(){
         int count = 0;
         MoodList moods = new MoodList();
-        Mood mood1 = new GMood("mood1");
+        ArrayList<String> states = new ArrayList<String>();
+        states.add("happy");
+        states.add("interested");
+        ArrayList<String> states1 = new ArrayList<String>();
+        states.add("happy");
+        states.add("depressed");
+        ArrayList<String> states2 = new ArrayList<String>();
+        states.add("happy");
+        states.add("angry");
+        ArrayList<String> states3 = new ArrayList<String>();
+        states.add("nono");
+        states.add("angry");
+        Mood mood1 = new GMood(states,"mood1");
         moods.add(mood1);
         count+=1;
-        Mood mood2 = new GMood("mood2");
+        Mood mood2 = new GMood(states1,"mood2");
         moods.add(mood2);
         count+=1;
-        Mood mood3 = new GMood("mood3");
+        Mood mood3 = new GMood(states2, "mood3");
         moods.add(mood3);
         count+=1;
-        Mood mood4 = new GMood("mood4");
+        Mood mood4 = new GMood(states3,"mood4");
         moods.add(mood4);
         count+=1;
         assertEquals(true,moods.getCount() == count);
