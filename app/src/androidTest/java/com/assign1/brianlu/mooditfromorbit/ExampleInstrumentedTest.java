@@ -34,4 +34,14 @@ public class ExampleInstrumentedTest extends ActivityInstrumentationTestCase2 {
 
         assertEquals("com.assign1.brianlu.mooditfromorbit", appContext.getPackageName());
     }
+    public void testgetMood(){
+        MoodList tweets = new MoodList();
+        Mood mood = new GMood("Test Mood");
+
+        moods.add(mood);
+        Mood returnedMood = moods.getMood(0);
+
+        assertEquals(returnedMood.getMessage(), mood.getMessage());
+        assertEquals(returnedMood.getDate(), mood.getDate());
+    }
 }
