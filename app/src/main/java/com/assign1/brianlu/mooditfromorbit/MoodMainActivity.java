@@ -35,6 +35,9 @@ public class MoodMainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Log.i("click sign in", "click signed in button");
+                Intent intent = new Intent(MoodMainActivity.this, SignInActivity.class);
+                intent.putExtra("filename",FILENAME);
+                startActivity(intent);
             }
         });
 

@@ -12,6 +12,8 @@ public class User{
 //    private Integer userID;
     private String userName;
     private ArrayList<Mood> moodList = new ArrayList<Mood>();
+    private ArrayList<User> following = new ArrayList<User>();
+    private ArrayList<User> sharing = new ArrayList<User>();
 
     public User(String userName){
         this.userName = userName;

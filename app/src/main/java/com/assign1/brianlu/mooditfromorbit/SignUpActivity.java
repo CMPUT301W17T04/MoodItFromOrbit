@@ -43,21 +43,30 @@ public class SignUpActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
         setContentView(R.layout.sign_up);
-        Button signInButton = (Button) findViewById(R.id.signIn);
+        Button logInButton = (Button) findViewById(R.id.logIn);
         userName = (EditText) findViewById(R.id.userInput);
         confirm = (EditText) findViewById(R.id.inputConfirm);
         FILENAME = getIntent().getExtras().getString("filename");
-        signInButton.setOnClickListener(new View.OnClickListener() {
+        logInButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 setResult(RESULT_OK);
                 String input = userName.getText().toString();
                 String inputConfirm = confirm.getText().toString();
-                if(input.equals(inputConfirm)){
+                if(input && input.equals(inputConfirm)){
 //                    Log.i("match string","two input matches!!");
-                    User newUser = new User(input);
-                    users.add(newUser);
+                    Boolean add = true;
+                    for(int i = 0; i< users.size();i++){
+                        if(users.get(i).getUserName().equals(input)){
+                            add = false;
+                            Toast.makeText(getBaseContext(),"User already exists!",Toast.LENGTH_SHORT).show();
+                        }
 
+                    }
+                    if(add){
+                        User newUser = new User(input);
+                        users.add(newUser);
+                    }
                 } else{
                     Toast.makeText(getBaseContext(),"User name doesn't match!",Toast.LENGTH_SHORT).show();
                 }
