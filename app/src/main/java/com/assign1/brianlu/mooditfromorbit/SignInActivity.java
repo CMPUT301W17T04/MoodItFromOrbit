@@ -1,15 +1,13 @@
 package com.assign1.brianlu.mooditfromorbit;
 
-
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
-
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
@@ -24,65 +22,45 @@ import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
-import java.util.Objects;
 
 /**
- * Created by brianlu on 2017-02-23.
+ * Created by brianlu on 2017-02-24.
  */
 
-public class SignUpActivity extends AppCompatActivity {
+public class SignInActivity extends AppCompatActivity {
     private ArrayList<User> users;
     private String FILENAME;
-//    private ArrayAdapter<User> adapter;
+    //    private ArrayAdapter<User> adapter;
     private EditText userName;
-    private EditText confirm;
-
-
-
-    @Override
     protected void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.sign_up);
+        setContentView(R.layout.sign_in);
         Button logInButton = (Button) findViewById(R.id.logIn);
-        userName = (EditText) findViewById(R.id.userInput);
-        confirm = (EditText) findViewById(R.id.inputConfirm);
+        userName = (EditText) findViewById(R.id.signInInput);
+
         FILENAME = getIntent().getExtras().getString("filename");
         logInButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 setResult(RESULT_OK);
                 String input = userName.getText().toString();
-                String inputConfirm = confirm.getText().toString();
-                if(input && input.equals(inputConfirm)){
-//                    Log.i("match string","two input matches!!");
-                    Boolean add = true;
-                    for(int i = 0; i< users.size();i++){
-                        if(users.get(i).getUserName().equals(input)){
-                            add = false;
-                            Toast.makeText(getBaseContext(),"User already exists!",Toast.LENGTH_SHORT).show();
-                        }
-
+                for(int i = 0; i< users.size();i++){
+                    Log.i("the use name is: ", users.get(i).getUserName());
+                    if(input.equals(users.get(i).getUserName())){
+                        Intent intent = new Intent(SignInActivity.this, DashBoard.class);
+                        intent.putExtra("username", input);
+                        intent.putExtra("filename",FILENAME);
+                        startActivity(intent);
                     }
-                    if(add){
-                        User newUser = new User(input);
-                        users.add(newUser);
-                    }
-                } else{
-                    Toast.makeText(getBaseContext(),"User name doesn't match!",Toast.LENGTH_SHORT).show();
                 }
-                saveInFile();
-
             }
         });
 
     }
-
     @Override
-    protected void onStart() {
-        // TODO Auto-generated method stub
+    protected void onStart(){
         super.onStart();
         loadFromFile();
-
     }
 
 
@@ -126,8 +104,6 @@ public class SignUpActivity extends AppCompatActivity {
             throw new RuntimeException();
         }
     }
-
-
 
 
 }
