@@ -8,4 +8,5 @@
     <string name="signInInput">User name</string>
     <string name="signInMessage">Please sign in here: </string>
     <string name="logIn">Log In</string>
+    <string name="create">Create new logIn!</string>
 </resources>

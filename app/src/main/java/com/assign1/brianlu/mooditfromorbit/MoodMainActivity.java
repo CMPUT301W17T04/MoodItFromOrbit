@@ -34,6 +34,7 @@ public class MoodMainActivity extends AppCompatActivity {
         signInButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                setResult(RESULT_OK);
                 Log.i("click sign in", "click signed in button");
                 Intent intent = new Intent(MoodMainActivity.this, SignInActivity.class);
                 intent.putExtra("filename",FILENAME);
@@ -44,6 +45,7 @@ public class MoodMainActivity extends AppCompatActivity {
         signUpButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                setResult(RESULT_OK);
                 Log.i("click sign up", "clicked sign Up");
                 Intent intent = new Intent(MoodMainActivity.this,SignUpActivity.class);
                 intent.putExtra("filename", FILENAME);

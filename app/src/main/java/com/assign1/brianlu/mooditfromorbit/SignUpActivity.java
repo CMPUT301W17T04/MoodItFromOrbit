@@ -1,6 +1,7 @@
 package com.assign1.brianlu.mooditfromorbit;
 
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
@@ -53,7 +54,7 @@ public class SignUpActivity extends AppCompatActivity {
                 setResult(RESULT_OK);
                 String input = userName.getText().toString();
                 String inputConfirm = confirm.getText().toString();
-                if(input && input.equals(inputConfirm)){
+                if(!input.equals("") & input.equals(inputConfirm)){
 //                    Log.i("match string","two input matches!!");
                     Boolean add = true;
                     for(int i = 0; i< users.size();i++){
@@ -66,6 +67,11 @@ public class SignUpActivity extends AppCompatActivity {
                     if(add){
                         User newUser = new User(input);
                         users.add(newUser);
+                        saveInFile();
+                        Intent intent = new Intent(SignUpActivity.this, DashBoard.class);
+                        intent.putExtra("filename",FILENAME);
+                        intent.putExtra("username",input);
+                        startActivity(intent);
                     }
                 } else{
                     Toast.makeText(getBaseContext(),"User name doesn't match!",Toast.LENGTH_SHORT).show();

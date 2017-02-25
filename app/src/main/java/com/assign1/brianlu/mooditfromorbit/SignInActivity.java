@@ -7,6 +7,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.gson.Gson;
@@ -36,6 +37,7 @@ public class SignInActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.sign_in);
         Button logInButton = (Button) findViewById(R.id.logIn);
+        TextView toSignUp = (TextView) findViewById(R.id.toSignUp);
         userName = (EditText) findViewById(R.id.signInInput);
 
         FILENAME = getIntent().getExtras().getString("filename");
@@ -51,11 +53,22 @@ public class SignInActivity extends AppCompatActivity {
                         intent.putExtra("username", input);
                         intent.putExtra("filename",FILENAME);
                         startActivity(intent);
+                    } else{
+                        Toast.makeText(getBaseContext(),"Invalid User name, Please sign up!",Toast.LENGTH_SHORT).show();
                     }
                 }
             }
         });
 
+        toSignUp.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                setResult(RESULT_OK);
+                Intent intent = new Intent(SignInActivity.this,SignUpActivity.class);
+                intent.putExtra("filename", FILENAME);
+                startActivity(intent);
+            }
+        });
     }
     @Override
     protected void onStart(){
