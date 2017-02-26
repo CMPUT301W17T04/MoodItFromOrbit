@@ -1,8 +1,10 @@
 package com.assign1.brianlu.mooditfromorbit;
 
-import android.webkit.GeolocationPermissions;
+import android.graphics.Bitmap;
+import android.location.Location;
 
-import java.lang.reflect.Array;
+
+
 import java.util.ArrayList;
 import java.util.Date;
 
@@ -13,8 +15,9 @@ import java.util.Date;
 public class Mood {
     private ArrayList<String> states;
     private Date date;
-//    private GeolocationPermissions geo;
+    private Location geoLoc;
     protected String message;
+    private Bitmap image;
 
 
     public Mood(ArrayList<String> states, String message){
@@ -46,6 +49,18 @@ public class Mood {
 
     public void setMessage(String message){
         this.message = message;
+    }
+
+    public void addState(String state){
+        boolean add = true;
+        for(int i = 0; i< states.size(); i++){
+            if (state.equals(states.get(i))){
+                add = false;
+            }
+        }
+        if(add){
+            this.states.add(state);
+        }
     }
 
 

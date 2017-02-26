@@ -46,16 +46,20 @@ public class SignInActivity extends AppCompatActivity {
             public void onClick(View v) {
                 setResult(RESULT_OK);
                 String input = userName.getText().toString();
+                Boolean notExist = true;
                 for(int i = 0; i< users.size();i++){
                     Log.i("the use name is: ", users.get(i).getUserName());
+
                     if(input.equals(users.get(i).getUserName())){
                         Intent intent = new Intent(SignInActivity.this, DashBoard.class);
                         intent.putExtra("username", input);
                         intent.putExtra("filename",FILENAME);
                         startActivity(intent);
-                    } else{
-                        Toast.makeText(getBaseContext(),"Invalid User name, Please sign up!",Toast.LENGTH_SHORT).show();
+                        notExist = false;
                     }
+                }
+                if(notExist){
+                    Toast.makeText(getBaseContext(),"Invalid User name, Please sign up!",Toast.LENGTH_SHORT).show();
                 }
             }
         });

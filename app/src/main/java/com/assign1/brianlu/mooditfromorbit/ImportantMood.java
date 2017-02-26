@@ -6,8 +6,8 @@ import java.util.ArrayList;
  * Created by FENGYI on 2017-02-24.
  */
 
-public class Important extends Mood implements Moodable {
-    public Important(ArrayList<String> states, String message) {
+public class ImportantMood extends Mood implements Moodable {
+    public ImportantMood(ArrayList<String> states, String message) {
         super(states,message);
     }
 

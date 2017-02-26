@@ -19,7 +19,7 @@ public class MoodListTest extends ActivityInstrumentationTestCase2 {
         ArrayList<String> states = new ArrayList<String>();
         states.add("happy");
         states.add("bored");
-        Mood mood = new GMood(states, "Test Mood");
+        Mood mood = new NormalMood(states, "Test Mood");
 
         moods.add(mood);
         Mood returnedMood = moods.getMood(0);
@@ -33,7 +33,7 @@ public class MoodListTest extends ActivityInstrumentationTestCase2 {
         ArrayList<String> states = new ArrayList<String>();
         states.add("happy");
         states.add("bored");
-        Mood mood = new GMood(states, "Test mood");
+        Mood mood = new NormalMood(states, "Test mood");
 
         moods.add(mood);
 
@@ -45,7 +45,7 @@ public class MoodListTest extends ActivityInstrumentationTestCase2 {
         ArrayList<String> states = new ArrayList<String>();
         states.add("happy");
         states.add("bored");
-        Mood mood = new GMood(states,"Last mood");
+        Mood mood = new NormalMood(states,"Last mood");
 
         moods.add(mood);
         moods.delete(mood);
@@ -70,9 +70,9 @@ public class MoodListTest extends ActivityInstrumentationTestCase2 {
         states.add("happy");
         states.add("angry");
 
-        Mood mood = new GMood(states,"test1");
-        Mood mood1 = new GMood(states1,"test2");
-        Mood mood2 = new GMood(states2,"test3");
+        Mood mood = new NormalMood(states,"test1");
+        Mood mood1 = new NormalMood(states1,"test2");
+        Mood mood2 = new NormalMood(states2,"test3");
         moods.add(mood);
         moods.add(mood1);
         moods.add(mood2);
@@ -103,16 +103,16 @@ public class MoodListTest extends ActivityInstrumentationTestCase2 {
         ArrayList<String> states3 = new ArrayList<String>();
         states.add("nono");
         states.add("angry");
-        Mood mood1 = new GMood(states,"mood1");
+        Mood mood1 = new NormalMood(states,"mood1");
         moods.add(mood1);
         count+=1;
-        Mood mood2 = new GMood(states1,"mood2");
+        Mood mood2 = new NormalMood(states1,"mood2");
         moods.add(mood2);
         count+=1;
-        Mood mood3 = new GMood(states2, "mood3");
+        Mood mood3 = new NormalMood(states2, "mood3");
         moods.add(mood3);
         count+=1;
-        Mood mood4 = new GMood(states3,"mood4");
+        Mood mood4 = new NormalMood(states3,"mood4");
         moods.add(mood4);
         count+=1;
         assertEquals(true,moods.getCount() == count);
