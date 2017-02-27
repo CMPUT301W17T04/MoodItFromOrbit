@@ -12,6 +12,7 @@ package com.assign1.brianlu.mooditfromorbit;
  * Created by Cameron on 2017-02-26.
  */
 
+//unused
 public class EmotionalState {
 
     public String moodAnger(){ return new String("Anger");}

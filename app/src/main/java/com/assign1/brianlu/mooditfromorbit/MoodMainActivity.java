@@ -18,6 +18,10 @@ import java.io.InputStreamReader;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
 
+/**
+ * is the activity that opens when app is started
+ */
+
 public class MoodMainActivity extends AppCompatActivity {
     private String FILENAME = "user.sav";
     private ArrayList<User> users;

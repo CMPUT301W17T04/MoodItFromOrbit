@@ -29,6 +29,8 @@ import java.util.Objects;
 
 /**
  * Created by brianlu on 2017-02-23.
+ *
+ * this activity allows users to sign up
  */
 
 public class SignUpActivity extends AppCompatActivity {

@@ -26,6 +26,8 @@ import java.util.ArrayList;
 
 /**
  * Created by brianlu on 2017-02-24.
+ *
+ * This activity allows users to sign in
  */
 
 public class SignInActivity extends AppCompatActivity {

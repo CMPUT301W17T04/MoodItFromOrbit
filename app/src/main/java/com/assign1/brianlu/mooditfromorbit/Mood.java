@@ -10,24 +10,54 @@ import java.util.Date;
 
 /**
  * Created by brianlu on 2017-02-23.
+ *
+ * Contains data for mood event
  */
 
 public class Mood {
-    private ArrayList<String> states;
+    private Emotion emotion;
     private Date date;
     private Location geoLoc;
-    protected String message;
+    private String message;
     private Bitmap image;
+    private String socialSituation;
 
 
-    public Mood(ArrayList<String> states, String message){
-        this.states = states;
+    public Mood(Emotion emotion){
+        this.emotion = emotion;
         this.date = new Date(System.currentTimeMillis());
-        this.message = message;
     }
 
-    public ArrayList<String> getMood (){
-        return this.states;
+    public Emotion getEmotion() {
+        return emotion;
+    }
+
+    public void setEmotion(Emotion emotion) {
+        this.emotion = emotion;
+    }
+
+    public Location getGeoLoc() {
+        return geoLoc;
+    }
+
+    public void setGeoLoc(Location geoLoc) {
+        this.geoLoc = geoLoc;
+    }
+
+    public Bitmap getImage() {
+        return image;
+    }
+
+    public void setImage(Bitmap image) {
+        this.image = image;
+    }
+
+    public String getSocialSituation() {
+        return socialSituation;
+    }
+
+    public void setSocialSituation(String socialSituation) {
+        this.socialSituation = socialSituation;
     }
 
     public Date getDate() {
@@ -38,30 +68,11 @@ public class Mood {
         return this.message;
     }
 
-    public void setStates(ArrayList<String> states){
-        this.states = states;
-    }
-
-    public void setSingleState(String state){
-        this.states.add(state);
-
-    }
 
     public void setMessage(String message){
         this.message = message;
     }
 
-    public void addState(String state){
-        boolean add = true;
-        for(int i = 0; i< states.size(); i++){
-            if (state.equals(states.get(i))){
-                add = false;
-            }
-        }
-        if(add){
-            this.states.add(state);
-        }
-    }
 
 
 }
