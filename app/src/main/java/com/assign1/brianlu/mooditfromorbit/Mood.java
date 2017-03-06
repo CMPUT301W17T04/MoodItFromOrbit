@@ -21,6 +21,7 @@ public class Mood {
     private String message;
     private Bitmap image;
     private String socialSituation;
+    private String id;
 
 
     public Mood(Emotion emotion){
@@ -64,6 +65,10 @@ public class Mood {
         return this.date;
     }
 
+    public void setDate(Date date) {
+        this.date = date;
+    }
+
     public String getMessage(){
         return this.message;
     }
@@ -73,6 +78,11 @@ public class Mood {
         this.message = message;
     }
 
+    public String getId() {
+        return id;
+    }
 
-
+    public void setId(String id) {
+        this.id = id;
+    }
 }

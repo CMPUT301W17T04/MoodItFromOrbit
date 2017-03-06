@@ -3,14 +3,16 @@ package com.assign1.brianlu.mooditfromorbit;
 import android.util.Log;
 
 import java.lang.reflect.Array;
+import java.util.AbstractList;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 /**
  * Created by FENGYI on 2017-02-24.
  */
 
-public class MoodList {
+public class MoodList extends ArrayList{
     private ArrayList<Mood> moods = new ArrayList<Mood>();
 
     public void add(Mood mood){
