@@ -8,19 +8,41 @@
 
 package com.assign1.brianlu.mooditfromorbit;
 
+import android.util.Log;
+
 /**
  * Created by Gregory on 2017-03-06.
  */
 
 public class MainModel extends MModel<MView> {
-    static private UserList users = new UserList();
+    static private UserList users = null;
 
-    public static UserList getUsers() {
+    MainModel(){
+        super();
+        pullUsersFromServer();
+    }
+
+    private void pullUsersFromServer(){
+        ElasticSearchController.GetUsersTask getUsersTask = new ElasticSearchController.GetUsersTask();
+        getUsersTask.execute("");
+
+        try {
+            this.users = getUsersTask.get();
+        } catch (Exception e){
+            Log.i("Error", "Failed to get the users from the async object");
+        }
+        //Log.d("users", users.getUser(0).getUserName());
+    }
+
+    public UserList getUsers() {
         return users;
     }
 
     public void addUser(User user){
+        Log.d("testing", user.getUserName());
         users.add(user);
+        ElasticSearchController.AddUsersTask addUsersTask = new ElasticSearchController.AddUsersTask();
+        addUsersTask.execute(user);
     }
 
     public boolean checkForUser(User user){

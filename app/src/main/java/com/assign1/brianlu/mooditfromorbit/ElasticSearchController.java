@@ -28,7 +28,7 @@ import io.searchbox.core.Update;
  * Created by Gregory on 2017-03-06.
  */
 
-public class ElasticSearchEmotionController {
+public class ElasticSearchController {
     private static JestDroidClient client;
 
     /**
@@ -72,8 +72,13 @@ public class ElasticSearchEmotionController {
 
             MoodList moods = new MoodList();
 
-            String query = "{\"query\" : {\"term\" : { \"emotion\" : \"" + search_parameters[0] + "\" }}}";
-            Log.d("sterisd", search_parameters[0]);
+            String query = "";
+
+            if(search_parameters[0] != "") {
+                query = "{\"query\" : {\"term\" : { \"username\" : \"" + search_parameters[0] + "\" }}}";
+            }
+
+            Log.d("search parameter", search_parameters[0]);
             // TODO Build the query
             Search search = new Search.Builder(query)
                     .addIndex("cmput301w17t4")
@@ -109,6 +114,7 @@ public class ElasticSearchEmotionController {
             verifySettings();
 
             for (User user : users) {
+                Log.d("testsing", user.getUserName());
                 Index index = new Index.Builder(user).index("cmput301w17t4").type("user").build();
 
                 try {
@@ -138,20 +144,28 @@ public class ElasticSearchEmotionController {
         protected UserList doInBackground(String... search_parameters) {
             verifySettings();
 
+            String query = "";
             UserList users = new UserList();
+            if(search_parameters[0] != "") {
+                query = "{\"query\" : {\"term\" : { \"username\" : \"" + search_parameters[0] + "\" }}}";
+            }
 
-            String query = "{\"query\" : {\"term\" : { \"username\" : \"" + search_parameters[0] + "\" }}}";
-            Log.d("sterisd", search_parameters[0]);
+            Log.d("search parameters", search_parameters[0]);
             // TODO Build the query
             Search search = new Search.Builder(query)
                     .addIndex("cmput301w17t4")
                     .addType("user")
                     .build();
 
+            Log.d("search", search.toString());
+
             try {
                 // TODO get the results of the query
+                Log.d("testing", "before search");
                 SearchResult result = client.execute(search);
+                Log.d("testing", "after search");
                 if (result.isSucceeded()){
+                    Log.d("testing", "here");
                     UserList foundUsers = new UserList(result.getSourceAsObjectList(User.class));
                     users.merge(foundUsers);
                 }
@@ -161,6 +175,7 @@ public class ElasticSearchEmotionController {
             }
             catch (Exception e) {
                 Log.i("Error", "Something went wrong when we tried to communicate with the elasticsearch server!");
+                Log.d("Error", e.toString());
             }
 
             return users;
@@ -172,7 +187,7 @@ public class ElasticSearchEmotionController {
 
     public static void verifySettings() {
         if (client == null) {
-            DroidClientConfig.Builder builder = new DroidClientConfig.Builder("http://cmput301.softwareprocess.es:8080/cmput301w17t4");
+            DroidClientConfig.Builder builder = new DroidClientConfig.Builder("http://cmput301.softwareprocess.es:8080");
             DroidClientConfig config = builder.build();
 
             JestClientFactory factory = new JestClientFactory();

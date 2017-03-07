@@ -32,7 +32,7 @@ public class MoodMainActivity extends AppCompatActivity {
         Button signInButton = (Button) findViewById(R.id.signIn);
         Button signUpButton = (Button) findViewById(R.id.signUp);
 
-
+        MainController mc = MainApplication.getMainController();
 
         signInButton.setOnClickListener(new View.OnClickListener() {
             @Override
