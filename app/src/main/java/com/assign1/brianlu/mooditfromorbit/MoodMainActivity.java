@@ -23,7 +23,7 @@ import java.util.ArrayList;
  */
 
 public class MoodMainActivity extends AppCompatActivity {
-    private String FILENAME = "user.sav";
+    //private String FILENAME = "user.sav";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,7 +40,7 @@ public class MoodMainActivity extends AppCompatActivity {
                 setResult(RESULT_OK);
                 Log.i("click sign in", "click signed in button");
                 Intent intent = new Intent(MoodMainActivity.this, SignInActivity.class);
-                intent.putExtra("filename",FILENAME);
+                //intent.putExtra("filename",FILENAME);
                 startActivity(intent);
             }
         });
@@ -51,7 +51,7 @@ public class MoodMainActivity extends AppCompatActivity {
                 setResult(RESULT_OK);
                 Log.i("click sign up", "clicked sign Up");
                 Intent intent = new Intent(MoodMainActivity.this,SignUpActivity.class);
-                intent.putExtra("filename", FILENAME);
+                //intent.putExtra("filename", FILENAME);
                 startActivity(intent);
             }
         });

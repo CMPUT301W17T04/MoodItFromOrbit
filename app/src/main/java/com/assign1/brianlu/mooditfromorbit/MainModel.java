@@ -12,11 +12,15 @@ package com.assign1.brianlu.mooditfromorbit;
  * Created by Gregory on 2017-03-06.
  */
 
-public class MainController extends MModel<MView> {
+public class MainModel extends MModel<MView> {
     static private UserList users = new UserList();
 
     public static UserList getUsers() {
         return users;
+    }
+
+    public void addUser(User user){
+        users.add(user);
     }
 
     public boolean checkForUser(User user){

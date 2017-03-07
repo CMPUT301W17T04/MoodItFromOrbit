@@ -16,12 +16,12 @@ import android.app.Application;
 
 public class MainApplication extends Application {
 
-    transient private static MainController mc = null;
+    transient private static MainModel mm = null;
 
-    public static MainController getMainController(){
-        if(mc == null){
-            mc = new MainController();
+    public static MainModel getMainModel(){
+        if(mm == null){
+            mm = new MainModel();
         }
-        return mc;
+        return mm;
     }
 }

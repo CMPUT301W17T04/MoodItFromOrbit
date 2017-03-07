@@ -3,10 +3,12 @@ package com.assign1.brianlu.mooditfromorbit;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 /**
  * Created by brianlu on 2017-02-24.
@@ -14,7 +16,7 @@ import android.widget.TextView;
  * This activity allows users to sign in
  */
 
-public class SignInActivity extends AppCompatActivity implements MView<MainController> {
+public class SignInActivity extends AppCompatActivity implements MView<MainModel> {
     //private UserList users;
     //private String FILENAME;
     //    private ArrayAdapter<User> adapter;
@@ -28,15 +30,30 @@ public class SignInActivity extends AppCompatActivity implements MView<MainContr
         TextView toSignUp = (TextView) findViewById(R.id.toSignUp);
         userName = (EditText) findViewById(R.id.signInInput);
 
-        MainController mc = MainApplication.getMainController();
-
         //FILENAME = getIntent().getExtras().getString("filename");
         logInButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
+                MainModel mm = MainApplication.getMainModel();
+
                 setResult(RESULT_OK);
+
                 String input = userName.getText().toString();
-                Boolean notExist = mc.checkForUser();
+
+                User user = new User(input);
+
+                Boolean exists = mm.checkForUser(user);
+
+                Log.d("boolean Value", exists.toString());
+
+                if(exists){
+                    Toast.makeText(getBaseContext(),"Invalid User name, Please sign up!",Toast.LENGTH_SHORT).show();
+                }
+                else{
+                    Intent intent = new Intent(SignInActivity.this, DashBoard.class);
+                    startActivity(intent);
+                }
                 /*for(int i = 0; i< uc.getUsers().getCount();i++){
                     Log.i("the use name is: ", users.getUser(i).getUserName());
 
@@ -59,12 +76,13 @@ public class SignInActivity extends AppCompatActivity implements MView<MainContr
             public void onClick(View v) {
                 setResult(RESULT_OK);
                 Intent intent = new Intent(SignInActivity.this,SignUpActivity.class);
-                intent.putExtra("filename", FILENAME);
+                //intent.putExtra("filename", FILENAME);
                 startActivity(intent);
             }
         });
 
-        mc.addView(this);
+        MainModel mm = MainApplication.getMainModel();
+        mm.addView(this);
     }
     @Override
     protected void onStart(){
@@ -75,11 +93,11 @@ public class SignInActivity extends AppCompatActivity implements MView<MainContr
     @Override
     public void onDestroy() {
         super.onDestroy();
-        MainController mc = MainApplication.getMainController();
-        mc.deleteView(this);
+        MainModel mm = MainApplication.getMainModel();
+        mm.deleteView(this);
     }
 
-    public void update(MainController mc){
+    public void update(MainModel mc){
         //mc.getUsers().add(user);
     }
 

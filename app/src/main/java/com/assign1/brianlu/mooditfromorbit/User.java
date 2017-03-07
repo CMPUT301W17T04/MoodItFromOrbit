@@ -21,9 +21,9 @@ public class User{
 
     public User(String userName){
         this.userName = userName;
-        moods = new MoodList();
-        following = new UserList();
-        sharing = new UserList();
+        this.moods = new MoodList();
+        this.following = new UserList();
+        this.sharing = new UserList();
     }
 
     public String getUserName(){
