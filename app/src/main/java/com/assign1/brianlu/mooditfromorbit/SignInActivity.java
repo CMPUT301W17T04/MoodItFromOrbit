@@ -35,7 +35,7 @@ public class SignInActivity extends AppCompatActivity implements MView<MainModel
             @Override
             public void onClick(View v) {
 
-                MainModel mm = MainApplication.getMainModel();
+                MainController mc = MainApplication.getMainController();
 
                 setResult(RESULT_OK);
 
@@ -43,11 +43,11 @@ public class SignInActivity extends AppCompatActivity implements MView<MainModel
 
                 User user = new User(input);
 
-                Boolean exists = mm.checkForUser(user);
+                Boolean exists = mc.checkForUser(user);
 
                 Log.d("boolean Value", exists.toString());
 
-                if(exists){
+                if(!exists){
                     Toast.makeText(getBaseContext(),"Invalid User name, Please sign up!",Toast.LENGTH_SHORT).show();
                 }
                 else{

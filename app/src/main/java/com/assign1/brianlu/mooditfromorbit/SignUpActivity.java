@@ -39,7 +39,7 @@ public class SignUpActivity extends AppCompatActivity implements MView<MainModel
             public void onClick(View v) {
                 setResult(RESULT_OK);
 
-                MainModel mm = MainApplication.getMainModel();
+                MainController mc = MainApplication.getMainController();
 
                 String input = userName.getText().toString();
                 String inputConfirm = confirm.getText().toString();
@@ -48,7 +48,7 @@ public class SignUpActivity extends AppCompatActivity implements MView<MainModel
 
                     User user = new User(input);
                     //Log.i("match string","two input matches!!");
-                    Boolean exists = mm.checkForUser(user);
+                    Boolean exists = mc.checkForUser(user);
                     /*for(int i = 0; i< users.size();i++){
                         if(users.get(i).getUserName().equals(input)){
                             add = false;
@@ -101,8 +101,8 @@ public class SignUpActivity extends AppCompatActivity implements MView<MainModel
     public void update(MainModel mc){}
 
     public void updateUsers(User user){
-        MainModel mm = MainApplication.getMainModel();
-        mm.addUser(user);
+        MainController mc = MainApplication.getMainController();
+        mc.addUser(user);
     }
 
     /*private void loadFromFile() {

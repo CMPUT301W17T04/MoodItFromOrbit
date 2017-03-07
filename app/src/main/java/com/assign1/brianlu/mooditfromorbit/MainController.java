@@ -8,29 +8,26 @@
 
 package com.assign1.brianlu.mooditfromorbit;
 
-import android.app.Application;
-
 /**
  * Created by Gregory on 2017-03-06.
  */
 
-public class MainApplication extends Application {
+public class MainController implements MController {
+    MainModel mm = null;
 
-    transient private static MainModel model = null;
-
-    public static MainModel getMainModel(){
-        if(model == null){
-            model = new MainModel();
-        }
-        return model;
+    public MainController(MainModel mm){
+        this.mm = mm;
     }
 
-    transient private static MainController controller = null;
+    public UserList getUsers() {
+        return mm.getUsers();
+    }
 
-    public static MainController getMainController(){
-        if(controller == null){
-            controller = new MainController(getMainModel());
-        }
-        return controller;
+    public void addUser(User user){
+        mm.addUser(user);
+    }
+
+    public boolean checkForUser(User user){
+        return mm.checkForUser(user);
     }
 }
