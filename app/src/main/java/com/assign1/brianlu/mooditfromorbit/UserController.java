@@ -12,6 +12,10 @@ package com.assign1.brianlu.mooditfromorbit;
  * Created by Gregory on 2017-03-06.
  */
 
-public class MoodController extends MModel<MView> {
+public class UserController extends MModel<MView> {
     static private UserList users = new UserList();
+
+    public static UserList getUsers() {
+        return users;
+    }
 }

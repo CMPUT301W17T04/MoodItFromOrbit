@@ -10,49 +10,39 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
-
-import java.io.BufferedReader;
-import java.io.BufferedWriter;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.io.OutputStreamWriter;
-import java.lang.reflect.Type;
-import java.util.ArrayList;
-
 /**
  * Created by brianlu on 2017-02-24.
  *
  * This activity allows users to sign in
  */
 
-public class SignInActivity extends AppCompatActivity {
-    private ArrayList<User> users;
-    private String FILENAME;
+public class SignInActivity extends AppCompatActivity implements MView<UserController> {
+    //private UserList users;
+    //private String FILENAME;
     //    private ArrayAdapter<User> adapter;
     private EditText userName;
+
     protected void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
         setContentView(R.layout.sign_in);
+
         Button logInButton = (Button) findViewById(R.id.logIn);
         TextView toSignUp = (TextView) findViewById(R.id.toSignUp);
         userName = (EditText) findViewById(R.id.signInInput);
 
-        FILENAME = getIntent().getExtras().getString("filename");
+        UserController mc = MoodApplication.getMoodController();
+
+        //FILENAME = getIntent().getExtras().getString("filename");
         logInButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 setResult(RESULT_OK);
                 String input = userName.getText().toString();
                 Boolean notExist = true;
-                for(int i = 0; i< users.size();i++){
-                    Log.i("the use name is: ", users.get(i).getUserName());
+                for(int i = 0; i< mc.getUsers().getCount();i++){
+                    Log.i("the use name is: ", users.getUser(i).getUserName());
 
-                    if(input.equals(users.get(i).getUserName())){
+                    if(input.equals(users.getUser(i).getUserName())){
                         Intent intent = new Intent(SignInActivity.this, DashBoard.class);
                         intent.putExtra("username", input);
                         intent.putExtra("filename",FILENAME);
@@ -79,11 +69,14 @@ public class SignInActivity extends AppCompatActivity {
     @Override
     protected void onStart(){
         super.onStart();
-        loadFromFile();
+        //loadFromFile();
     }
 
+    public void update(UserController mc){
+        //mc.getUsers().add(user);
+    }
 
-    private void loadFromFile() {
+    /*private void loadFromFile() {
         try {
             Log.i("file name is: ",FILENAME);
             FileInputStream fis = openFileInput(FILENAME);
@@ -122,7 +115,7 @@ public class SignInActivity extends AppCompatActivity {
             // TODO Auto-generated catch block
             throw new RuntimeException();
         }
-    }
+    }*/
 
 
 }

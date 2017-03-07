@@ -24,7 +24,6 @@ import java.util.ArrayList;
 
 public class MoodMainActivity extends AppCompatActivity {
     private String FILENAME = "user.sav";
-    private ArrayList<User> users;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -65,11 +64,11 @@ public class MoodMainActivity extends AppCompatActivity {
     protected void onStart() {
         // TODO Auto-generated method stub
         super.onStart();
-        loadFromFile();
+        //loadFromFile();
     }
 
 
-    private void loadFromFile() {
+    /*private void loadFromFile() {
         try {
             Log.i("file name is: ",FILENAME);
             FileInputStream fis = openFileInput(FILENAME);
@@ -88,6 +87,6 @@ public class MoodMainActivity extends AppCompatActivity {
             throw new RuntimeException();
         }
 
-    }
+    }*/
 
 }
