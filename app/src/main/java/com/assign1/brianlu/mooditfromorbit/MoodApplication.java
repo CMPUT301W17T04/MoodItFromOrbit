@@ -14,23 +14,14 @@ import android.app.Application;
  * Created by Gregory on 2017-03-06.
  */
 
-public class MoodApplipcation extends Application {
+public class MoodApplication extends Application {
 
-    transient private static MoodList moods;
+    transient private static MoodController mc = null;
 
-    public static MoodList getMoodList(){
-        if(moods == null){
-            moods = new MoodList();
+    public static MoodController getMoodController(){
+        if(mc == null){
+            mc = new MoodController();
         }
-        return moods;
-    }
-
-    transient private static UserList users;
-
-    public static UserList getUserList(){
-        if(users == null){
-            users = new UserList();
-        }
-        return users;
+        return mc;
     }
 }
