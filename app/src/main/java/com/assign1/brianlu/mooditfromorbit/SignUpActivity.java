@@ -16,9 +16,6 @@ import android.widget.Toast;
  */
 
 public class SignUpActivity extends AppCompatActivity implements MView<MainModel> {
-    //private ArrayList<User> users;
-    //private String FILENAME;
-    //private ArrayAdapter<User> adapter;
     private EditText userName;
     private EditText confirm;
 
@@ -49,22 +46,9 @@ public class SignUpActivity extends AppCompatActivity implements MView<MainModel
                     User user = new User(input);
                     //Log.i("match string","two input matches!!");
                     Boolean exists = mc.checkForUser(user);
-                    /*for(int i = 0; i< users.size();i++){
-                        if(users.get(i).getUserName().equals(input)){
-                            add = false;
-                            Toast.makeText(getBaseContext(),"User already exists!",Toast.LENGTH_SHORT).show();
-                        }
-
-                    }*/
                     if(!exists){
                         updateUsers(user);
-
-                        //User newUser = new User(input);
-                        //users.add(newUser);
-                        //saveInFile();
                         Intent intent = new Intent(SignUpActivity.this, DashBoard.class);
-                        //intent.putExtra("filename",FILENAME);
-                        //intent.putExtra("username",input);
                         startActivity(intent);
                     }
                     else{
@@ -73,8 +57,6 @@ public class SignUpActivity extends AppCompatActivity implements MView<MainModel
                 } else{
                     Toast.makeText(getBaseContext(),"Username doesn't match!",Toast.LENGTH_SHORT).show();
                 }
-                //saveInFile();
-
             }
         });
 
@@ -87,7 +69,7 @@ public class SignUpActivity extends AppCompatActivity implements MView<MainModel
     protected void onStart() {
         // TODO Auto-generated method stub
         super.onStart();
-        //loadFromFile();
+
 
     }
 
@@ -104,49 +86,5 @@ public class SignUpActivity extends AppCompatActivity implements MView<MainModel
         MainController mc = MainApplication.getMainController();
         mc.addUser(user);
     }
-
-    /*private void loadFromFile() {
-        try {
-            Log.i("file name is: ",FILENAME);
-            FileInputStream fis = openFileInput(FILENAME);
-            BufferedReader in = new BufferedReader(new InputStreamReader(fis));
-
-            Gson gson = new Gson();
-            // Took from https://google-gson.googlecode.com/svn/trunk/gson/docs/javadocs/com/google/gson/Gson.html Jan-21-2016
-            Type listType = new TypeToken<ArrayList<User>>(){}.getType();
-            users = gson.fromJson(in, listType);
-
-        } catch (FileNotFoundException e) {
-            // TODO Auto-generated catch block
-            users = new ArrayList<User>();
-        } catch (IOException e) {
-            // TODO Auto-generated catch block
-            throw new RuntimeException();
-        }
-
-    }
-
-    private void saveInFile() {
-        try {
-            FileOutputStream fos = openFileOutput(FILENAME,
-                    0);
-
-            BufferedWriter out = new BufferedWriter(new OutputStreamWriter(fos));
-            Gson gson = new Gson();
-            gson.toJson(users, out);
-            out.flush();
-
-            fos.close();
-        } catch (FileNotFoundException e) {
-            // TODO Auto-generated catch block
-            throw new RuntimeException();
-        } catch (IOException e) {
-            // TODO Auto-generated catch block
-            throw new RuntimeException();
-        }
-    }*/
-
-
-
 
 }

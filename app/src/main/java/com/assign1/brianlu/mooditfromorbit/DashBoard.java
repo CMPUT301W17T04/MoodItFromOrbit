@@ -2,6 +2,8 @@ package com.assign1.brianlu.mooditfromorbit;
 
 import android.app.Activity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.widget.TextView;
 
 /**
@@ -9,23 +11,21 @@ import android.widget.TextView;
  */
 
 
-public class DashBoard extends Activity implements MView<MainModel>{
+public class DashBoard extends AppCompatActivity implements MView<MainModel>{
+
 
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.dash_board);
-        TextView message = (TextView) findViewById(R.id.dashMessage);
-        MainController mc = MainApplication.getMainController();
 
-        message.setText(mc.getEmotions().get(0).getEmoticon() + mc.getEmotions().get(1).getEmoticon()
-                + mc.getEmotions().get(2).getEmoticon() + mc.getEmotions().get(3).getEmoticon()
-                + mc.getEmotions().get(4).getEmoticon() + mc.getEmotions().get(5).getEmoticon()
-                + mc.getEmotions().get(6).getEmoticon() + mc.getEmotions().get(7).getEmoticon());
+        //used https://developer.android.com/training/appbar/setting-up.html#utility
+        Toolbar myToolbar = (Toolbar) findViewById(R.id.my_toolbar);
+        setSupportActionBar(myToolbar);
+
 
         MainModel mm = MainApplication.getMainModel();
         mm.addView(this);
-
     }
     @Override
     protected void onStart() {
