@@ -10,59 +10,64 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
-
-import java.io.BufferedReader;
-import java.io.BufferedWriter;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.io.OutputStreamWriter;
-import java.lang.reflect.Type;
-import java.util.ArrayList;
-
 /**
  * Created by brianlu on 2017-02-24.
  *
  * This activity allows users to sign in
  */
 
-public class SignInActivity extends AppCompatActivity {
-    private ArrayList<User> users;
-    private String FILENAME;
+public class SignInActivity extends AppCompatActivity implements MView<MainModel> {
+    //private UserList users;
+    //private String FILENAME;
     //    private ArrayAdapter<User> adapter;
     private EditText userName;
+
     protected void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
         setContentView(R.layout.sign_in);
+
         Button logInButton = (Button) findViewById(R.id.logIn);
         TextView toSignUp = (TextView) findViewById(R.id.toSignUp);
         userName = (EditText) findViewById(R.id.signInInput);
 
-        FILENAME = getIntent().getExtras().getString("filename");
+        //FILENAME = getIntent().getExtras().getString("filename");
         logInButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                setResult(RESULT_OK);
-                String input = userName.getText().toString();
-                Boolean notExist = true;
-                for(int i = 0; i< users.size();i++){
-                    Log.i("the use name is: ", users.get(i).getUserName());
 
-                    if(input.equals(users.get(i).getUserName())){
+                MainController mc = MainApplication.getMainController();
+
+                setResult(RESULT_OK);
+
+                String input = userName.getText().toString();
+
+                User user = new User(input);
+
+                Boolean exists = mc.checkForUser(user);
+
+                Log.d("boolean Value", exists.toString());
+
+                if(!exists){
+                    Toast.makeText(getBaseContext(),"Invalid User name, Please sign up!",Toast.LENGTH_SHORT).show();
+                }
+                else{
+                    Intent intent = new Intent(SignInActivity.this, DashBoard.class);
+                    startActivity(intent);
+                }
+                /*for(int i = 0; i< uc.getUsers().getCount();i++){
+                    Log.i("the use name is: ", users.getUser(i).getUserName());
+
+                    if(input.equals(users.getUser(i).getUserName())){
                         Intent intent = new Intent(SignInActivity.this, DashBoard.class);
-                        intent.putExtra("username", input);
-                        intent.putExtra("filename",FILENAME);
+                        //intent.putExtra("username", input);
+                        //intent.putExtra("filename",FILENAME);
                         startActivity(intent);
                         notExist = false;
                     }
                 }
                 if(notExist){
                     Toast.makeText(getBaseContext(),"Invalid User name, Please sign up!",Toast.LENGTH_SHORT).show();
-                }
+                }*/
             }
         });
 
@@ -71,19 +76,32 @@ public class SignInActivity extends AppCompatActivity {
             public void onClick(View v) {
                 setResult(RESULT_OK);
                 Intent intent = new Intent(SignInActivity.this,SignUpActivity.class);
-                intent.putExtra("filename", FILENAME);
+                //intent.putExtra("filename", FILENAME);
                 startActivity(intent);
             }
         });
+
+        MainModel mm = MainApplication.getMainModel();
+        mm.addView(this);
     }
     @Override
     protected void onStart(){
         super.onStart();
-        loadFromFile();
+        //loadFromFile();
     }
 
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        MainModel mm = MainApplication.getMainModel();
+        mm.deleteView(this);
+    }
 
-    private void loadFromFile() {
+    public void update(MainModel mc){
+        //mc.getUsers().add(user);
+    }
+
+    /*private void loadFromFile() {
         try {
             Log.i("file name is: ",FILENAME);
             FileInputStream fis = openFileInput(FILENAME);
@@ -122,7 +140,7 @@ public class SignInActivity extends AppCompatActivity {
             // TODO Auto-generated catch block
             throw new RuntimeException();
         }
-    }
+    }*/
 
 
 }

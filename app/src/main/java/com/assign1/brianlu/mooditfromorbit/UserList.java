@@ -1,13 +1,22 @@
 package com.assign1.brianlu.mooditfromorbit;
 
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by brianlu on 2017-02-24.
  */
 
-public class UserList {
+public class UserList{
     private ArrayList<User> users = new ArrayList<User>();
+
+    public UserList(){
+    }
+
+    public UserList(List foundUsers){
+        users.addAll(foundUsers);
+    }
+
     public void add(User user){
         boolean add = true;
         for(int i = 0; i< users.size();i++){
@@ -30,6 +39,10 @@ public class UserList {
             }
         }
         return has;
+    }
+
+    public void merge(UserList foundUsers){
+        users.addAll(foundUsers.getUsers());
     }
 
     public void deleteUser(User user){

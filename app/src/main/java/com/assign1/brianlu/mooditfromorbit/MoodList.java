@@ -3,15 +3,24 @@ package com.assign1.brianlu.mooditfromorbit;
 import android.util.Log;
 
 import java.lang.reflect.Array;
+import java.util.AbstractList;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 /**
  * Created by FENGYI on 2017-02-24.
  */
 
-public class MoodList {
+public class MoodList{
     private ArrayList<Mood> moods = new ArrayList<Mood>();
+
+    public MoodList(){
+    }
+
+    public MoodList(List moods){
+        moods.addAll(moods);
+    }
 
     public void add(Mood mood){
         moods.add(mood);
@@ -38,6 +47,10 @@ public class MoodList {
 
     public ArrayList<Mood> getMoods(){
         return moods;
+    }
+
+    public void merge(MoodList foundMoods){
+        moods.addAll(foundMoods.getMoods());
     }
 
     public int getCount(){

@@ -9,4 +9,7 @@
     <string name="signInMessage">Please sign in here: </string>
     <string name="logIn">Log In</string>
     <string name="create">Create new logIn!</string>
+    <string name="sortBy">Sort By</string>
+    <string name="dashboard">Dashboard</string>
+    <string name="profile">Profile</string>
 </resources>

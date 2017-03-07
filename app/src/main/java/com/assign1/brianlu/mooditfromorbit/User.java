@@ -14,12 +14,16 @@ import java.util.ArrayList;
 public class User{
 //    private Integer userID;
     private String userName;
-    private ArrayList<Mood> moodList = new ArrayList<Mood>();
-    private ArrayList<User> following = new ArrayList<User>();
-    private ArrayList<User> sharing = new ArrayList<User>();
+    private MoodList moods;
+    private UserList following;
+    private UserList sharing;
+    private String id;
 
     public User(String userName){
         this.userName = userName;
+        this.moods = new MoodList();
+        this.following = new UserList();
+        this.sharing = new UserList();
     }
 
     public String getUserName(){
@@ -27,17 +31,17 @@ public class User{
     }
 
 
-    public ArrayList<Mood> getMoods(){
-        return this.moodList;
+    public MoodList getMoods(){
+        return this.moods;
     }
 
 
-    public void setMoods( ArrayList<Mood> moods){
-        this.moodList = moods;
+    public void setMoods(MoodList moods){
+        this.moods = moods;
     }
 
     public void addSingleMood(Mood mood){
-        this.moodList.add(mood);
+        this.moods.add(mood);
     }
 
     public void setUserName(String userName){
@@ -46,8 +50,8 @@ public class User{
 
     public void setFollowing(User user){
         Boolean add = true;
-        for(int i =0; i< following.size();i++){
-            if(user.getUserName().equals(following.get(i).getUserName())){
+        for(int i =0; i< following.getCount();i++){
+            if(user.getUserName().equals(following.getUser(i).getUserName())){
                 add = false;
             }
         }
@@ -60,8 +64,8 @@ public class User{
 
     public void setSharing(User user){
         Boolean add = true;
-        for(int i =0; i<this.sharing.size();i++){
-            if(user.getUserName().equals(this.sharing.get(i).getUserName())){
+        for(int i =0; i<this.sharing.getCount();i++){
+            if(user.getUserName().equals(this.sharing.getUser(i).getUserName())){
                 add =false;
             }
         }
@@ -73,17 +77,17 @@ public class User{
     }
 
     public int getFollowingCount(){
-        return following.size();
+        return following.getCount();
     }
 
     public int getSharingCount(){
-        return sharing.size();
+        return sharing.getCount();
     }
 
     public Boolean hasFollower(User user){
         boolean has = false;
-        for(int i = 0; i< following.size();i++){
-            if(this.following.get(i).getUserName().equals(user.getUserName())){
+        for(int i = 0; i< following.getCount();i++){
+            if(this.following.getUser(i).getUserName().equals(user.getUserName())){
                 has = true;
 
             }
@@ -93,8 +97,8 @@ public class User{
 
     public Boolean hasSharer(User user){
         boolean has = false;
-        for(int i = 0; i< sharing.size();i++){
-            if(this.sharing.get(i).getUserName().equals(user.getUserName())){
+        for(int i = 0; i< sharing.getCount();i++){
+            if(this.sharing.getUser(i).getUserName().equals(user.getUserName())){
                 has = true;
             }
         }
@@ -103,40 +107,48 @@ public class User{
 
     public void deleteSharing(User user){
         boolean has = false;
-        for(int i =0; i<this.sharing.size();i++){
-            if(user.getUserName().equals(this.sharing.get(i).getUserName())){
+        for(int i =0; i<this.sharing.getCount();i++){
+            if(user.getUserName().equals(this.sharing.getUser(i).getUserName())){
                 has = true;
             }
         }
         if(has){
-            sharing.remove(user);
+            sharing.deleteUser(user);
         }
     }
 
     public void deleteFollowing(User user){
         boolean has = false;
-        for(int i =0; i<this.following.size();i++){
-            if(user.getUserName().equals(this.following.get(i).getUserName())){
+        for(int i =0; i<this.following.getCount();i++){
+            if(user.getUserName().equals(this.following.getUser(i).getUserName())){
                 has = true;
             }
         }
         if(has){
-            following.remove(user);
+            following.deleteUser(user);
         }
     }
 
     public User getAFollower(int index){
-        return this.following.get(index);
+        return this.following.getUser(index);
     }
 
     public User getASharer(int index){
-        return this.following.get(index);
+        return this.following.getUser(index);
     }
 
-    public ArrayList<User> getFollowing(){
+    public UserList getFollowing(){
         return this.following;
     }
-    public ArrayList<User> getSharing(){
+    public UserList getSharing(){
         return this.sharing;
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
     }
 }

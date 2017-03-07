@@ -23,8 +23,7 @@ import java.util.ArrayList;
  */
 
 public class MoodMainActivity extends AppCompatActivity {
-    private String FILENAME = "user.sav";
-    private ArrayList<User> users;
+    //private String FILENAME = "user.sav";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,7 +32,7 @@ public class MoodMainActivity extends AppCompatActivity {
         Button signInButton = (Button) findViewById(R.id.signIn);
         Button signUpButton = (Button) findViewById(R.id.signUp);
 
-
+        MainController mc = MainApplication.getMainController();
 
         signInButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -41,7 +40,7 @@ public class MoodMainActivity extends AppCompatActivity {
                 setResult(RESULT_OK);
                 Log.i("click sign in", "click signed in button");
                 Intent intent = new Intent(MoodMainActivity.this, SignInActivity.class);
-                intent.putExtra("filename",FILENAME);
+                //intent.putExtra("filename",FILENAME);
                 startActivity(intent);
             }
         });
@@ -52,7 +51,7 @@ public class MoodMainActivity extends AppCompatActivity {
                 setResult(RESULT_OK);
                 Log.i("click sign up", "clicked sign Up");
                 Intent intent = new Intent(MoodMainActivity.this,SignUpActivity.class);
-                intent.putExtra("filename", FILENAME);
+                //intent.putExtra("filename", FILENAME);
                 startActivity(intent);
             }
         });
@@ -65,11 +64,11 @@ public class MoodMainActivity extends AppCompatActivity {
     protected void onStart() {
         // TODO Auto-generated method stub
         super.onStart();
-        loadFromFile();
+        //loadFromFile();
     }
 
 
-    private void loadFromFile() {
+    /*private void loadFromFile() {
         try {
             Log.i("file name is: ",FILENAME);
             FileInputStream fis = openFileInput(FILENAME);
@@ -88,6 +87,6 @@ public class MoodMainActivity extends AppCompatActivity {
             throw new RuntimeException();
         }
 
-    }
+    }*/
 
 }
