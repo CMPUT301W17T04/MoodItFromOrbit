@@ -8,6 +8,8 @@
 
 package com.assign1.brianlu.mooditfromorbit;
 
+import java.util.ArrayList;
+
 /**
  * Created by Gregory on 2017-03-06.
  */
@@ -29,5 +31,9 @@ public class MainController implements MController {
 
     public boolean checkForUser(User user){
         return mm.checkForUser(user);
+    }
+
+    public ArrayList<Emotion> getEmotions(){
+        return mm.getEmotions();
     }
 }

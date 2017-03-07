@@ -9,22 +9,20 @@ import android.widget.TextView;
  */
 
 public class DashBoard extends Activity implements MView<MainModel>{
-    //private ArrayList<User> users;
-    //private String FILENAME;
-    //private ArrayList<Emotion> emotions;
-
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.dash_board);
         TextView message = (TextView) findViewById(R.id.dashMessage);
+        MainController mc = MainApplication.getMainController();
 
+        message.setText(mc.getEmotions().get(0).getEmoticon() + mc.getEmotions().get(1).getEmoticon()
+                + mc.getEmotions().get(2).getEmoticon() + mc.getEmotions().get(3).getEmoticon()
+                + mc.getEmotions().get(4).getEmoticon() + mc.getEmotions().get(5).getEmoticon()
+                + mc.getEmotions().get(6).getEmoticon() + mc.getEmotions().get(7).getEmoticon());
 
-        //FILENAME = getIntent().getExtras().getString("filename");
-        //String userName = getIntent().getExtras().getString("username");
-        //String messageCon = "Congratulation, you signed in as " + userName + "☺" +"\n" + "☺" + "\n" + "☺";
-        message.setText("☺");
-
+        MainModel mm = MainApplication.getMainModel();
+        mm.addView(this);
 
     }
     @Override
@@ -34,21 +32,15 @@ public class DashBoard extends Activity implements MView<MainModel>{
 
     }
 
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        MainModel mm = MainApplication.getMainModel();
+        mm.deleteView(this);
+    }
+
 
     public void update(MainModel mc){}
-    /**
-     * Fills the ArrayList emotions with required emotions
-     */
-    /*private void fillEmotions(){
-        //TODO: Add rest of the emotions
-        Emotion happy = new Emotion("Happy", "#06B31D", "☺");
-        Emotion sad = new Emotion("Sad", "#1864D6", "☺");
-        Emotion angry = new Emotion("Angry", "#D61C1C", "☺");
-
-        emotions.add(happy);
-        emotions.add(sad);
-        emotions.add(angry);
-    }*/
 
 
 
