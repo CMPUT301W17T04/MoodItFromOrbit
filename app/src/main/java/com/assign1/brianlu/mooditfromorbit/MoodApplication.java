@@ -16,11 +16,11 @@ import android.app.Application;
 
 public class MoodApplication extends Application {
 
-    transient private static UserController mc = null;
+    transient private static MainController mc = null;
 
-    public static UserController getMoodController(){
+    public static MainController getMoodController(){
         if(mc == null){
-            mc = new UserController();
+            mc = new MainController();
         }
         return mc;
     }

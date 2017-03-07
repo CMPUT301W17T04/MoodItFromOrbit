@@ -3,12 +3,10 @@ package com.assign1.brianlu.mooditfromorbit;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
-import android.widget.Toast;
 
 /**
  * Created by brianlu on 2017-02-24.
@@ -16,7 +14,7 @@ import android.widget.Toast;
  * This activity allows users to sign in
  */
 
-public class SignInActivity extends AppCompatActivity implements MView<UserController> {
+public class SignInActivity extends AppCompatActivity implements MView<MainController> {
     //private UserList users;
     //private String FILENAME;
     //    private ArrayAdapter<User> adapter;
@@ -30,7 +28,7 @@ public class SignInActivity extends AppCompatActivity implements MView<UserContr
         TextView toSignUp = (TextView) findViewById(R.id.toSignUp);
         userName = (EditText) findViewById(R.id.signInInput);
 
-        UserController mc = MoodApplication.getMoodController();
+        MainController mc = MoodApplication.getMoodController();
 
         //FILENAME = getIntent().getExtras().getString("filename");
         logInButton.setOnClickListener(new View.OnClickListener() {
@@ -38,21 +36,21 @@ public class SignInActivity extends AppCompatActivity implements MView<UserContr
             public void onClick(View v) {
                 setResult(RESULT_OK);
                 String input = userName.getText().toString();
-                Boolean notExist = true;
-                for(int i = 0; i< mc.getUsers().getCount();i++){
+                Boolean notExist = mc.checkForUser();
+                /*for(int i = 0; i< uc.getUsers().getCount();i++){
                     Log.i("the use name is: ", users.getUser(i).getUserName());
 
                     if(input.equals(users.getUser(i).getUserName())){
                         Intent intent = new Intent(SignInActivity.this, DashBoard.class);
-                        intent.putExtra("username", input);
-                        intent.putExtra("filename",FILENAME);
+                        //intent.putExtra("username", input);
+                        //intent.putExtra("filename",FILENAME);
                         startActivity(intent);
                         notExist = false;
                     }
                 }
                 if(notExist){
                     Toast.makeText(getBaseContext(),"Invalid User name, Please sign up!",Toast.LENGTH_SHORT).show();
-                }
+                }*/
             }
         });
 
@@ -72,7 +70,7 @@ public class SignInActivity extends AppCompatActivity implements MView<UserContr
         //loadFromFile();
     }
 
-    public void update(UserController mc){
+    public void update(MainController mc){
         //mc.getUsers().add(user);
     }
 
