@@ -58,16 +58,16 @@ public class MoodList {
         }
     }
 
-    public void sortByEmotion(Emotion emotion){
-        for(int i = 0; i < this.getCount(); i++){
-            if (this.getMood(i).getEmotion() == emotion){
-            }
-            else{
-                this.delete(this.getMood(i));
-                i--;
-            }
-        }
-    }
+//    public void sortByEmotion(Emotion emotion){
+//        for(int i = 0; i < this.getCount(); i++){
+//            if (this.getMood(i).getEmotion() == emotion){
+//            }
+//            else{
+//                this.delete(this.getMood(i));
+//                i--;
+//            }
+//        }
+//    }
 
     public void sortByRecentWeek(){
         // taken from http://stackoverflow.com/questions/494180/java-how-do-i-check-if-a-date-is-within-a-certain-range

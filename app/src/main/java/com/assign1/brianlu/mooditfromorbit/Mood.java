@@ -15,7 +15,7 @@ import java.util.Date;
  */
 
 public class Mood {
-    private Emotion emotion;
+    private EmotionalState emotion;
     private Date date;
     private Location geoLoc;
     private String message;
@@ -23,16 +23,16 @@ public class Mood {
     private String socialSituation;
 
 
-    public Mood(Emotion emotion){
+    public Mood(EmotionalState emotion){
         this.emotion = emotion;
         this.date = new Date(System.currentTimeMillis());
     }
 
-    public Emotion getEmotion() {
+    public EmotionalState getEmotion() {
         return emotion;
     }
 
-    public void setEmotion(Emotion emotion) {
+    public void setEmotion(EmotionalState emotion) {
         this.emotion = emotion;
     }
 

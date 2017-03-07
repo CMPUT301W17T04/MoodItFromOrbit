@@ -32,7 +32,7 @@ import java.util.ArrayList;
 public class DashBoard extends Activity{
     private ArrayList<User> users;
     private String FILENAME;
-    private ArrayList<Emotion> emotions;
+    private ArrayList<EmotionalState> emotions;
 
 
     protected void onCreate(Bundle savedInstanceState) {
@@ -100,16 +100,16 @@ public class DashBoard extends Activity{
     /**
      * Fills the ArrayList emotions with required emotions
      */
-    private void fillEmotions(){
-        //TODO: Add rest of the emotions
-        Emotion happy = new Emotion("Happy", "#06B31D", "☺");
-        Emotion sad = new Emotion("Sad", "#1864D6", "☺");
-        Emotion angry = new Emotion("Angry", "#D61C1C", "☺");
-
-        emotions.add(happy);
-        emotions.add(sad);
-        emotions.add(angry);
-    }
+//    private void fillEmotions(){
+//        //TODO: Add rest of the emotions
+//        Emotion happy = new Emotion("Happy", "#06B31D", "☺");
+//        Emotion sad = new Emotion("Sad", "#1864D6", "☺");
+//        Emotion angry = new Emotion("Angry", "#D61C1C", "☺");
+//
+//        emotions.add(happy);
+//        emotions.add(sad);
+//        emotions.add(angry);
+//    }
 
 
 
