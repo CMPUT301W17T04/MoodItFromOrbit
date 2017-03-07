@@ -22,6 +22,7 @@ import io.searchbox.core.DocumentResult;
 import io.searchbox.core.Index;
 import io.searchbox.core.Search;
 import io.searchbox.core.SearchResult;
+import io.searchbox.core.Update;
 
 /**
  * Created by Gregory on 2017-03-06.
@@ -83,8 +84,8 @@ public class ElasticSearchEmotionController {
                 // TODO get the results of the query
                 SearchResult result = client.execute(search);
                 if (result.isSucceeded()){
-                    List<Mood> foundMoods = result.getSourceAsObjectList(Mood.class);
-                    moods.addAll(foundMoods);
+                    MoodList foundMoods = new MoodList(result.getSourceAsObjectList(Mood.class));
+                    moods.merge(foundMoods);
                 }
                 else {
                     Log.i("Error", "The search query failed to find any tweets that matched");
@@ -98,12 +99,80 @@ public class ElasticSearchEmotionController {
         }
     }
 
+    /**
+     * adds users to elastic search
+     */
+    public static class AddUsersTask extends AsyncTask<User, Void, Void> {
+
+        @Override
+        protected Void doInBackground(User... users) {
+            verifySettings();
+
+            for (User user : users) {
+                Index index = new Index.Builder(user).index("cmput301w17t4").type("user").build();
+
+                try {
+                    // where is the client?
+                    DocumentResult result = client.execute(index);
+                    if (result.isSucceeded()) {
+                        user.setId(result.getId());
+                    }
+                    else {
+                        Log.i("Error", "Elastics was not able to to add the user");
+                    }
+                }
+                catch (Exception e) {
+                    Log.i("Error", "The application failed to build and send the users");
+                }
+
+            }
+            return null;
+        }
+    }
+
+    /**
+     * gets users from elastic search
+     */
+    public static class GetUsersTask extends AsyncTask<String, Void, UserList> {
+        @Override
+        protected UserList doInBackground(String... search_parameters) {
+            verifySettings();
+
+            UserList users = new UserList();
+
+            String query = "{\"query\" : {\"term\" : { \"username\" : \"" + search_parameters[0] + "\" }}}";
+            Log.d("sterisd", search_parameters[0]);
+            // TODO Build the query
+            Search search = new Search.Builder(query)
+                    .addIndex("cmput301w17t4")
+                    .addType("user")
+                    .build();
+
+            try {
+                // TODO get the results of the query
+                SearchResult result = client.execute(search);
+                if (result.isSucceeded()){
+                    UserList foundUsers = new UserList(result.getSourceAsObjectList(User.class));
+                    users.merge(foundUsers);
+                }
+                else {
+                    Log.i("Error", "The search query failed to find any tweets that matched");
+                }
+            }
+            catch (Exception e) {
+                Log.i("Error", "Something went wrong when we tried to communicate with the elasticsearch server!");
+            }
+
+            return users;
+        }
+    }
+
 
 
 
     public static void verifySettings() {
         if (client == null) {
-            DroidClientConfig.Builder builder = new DroidClientConfig.Builder("http://cmput301.softwareprocess.es:8080");
+            DroidClientConfig.Builder builder = new DroidClientConfig.Builder("http://cmput301.softwareprocess.es:8080/cmput301w17t4");
             DroidClientConfig config = builder.build();
 
             JestClientFactory factory = new JestClientFactory();

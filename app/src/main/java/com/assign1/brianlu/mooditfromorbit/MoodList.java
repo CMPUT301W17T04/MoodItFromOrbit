@@ -12,8 +12,15 @@ import java.util.List;
  * Created by FENGYI on 2017-02-24.
  */
 
-public class MoodList extends ArrayList{
+public class MoodList{
     private ArrayList<Mood> moods = new ArrayList<Mood>();
+
+    public MoodList(){
+    }
+
+    public MoodList(List moods){
+        moods.addAll(moods);
+    }
 
     public void add(Mood mood){
         moods.add(mood);
@@ -40,6 +47,10 @@ public class MoodList extends ArrayList{
 
     public ArrayList<Mood> getMoods(){
         return moods;
+    }
+
+    public void merge(MoodList foundMoods){
+        moods.addAll(foundMoods.getMoods());
     }
 
     public int getCount(){
