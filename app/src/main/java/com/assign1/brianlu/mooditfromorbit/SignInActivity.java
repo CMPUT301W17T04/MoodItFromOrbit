@@ -28,7 +28,7 @@ public class SignInActivity extends AppCompatActivity implements MView<MainContr
         TextView toSignUp = (TextView) findViewById(R.id.toSignUp);
         userName = (EditText) findViewById(R.id.signInInput);
 
-        MainController mc = MoodApplication.getMoodController();
+        MainController mc = MainApplication.getMainController();
 
         //FILENAME = getIntent().getExtras().getString("filename");
         logInButton.setOnClickListener(new View.OnClickListener() {
@@ -63,11 +63,20 @@ public class SignInActivity extends AppCompatActivity implements MView<MainContr
                 startActivity(intent);
             }
         });
+
+        mc.addView(this);
     }
     @Override
     protected void onStart(){
         super.onStart();
         //loadFromFile();
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        MainController mc = MainApplication.getMainController();
+        mc.deleteView(this);
     }
 
     public void update(MainController mc){

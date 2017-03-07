@@ -14,11 +14,11 @@ import android.app.Application;
  * Created by Gregory on 2017-03-06.
  */
 
-public class MoodApplication extends Application {
+public class MainApplication extends Application {
 
     transient private static MainController mc = null;
 
-    public static MainController getMoodController(){
+    public static MainController getMainController(){
         if(mc == null){
             mc = new MainController();
         }
