@@ -16,4 +16,5 @@
     <string name="action_sort">Sort</string>
     <string name="action_profile">Profile</string>
     <string name="action_add_mood">Add Mood</string>
+    <string name="action_map">Show Map</string>
 </resources>

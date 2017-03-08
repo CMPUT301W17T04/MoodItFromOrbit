@@ -121,7 +121,9 @@ public class ElasticSearchController {
                     // where is the client?
                     DocumentResult result = client.execute(index);
                     if (result.isSucceeded()) {
+                        Log.d("usersetid", result.getId());
                         user.setId(result.getId());
+                        Log.d("usersetid", user.getId());
                     }
                     else {
                         Log.i("Error", "Elastics was not able to to add the user");
@@ -182,6 +184,54 @@ public class ElasticSearchController {
         }
     }
 
+
+    public static class UpdateUsersTask extends AsyncTask<User, Void, Void> {
+
+        @Override
+        protected Void doInBackground(User... users) {
+            verifySettings();
+
+            for (User user : users) {
+                Log.d("testsing", user.getUserName());
+
+                String query = "";
+
+
+                query = "{\"doc\" : " + user.getGsonMoods() + "}";
+
+                Log.d("userid", user.getId());
+                Log.d("gson string", query);
+                Update update = new Update.Builder(query)
+                        .index("cmput301w17t4")
+                        .type("user")
+                        .id(user.getId())
+                        .build();
+
+                Log.d("search", update.toString());
+
+                try {
+                    // TODO get the results of the query
+                    Log.d("testing", "before search");
+                    client.execute(update);
+                    Log.d("testing", "after search");
+                    /*if (result.isSucceeded()){
+                        Log.d("testing", "here");
+                        UserList foundUsers = new UserList(result.getSourceAsObjectList(User.class));
+                        users.merge(foundUsers);
+                    }
+                    else {
+                        Log.i("Error", "The search query failed to find any tweets that matched");
+                    }*/
+                }
+                catch (Exception e) {
+                    Log.i("Error", "Something went wrong when we tried to communicate with the elasticsearch server!");
+                    Log.d("Error", e.toString());
+                }
+
+            }
+            return null;
+        }
+    }
 
 
 

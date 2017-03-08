@@ -5,6 +5,10 @@ import android.text.BoringLayout;
 import android.util.Log;
 import android.widget.Toast;
 
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
+
+import java.lang.reflect.Type;
 import java.util.ArrayList;
 
 /**
@@ -30,6 +34,17 @@ public class User{
         return this.userName;
     }
 
+    public void newMood(){
+        Emotion happy = new Emotion("Happy", "#06B31D", "F263A");
+        Mood newMood = new Mood(happy);
+        moods.add(newMood);
+    }
+    public String getGsonMoods(){
+        newMood();
+        Gson gson = new Gson();
+
+        return gson.toJson(moods);
+    }
 
     public MoodList getMoods(){
         return this.moods;

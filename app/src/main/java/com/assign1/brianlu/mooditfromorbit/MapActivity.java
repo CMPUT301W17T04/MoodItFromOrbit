@@ -1,28 +1,28 @@
+/*
+ * Copyright (c) $2017 CMPUT 301 University of Alberta. Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+ * Morbi non lorem porttitor neque feugiat blandit. Ut vitae ipsum eget quam lacinia accumsan.
+ * Etiam sed turpis ac ipsum condimentum fringilla. Maecenas magna.
+ * Proin dapibus sapien vel ante. Aliquam erat volutpat. Pellentesque sagittis ligula eget metus.
+ * Vestibulum commodo. Ut rhoncus gravida arcu.
+ */
+
 package com.assign1.brianlu.mooditfromorbit;
 
-import android.app.Activity;
 import android.content.Intent;
-import android.os.Bundle;
 import android.support.v4.view.MenuItemCompat;
-import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
+import android.os.Bundle;
 import android.support.v7.view.menu.MenuView;
 import android.support.v7.widget.SearchView;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.TextView;
 
-/**
- * Created by brianlu on 2017-02-24.
- */
-
-public class DashBoard extends AppCompatActivity implements MView<MainModel>{
+public class MapActivity extends AppCompatActivity implements MView<MainModel> {
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.dash_board);
+        setContentView(R.layout.activity_map);
 
         //used https://developer.android.com/training/appbar/setting-up.html#utility
         Toolbar myToolbar = (Toolbar) findViewById(R.id.my_toolbar);
@@ -50,21 +50,13 @@ public class DashBoard extends AppCompatActivity implements MView<MainModel>{
         switch (item.getItemId()) {
             case R.id.action_add_mood:
                 //switch to add mood activity
-                Intent intent1 = new Intent(DashBoard.this, AddMood.class);
+                Intent intent1 = new Intent(MapActivity.this, AddMood.class);
                 startActivity(intent1);
                 return true;
 
             case R.id.action_profile:
-                MainController mc = MainApplication.getMainController();
-                User user = mc.getUsers().getUser(1);
-                //Log.d("userdid dash", user.getId());
-                String test = user.getGsonMoods();
-                Log.d("testing gson", test);
 
-                ElasticSearchController.UpdateUsersTask updateUsersTask = new ElasticSearchController.UpdateUsersTask();
-                updateUsersTask.execute(user);
-
-                Intent intent = new Intent(DashBoard.this, ProfileActivity.class);
+                Intent intent = new Intent(MapActivity.this, ProfileActivity.class);
                 startActivity(intent);
 
                 return true;
@@ -97,7 +89,4 @@ public class DashBoard extends AppCompatActivity implements MView<MainModel>{
     public void update(MainModel mc){
         // TODO code to redisplay the data
     }
-
-
-
 }
