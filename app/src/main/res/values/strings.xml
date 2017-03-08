@@ -16,4 +16,23 @@
     <string name="action_sort">Sort</string>
     <string name="action_profile">Profile</string>
     <string name="action_add_mood">Add Mood</string>
+    
+    <string-array name="Emotions_List">
+        <item>Anger</item>
+        <item>Confusion</item>
+        <item>Disgust</item>
+        <item>Fear</item>
+        <item>Happiness</item>
+        <item>Sadness</item>
+        <item>Shame</item>
+        <item>Surprise</item>
+        <item>Confusion</item>
+
+    </string-array>
+
+    <string-array name="group_status">
+        <item>Alone</item>
+        <item>2 to Several</item>
+        <item>Crowd</item>
+    </string-array>
 </resources>

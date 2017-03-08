@@ -7,7 +7,7 @@
   ~ Vestibulum commodo. Ut rhoncus gravida arcu.
   -->
 
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/activity_add_mood"
     android:layout_width="match_parent"
@@ -16,18 +16,54 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context="com.assign1.brianlu.mooditfromorbit.AddMood">
+    android:orientation="vertical"
+    tools:context="com.assign1.brianlu.mooditfromorbit.AddMood"
+    android:weightSum="1">
+
 
     <TextView
-        android:text="We Made it"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_marginLeft="127dp"
-        android:layout_marginStart="127dp"
-        android:layout_marginTop="183dp"
-        android:id="@+id/textView"
-        android:textSize="40sp" />
-</RelativeLayout>
+        android:id="@+id/textview1"
+        android:text="Select your emotion" />
+
+    <Spinner
+        android:layout_height="60dp"
+        android:id="@+id/emotions"
+        android:entries="@array/Emotions_List"
+        android:layout_width="match_parent">
+
+    </Spinner>
+
+    <TextView
+        android:text="Group status "
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/textView4" />
+
+
+    <Spinner
+        android:layout_height="60dp"
+        android:id="@+id/groupstatus"
+        android:entries="@array/group_status"
+        android:layout_width="match_parent">
+
+    </Spinner>
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:inputType="textPersonName"
+        android:ems="10"
+        android:id="@+id/editText"
+        android:hint="Enter a comment! (Maximum 20 characters)"
+        android:maxLength="20"
+        android:layout_weight="0.08" />
+
+    <Button
+        android:text="Done"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/button" />
+
+</LinearLayout>
