@@ -49,7 +49,8 @@ public class DashBoard extends AppCompatActivity implements MView<MainModel>{
         switch (item.getItemId()) {
             case R.id.action_add_mood:
                 //switch to add mood activity
-
+                Intent intent1 = new Intent(DashBoard.this, AddMood.class);
+                startActivity(intent1);
                 return true;
 
             case R.id.action_profile:
