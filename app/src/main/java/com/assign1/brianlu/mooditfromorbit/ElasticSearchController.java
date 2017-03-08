@@ -122,6 +122,7 @@ public class ElasticSearchController {
                     DocumentResult result = client.execute(index);
                     if (result.isSucceeded()) {
                         user.setId(result.getId());
+//                        Log.i("the user id is:",result.getId());
                     }
                     else {
                         Log.i("Error", "Elastics was not able to to add the user");
