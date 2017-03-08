@@ -17,7 +17,9 @@ import com.searchly.jestdroid.JestDroidClient;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
+import io.searchbox.client.JestResult;
 import io.searchbox.core.DocumentResult;
 import io.searchbox.core.Index;
 import io.searchbox.core.Search;
@@ -168,8 +170,31 @@ public class ElasticSearchController {
                 Log.d("testing", "after search");
                 if (result.isSucceeded()){
                     Log.d("testing", "here");
+                    Log.d("testing", "error here");
                     UserList foundUsers = new UserList(result.getSourceAsObjectList(User.class));
+                    //UserList foundUsers = new UserList(result.getHits(User.class));
+
+                    List<SearchResult.Hit<Map,Void>> hits = client.execute(search).getHits(Map.class);
+
+                    int i = 0;
+                    for(SearchResult.Hit hit : hits){
+
+                        Map source = (Map)hit.source;
+                        String id = (String)source.get(JestResult.ES_METADATA_ID);
+                        foundUsers.getUser(i).setId(id);
+                        i++;
+                        Log.d("testing", id);
+
+                    }
+
+                    //UserList foundUsers = new UserList(hits);
+
+                    Log.d("testing", "maybe");
                     users.merge(foundUsers);
+
+
+
+                    //Log.d("testing", foundUsers.getUser(0).getId());
                 }
                 else {
                     Log.i("Error", "The search query failed to find any tweets that matched");

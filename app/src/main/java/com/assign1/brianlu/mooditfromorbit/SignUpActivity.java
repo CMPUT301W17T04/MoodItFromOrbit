@@ -4,10 +4,13 @@ package com.assign1.brianlu.mooditfromorbit;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
+
+import com.google.gson.Gson;
 
 /**
  * Created by brianlu on 2017-02-23.
@@ -103,6 +106,14 @@ public class SignUpActivity extends AppCompatActivity implements MView<MainModel
     }
 
     public void updateUsers(User user){
+        //Log.d("userdid dash", user.getId());
+        /*String test = user.getGsonMoods();
+        Gson gson = new Gson();
+
+        String userTest = gson.toJson(user);
+        Log.d("testing gson", userTest);*/
+        //TODO manually convert to json
+
         MainController mc = MainApplication.getMainController();
         mc.addUser(user);
     }
