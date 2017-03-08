@@ -84,7 +84,9 @@ public class DashBoard extends AppCompatActivity implements MView<MainModel>{
 
 
 
-    public void update(MainModel mc){}
+    public void update(MainModel mc){
+        // TODO code to redisplay the data
+    }
 
 
 

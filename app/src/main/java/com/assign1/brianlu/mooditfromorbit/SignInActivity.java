@@ -98,7 +98,7 @@ public class SignInActivity extends AppCompatActivity implements MView<MainModel
     }
 
     public void update(MainModel mc){
-        //mc.getUsers().add(user);
+        //TODO code to resync data
     }
 
     /*private void loadFromFile() {
