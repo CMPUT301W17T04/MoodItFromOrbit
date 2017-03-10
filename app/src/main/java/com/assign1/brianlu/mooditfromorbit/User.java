@@ -6,6 +6,7 @@ import android.util.Log;
 import android.widget.Toast;
 
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
 
 import java.lang.reflect.Type;
@@ -34,19 +35,28 @@ public class User{
         return this.userName;
     }
 
-    /*public void newMood(){
+
+    public void newMood(){
         //dont use
         Emotion happy = new Emotion("Happy", "#06B31D", "F263A");
         Mood newMood = new Mood(happy);
-        moods.add(newMood);
-    }*/
+        addMood(newMood);
+    }
 
     public String getGsonMoods(){
-        //dont use
-        //newMood();
-        Gson gson = new Gson();
+        //returns moods as gson string
+        GsonBuilder gsonBuilder = new GsonBuilder();
+        gsonBuilder.registerTypeAdapter(Mood.class, new MoodSerializer());
+        gsonBuilder.registerTypeAdapter(Emotion.class, new EmotionSerializer());
 
-        return gson.toJson(moods);
+        Gson gson = gsonBuilder.create();
+
+        String json = gson.toJson(moods);
+
+        json = json.replace("\\", "");
+        json = json.replace("}\"", "}");
+        json = json.replace("\"{", "{");
+        return json;
     }
 
     public MoodList getMoods(){

@@ -14,6 +14,9 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.TextView;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+
 /**
  * Created by brianlu on 2017-02-24.
  */
@@ -56,13 +59,10 @@ public class DashBoard extends AppCompatActivity implements MView<MainModel>{
 
             case R.id.action_profile:
                 MainController mc = MainApplication.getMainController();
-                User user = mc.getUsers().getUser(1);
-                //Log.d("userdid dash", user.getId());
-                String test = user.getGsonMoods();
-                Log.d("testing gson", test);
+                User user = mc.getMe();
 
-                ElasticSearchController.UpdateUsersTask updateUsersTask = new ElasticSearchController.UpdateUsersTask();
-                updateUsersTask.execute(user);
+                ElasticSearchController.UpdateUsersMoodTask updateUsersMoodTask = new ElasticSearchController.UpdateUsersMoodTask();
+                updateUsersMoodTask.execute(user);
 
                 Intent intent = new Intent(DashBoard.this, ProfileActivity.class);
                 startActivity(intent);

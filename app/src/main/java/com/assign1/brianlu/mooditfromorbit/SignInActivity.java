@@ -17,9 +17,7 @@ import android.widget.Toast;
  */
 
 public class SignInActivity extends AppCompatActivity implements MView<MainModel> {
-    //private UserList users;
-    //private String FILENAME;
-    //    private ArrayAdapter<User> adapter;
+
     private EditText userName;
 
     protected void onCreate(Bundle savedInstanceState){
@@ -30,7 +28,6 @@ public class SignInActivity extends AppCompatActivity implements MView<MainModel
         TextView toSignUp = (TextView) findViewById(R.id.toSignUp);
         userName = (EditText) findViewById(R.id.signInInput);
 
-        //FILENAME = getIntent().getExtras().getString("filename");
         logInButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -41,9 +38,9 @@ public class SignInActivity extends AppCompatActivity implements MView<MainModel
 
                 String input = userName.getText().toString();
 
-                User user = new User(input);
+                Log.d("username", input);
 
-                Boolean exists = mc.checkForUser(user);
+                Boolean exists = mc.checkSignIn(input);
 
                 Log.d("boolean Value", exists.toString());
 
@@ -54,20 +51,7 @@ public class SignInActivity extends AppCompatActivity implements MView<MainModel
                     Intent intent = new Intent(SignInActivity.this, DashBoard.class);
                     startActivity(intent);
                 }
-                /*for(int i = 0; i< uc.getUsers().getCount();i++){
-                    Log.i("the use name is: ", users.getUser(i).getUserName());
 
-                    if(input.equals(users.getUser(i).getUserName())){
-                        Intent intent = new Intent(SignInActivity.this, DashBoard.class);
-                        //intent.putExtra("username", input);
-                        //intent.putExtra("filename",FILENAME);
-                        startActivity(intent);
-                        notExist = false;
-                    }
-                }
-                if(notExist){
-                    Toast.makeText(getBaseContext(),"Invalid User name, Please sign up!",Toast.LENGTH_SHORT).show();
-                }*/
             }
         });
 
@@ -76,7 +60,7 @@ public class SignInActivity extends AppCompatActivity implements MView<MainModel
             public void onClick(View v) {
                 setResult(RESULT_OK);
                 Intent intent = new Intent(SignInActivity.this,SignUpActivity.class);
-                //intent.putExtra("filename", FILENAME);
+
                 startActivity(intent);
             }
         });
@@ -87,7 +71,7 @@ public class SignInActivity extends AppCompatActivity implements MView<MainModel
     @Override
     protected void onStart(){
         super.onStart();
-        //loadFromFile();
+
     }
 
     @Override
@@ -100,47 +84,6 @@ public class SignInActivity extends AppCompatActivity implements MView<MainModel
     public void update(MainModel mc){
         //TODO code to resync data
     }
-
-    /*private void loadFromFile() {
-        try {
-            Log.i("file name is: ",FILENAME);
-            FileInputStream fis = openFileInput(FILENAME);
-            BufferedReader in = new BufferedReader(new InputStreamReader(fis));
-
-            Gson gson = new Gson();
-            // Took from https://google-gson.googlecode.com/svn/trunk/gson/docs/javadocs/com/google/gson/Gson.html Jan-21-2016
-            Type listType = new TypeToken<ArrayList<User>>(){}.getType();
-            users = gson.fromJson(in, listType);
-
-        } catch (FileNotFoundException e) {
-            // TODO Auto-generated catch block
-            users = new ArrayList<User>();
-        } catch (IOException e) {
-            // TODO Auto-generated catch block
-            throw new RuntimeException();
-        }
-
-    }
-
-    private void saveInFile() {
-        try {
-            FileOutputStream fos = openFileOutput(FILENAME,
-                    0);
-
-            BufferedWriter out = new BufferedWriter(new OutputStreamWriter(fos));
-            Gson gson = new Gson();
-            gson.toJson(users, out);
-            out.flush();
-
-            fos.close();
-        } catch (FileNotFoundException e) {
-            // TODO Auto-generated catch block
-            throw new RuntimeException();
-        } catch (IOException e) {
-            // TODO Auto-generated catch block
-            throw new RuntimeException();
-        }
-    }*/
 
 
 }

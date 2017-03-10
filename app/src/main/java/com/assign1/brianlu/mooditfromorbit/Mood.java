@@ -4,7 +4,10 @@ import android.graphics.Bitmap;
 import android.location.Location;
 
 
+import com.google.gson.Gson;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 
@@ -21,7 +24,6 @@ public class Mood {
     private String message;
     private Bitmap image;
     private String socialSituation;
-    private String id;
 
 
     public Mood(Emotion emotion){
@@ -31,6 +33,28 @@ public class Mood {
 
     public Emotion getEmotion() {
         return emotion;
+    }
+
+    public String getGsonEmotion(){
+        Gson gson = new Gson();
+
+        return gson.toJson(this.emotion);
+    }
+
+    public String getStringDate(){
+        DateFormat df = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ssZ");
+
+        return df.format(date);
+    }
+
+    public String getStringLocation(){
+        //TODO implement string
+        return null;
+    }
+
+    public String getStringImage(){
+        //TODO convert image to string
+        return null;
     }
 
     public void setEmotion(Emotion emotion) {
@@ -78,11 +102,4 @@ public class Mood {
         this.message = message;
     }
 
-    public String getId() {
-        return id;
-    }
-
-    public void setId(String id) {
-        this.id = id;
-    }
 }

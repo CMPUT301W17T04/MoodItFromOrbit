@@ -1,5 +1,7 @@
 package com.assign1.brianlu.mooditfromorbit;
 
+import android.util.Log;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -53,7 +55,16 @@ public class UserList{
 
     public User getUser(int index){
         return this.users.get(index);
+    }
 
+    public User getUserByName(String userName){
+        for(User user : users){
+
+            if(user.getUserName().equals(userName)){
+                return user;
+            }
+        }
+        return null;
     }
 
     public ArrayList<User> getUsers(){

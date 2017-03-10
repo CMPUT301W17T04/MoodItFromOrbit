@@ -21,6 +21,7 @@ import java.util.ArrayList;
 public class MainModel extends MModel<MView> {
     static private UserList users = null;
     static private ArrayList<Emotion> emotions;
+    static private User me = null;
 
     MainModel(){
         super();
@@ -37,7 +38,7 @@ public class MainModel extends MModel<MView> {
         } catch (Exception e){
             Log.i("Error", "Failed to get the users from the async object");
         }
-        //Log.d("users", users.getUser(0).getUserName());
+
     }
 
     /**
@@ -75,11 +76,7 @@ public class MainModel extends MModel<MView> {
     }
 
     public void addUser(User user){
-        Log.d("testing", user.getUserName());
         users.add(user);
-        Gson gson = new Gson();
-
-        String upload = gson.toJson(user);
 
         ElasticSearchController.AddUsersTask addUsersTask = new ElasticSearchController.AddUsersTask();
         addUsersTask.execute(user);
@@ -89,9 +86,21 @@ public class MainModel extends MModel<MView> {
         return users.hasUser(user);
     }
 
+    public User getUserByName(String userName){
+        return users.getUserByName(userName);
+    }
+
     //taken from http://stackoverflow.com/questions/26893796/how-set-emoji-by-unicode-in-android-textview
     //March 6, 2017 11:36pm
     public String getEmojiByUnicode(int unicode){
         return new String(Character.toChars(unicode));
+    }
+
+    public User getMe() {
+        return me;
+    }
+
+    public void setMe(User me) {
+        MainModel.me = me;
     }
 }

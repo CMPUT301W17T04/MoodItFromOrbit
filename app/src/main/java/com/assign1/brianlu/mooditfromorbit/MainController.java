@@ -27,10 +27,27 @@ public class MainController implements MController {
 
     public void addUser(User user){
         mm.addUser(user);
+        mm.setMe(user);
+    }
+
+    public boolean checkSignIn(String userName){
+        User me = mm.getUserByName(userName);
+
+        if(me != null){
+            mm.setMe(me);
+            return true;
+        }
+        else{
+            return false;
+        }
     }
 
     public boolean checkForUser(User user){
         return mm.checkForUser(user);
+    }
+
+    public User getMe(){
+        return mm.getMe();
     }
 
     public ArrayList<Emotion> getEmotions(){

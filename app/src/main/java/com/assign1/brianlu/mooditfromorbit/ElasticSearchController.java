@@ -43,16 +43,16 @@ public class ElasticSearchController {
             verifySettings();
 
             for (User user : users) {
-                Log.d("testsing", user.getUserName());
+
                 Index index = new Index.Builder(user).index("cmput301w17t4").type("user").build();
 
                 try {
                     // where is the client?
                     DocumentResult result = client.execute(index);
                     if (result.isSucceeded()) {
-                        Log.d("usersetid", result.getId());
+
                         user.setId(result.getId());
-                        Log.d("usersetid", user.getId());
+
                     }
                     else {
                         Log.i("Error", "Elastics was not able to to add the user");
@@ -81,25 +81,21 @@ public class ElasticSearchController {
                 query = "{\"query\" : {\"term\" : { \"username\" : \"" + search_parameters[0] + "\" }}}";
             }
 
-            Log.d("search parameters", search_parameters[0]);
             // TODO Build the query
             Search search = new Search.Builder(query)
                     .addIndex("cmput301w17t4")
                     .addType("user")
                     .build();
 
-            Log.d("search", search.toString());
-
             try {
                 // TODO get the results of the query
-                Log.d("testing", "before search");
+
                 SearchResult result = client.execute(search);
-                Log.d("testing", "after search");
+
                 if (result.isSucceeded()){
                     Log.d("testing", "here");
                     Log.d("testing json", result.getJsonString());
                     UserList foundUsers = new UserList(result.getSourceAsObjectList(User.class));
-                    //UserList foundUsers = new UserList(result.getHits(User.class));
 
 
                     //taken from http://stackoverflow.com/questions/33352798/elasticsearch-jest-client-how-to-return-document-id-from-hit
@@ -110,20 +106,17 @@ public class ElasticSearchController {
                     for(SearchResult.Hit hit : hits){
 
                         Map source = (Map)hit.source;
+
                         String id = (String)source.get(JestResult.ES_METADATA_ID);
                         foundUsers.getUser(i).setId(id);
                         i++;
-                        Log.d("testing", id);
+                        Log.d("testing", source.toString());
 
                     }
 
-                    //UserList foundUsers = new UserList(hits);
 
                     users.merge(foundUsers);
 
-
-
-                    //Log.d("testing", foundUsers.getUser(0).getId());
                 }
                 else {
                     Log.i("Error", "The search query failed to find any tweets that matched");
@@ -139,19 +132,18 @@ public class ElasticSearchController {
     }
 
 
-    public static class UpdateUsersTask extends AsyncTask<User, Void, Void> {
+    public static class UpdateUsersMoodTask extends AsyncTask<User, Void, Void> {
 
         @Override
         protected Void doInBackground(User... users) {
             verifySettings();
 
             for (User user : users) {
-                Log.d("testsing", user.getUserName());
 
                 String query = "";
 
 
-                query = "{\"doc\" : " + user.getGsonMoods() + "}";
+                query = "{\"doc\" : { \"type\" : \"nested\", \"moods\" : " + user.getGsonMoods() + "}}";
 
                 Log.d("userid update", user.getId());
                 Log.d("gson string", query);
@@ -161,21 +153,11 @@ public class ElasticSearchController {
                         .id(user.getId())
                         .build();
 
-                Log.d("search", update.toString());
-
                 try {
                     // TODO get the results of the query
 
                     client.execute(update);
 
-                    /*if (result.isSucceeded()){
-                        Log.d("testing", "here");
-                        UserList foundUsers = new UserList(result.getSourceAsObjectList(User.class));
-                        users.merge(foundUsers);
-                    }
-                    else {
-                        Log.i("Error", "The search query failed to find any tweets that matched");
-                    }*/
                 }
                 catch (Exception e) {
                     Log.i("Error", "Something went wrong when we tried to communicate with the elasticsearch server!");
