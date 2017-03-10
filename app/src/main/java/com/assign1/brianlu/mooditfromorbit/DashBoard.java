@@ -58,11 +58,6 @@ public class DashBoard extends AppCompatActivity implements MView<MainModel>{
                 return true;
 
             case R.id.action_profile:
-                MainController mc = MainApplication.getMainController();
-                User user = mc.getMe();
-
-                ElasticSearchController.UpdateUsersMoodTask updateUsersMoodTask = new ElasticSearchController.UpdateUsersMoodTask();
-                updateUsersMoodTask.execute(user);
 
                 Intent intent = new Intent(DashBoard.this, ProfileActivity.class);
                 startActivity(intent);

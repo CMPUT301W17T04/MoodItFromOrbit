@@ -17,7 +17,6 @@ import java.util.ArrayList;
  */
 
 public class User{
-//    private Integer userID;
     private String userName;
     private MoodList moods;
     private ArrayList<String> following;
@@ -33,14 +32,6 @@ public class User{
 
     public String getUserName(){
         return this.userName;
-    }
-
-
-    public void newMood(){
-        //dont use
-        Emotion happy = new Emotion("Happy", "#06B31D", "F263A");
-        Mood newMood = new Mood(happy);
-        addMood(newMood);
     }
 
     public String getGsonMoods(){
@@ -94,10 +85,17 @@ public class User{
     }*/
 
     public void addFollowing(User user){
+        if(following == null){
+            following = new ArrayList<>();
+        }
         following.add(user.getId());
+
     }
 
     public void addFollower(User user){
+        if(followers == null){
+            followers = new ArrayList<>();
+        }
         followers.add(user.getId());
     }
 
@@ -192,6 +190,18 @@ public class User{
 
     public ArrayList<String> getFollowers() {
         return followers;
+    }
+
+    public String getGsonFollowers(){
+        Gson gson = new Gson();
+
+        return gson.toJson(followers);
+    }
+
+    public String getGsonFollowing(){
+        Gson gson = new Gson();
+
+        return gson.toJson(following);
     }
 
     public String getId() {

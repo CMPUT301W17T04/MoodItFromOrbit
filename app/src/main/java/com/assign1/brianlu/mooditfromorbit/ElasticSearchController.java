@@ -93,10 +93,8 @@ public class ElasticSearchController {
                 SearchResult result = client.execute(search);
 
                 if (result.isSucceeded()){
-                    Log.d("testing", "here");
-                    Log.d("testing json", result.getJsonString());
-                    UserList foundUsers = new UserList(result.getSourceAsObjectList(User.class));
 
+                    UserList foundUsers = new UserList(result.getSourceAsObjectList(User.class));
 
                     //taken from http://stackoverflow.com/questions/33352798/elasticsearch-jest-client-how-to-return-document-id-from-hit
                     // March 7, 2017 10:00pm
@@ -132,6 +130,9 @@ public class ElasticSearchController {
     }
 
 
+    /**
+     * updates moodslist on the server
+     */
     public static class UpdateUsersMoodTask extends AsyncTask<User, Void, Void> {
 
         @Override
@@ -146,6 +147,78 @@ public class ElasticSearchController {
                 query = "{\"doc\" : { \"type\" : \"nested\", \"moods\" : " + user.getGsonMoods() + "}}";
 
                 Log.d("userid update", user.getId());
+                Log.d("gson string", query);
+                Update update = new Update.Builder(query)
+                        .index("cmput301w17t4")
+                        .type("user")
+                        .id(user.getId())
+                        .build();
+
+                try {
+                    // TODO get the results of the query
+
+                    client.execute(update);
+
+                }
+                catch (Exception e) {
+                    Log.i("Error", "Something went wrong when we tried to communicate with the elasticsearch server!");
+                    Log.d("Error", e.toString());
+                }
+
+            }
+            return null;
+        }
+    }
+
+    public static class UpdateUsersFollowersTask extends AsyncTask<User, Void, Void> {
+
+        @Override
+        protected Void doInBackground(User... users) {
+            verifySettings();
+
+            for (User user : users) {
+
+                String query = "";
+
+
+                query = "{\"doc\" : { \"followers\" : " + user.getGsonFollowers() + "}}";
+
+                Log.d("gson string", query);
+                Update update = new Update.Builder(query)
+                        .index("cmput301w17t4")
+                        .type("user")
+                        .id(user.getId())
+                        .build();
+
+                try {
+                    // TODO get the results of the query
+
+                    client.execute(update);
+
+                }
+                catch (Exception e) {
+                    Log.i("Error", "Something went wrong when we tried to communicate with the elasticsearch server!");
+                    Log.d("Error", e.toString());
+                }
+
+            }
+            return null;
+        }
+    }
+
+    public static class UpdateUsersFollowingTask extends AsyncTask<User, Void, Void> {
+
+        @Override
+        protected Void doInBackground(User... users) {
+            verifySettings();
+
+            for (User user : users) {
+
+                String query = "";
+
+
+                query = "{\"doc\" : { \"following\" : " + user.getGsonFollowing() + "}}";
+
                 Log.d("gson string", query);
                 Update update = new Update.Builder(query)
                         .index("cmput301w17t4")

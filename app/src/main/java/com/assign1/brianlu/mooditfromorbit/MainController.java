@@ -29,6 +29,13 @@ public class MainController implements MController {
         mm.addUser(user);
         mm.setMe(user);
     }
+    public void addFollower(User user){
+        mm.addFollower(user);
+    }
+
+    public void addFollowing(User user){
+        mm.addFollowing(user);
+    }
 
     public boolean checkSignIn(String userName){
         User me = mm.getUserByName(userName);
