@@ -24,11 +24,21 @@ public class Mood {
     private String message;
     private Bitmap image;
     private String socialSituation;
+    private String userName;
 
 
-    public Mood(Emotion emotion){
+    public Mood(Emotion emotion, User user){
         this.emotion = emotion;
+        this.userName = user.getUserName();
         this.date = new Date(System.currentTimeMillis());
+    }
+
+    public String getUserName() {
+        return userName;
+    }
+
+    public void setUserName(String userName) {
+        this.userName = userName;
     }
 
     public Emotion getEmotion() {
@@ -43,6 +53,12 @@ public class Mood {
 
     public String getStringDate(){
         DateFormat df = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ssZ");
+
+        return df.format(date);
+    }
+
+    public String getDateForView(){
+        DateFormat df = new SimpleDateFormat("dd MMMM yyyy");
 
         return df.format(date);
     }

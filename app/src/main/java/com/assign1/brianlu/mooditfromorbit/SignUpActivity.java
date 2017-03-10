@@ -86,7 +86,7 @@ public class SignUpActivity extends AppCompatActivity implements MView<MainModel
         mm.deleteView(this);
     }
 
-    public void update(MainModel mc){
+    public void update(MainModel mm){
         //TODO code to resync data
     }
 

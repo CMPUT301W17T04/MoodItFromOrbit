@@ -22,11 +22,13 @@ public class MainModel extends MModel<MView> {
     static private UserList users = null;
     static private ArrayList<Emotion> emotions;
     static private User me = null;
+    static private MoodList followingMoods = null;
 
     MainModel(){
         super();
         pullUsersFromServer();
         fillEmotions();
+        this.followingMoods = new MoodList();
     }
 
     private void pullUsersFromServer(){
@@ -73,6 +75,21 @@ public class MainModel extends MModel<MView> {
 
     public UserList getUsers() {
         return users;
+    }
+
+    /**
+     * puts the moods of all people that the current user follows into followingMoods
+     */
+    public void generateFollowingMoods(){
+        for(User user: users.getUsers()){
+            if(me.getFollowing().contains(user.getId())){
+                followingMoods.merge(user.getMoods());
+            }
+        }
+    }
+
+    public static MoodList getFollowingMoods() {
+        return followingMoods;
     }
 
     public void addFollower(User user){

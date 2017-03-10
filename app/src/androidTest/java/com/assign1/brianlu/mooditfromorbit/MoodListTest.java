@@ -20,7 +20,8 @@ public class MoodListTest extends ActivityInstrumentationTestCase2 {
         MoodList moods = new MoodList();
         Emotion happy = new Emotion("Happy", "#06B31D", "\u263A");
 
-        Mood mood = new Mood(happy);
+        User user = new User("Greg");
+        Mood mood = new Mood(happy, user);
 
         moods.add(mood);
 
@@ -34,7 +35,8 @@ public class MoodListTest extends ActivityInstrumentationTestCase2 {
         MoodList moods = new MoodList();
         Emotion happy = new Emotion("Happy", "#06B31D", "\u263A");
 
-        Mood mood = new Mood(happy);
+        User user = new User("Greg");
+        Mood mood = new Mood(happy, user);
 
         moods.add(mood);
 
@@ -45,7 +47,8 @@ public class MoodListTest extends ActivityInstrumentationTestCase2 {
         MoodList moods = new MoodList();
         Emotion happy = new Emotion("Happy", "#06B31D", "\u263A");
 
-        Mood mood = new Mood(happy);
+        User user = new User("Greg");
+        Mood mood = new Mood(happy, user);
 
         moods.add(mood);
         moods.delete(mood);
@@ -62,9 +65,10 @@ public class MoodListTest extends ActivityInstrumentationTestCase2 {
         Emotion sad = new Emotion("Sad", "#1864D6", "☺");
         Emotion angry = new Emotion("Angry", "#D61C1C", "☺");
 
-        Mood mood = new Mood(happy);
-        Mood mood1 = new Mood(sad);
-        Mood mood2 = new Mood(angry);
+        User user = new User("Greg");
+        Mood mood = new Mood(happy, user);
+        Mood mood1 = new Mood(sad, user);
+        Mood mood2 = new Mood(angry, user);
         moods.add(mood);
         moods.add(mood1);
         moods.add(mood2);
@@ -88,15 +92,16 @@ public class MoodListTest extends ActivityInstrumentationTestCase2 {
         Emotion sad = new Emotion("Sad", "#1864D6", "☺");
         Emotion angry = new Emotion("Angry", "#D61C1C", "☺");
 
-        Mood mood1 = new Mood(happy);
+        User user = new User("Greg");
+        Mood mood1 = new Mood(happy, user);
         moods.add(mood1);
         count+=1;
 
-        Mood mood2 = new Mood(sad);
+        Mood mood2 = new Mood(sad, user);
         moods.add(mood2);
         count+=1;
 
-        Mood mood3 = new Mood(angry);
+        Mood mood3 = new Mood(angry, user);
         moods.add(mood3);
         count+=1;
 
@@ -112,13 +117,14 @@ public class MoodListTest extends ActivityInstrumentationTestCase2 {
         Emotion sad = new Emotion("Sad", "#1864D6", "☺");
         Emotion angry = new Emotion("Angry", "#D61C1C", "☺");
 
-        Mood mood = new Mood(happy);
+        User user = new User("Greg");
+        Mood mood = new Mood(happy, user);
         mood.setMessage("hello");
 
-        Mood mood1 = new Mood(sad);
+        Mood mood1 = new Mood(sad, user);
         mood1.setMessage("hello goodbye");
 
-        Mood mood2 = new Mood(angry);
+        Mood mood2 = new Mood(angry, user);
         mood2.setMessage("goodbye");
 
         moods.add(mood);
@@ -146,13 +152,14 @@ public class MoodListTest extends ActivityInstrumentationTestCase2 {
         Emotion sad = new Emotion("Sad", "#1864D6", "☺");
         Emotion angry = new Emotion("Angry", "#D61C1C", "☺");
 
-        Mood mood = new Mood(happy);
+        User user = new User("Greg");
+        Mood mood = new Mood(happy, user);
 
-        Mood mood1 = new Mood(sad);
+        Mood mood1 = new Mood(sad, user);
 
-        Mood mood2 = new Mood(angry);
+        Mood mood2 = new Mood(angry, user);
 
-        Mood mood3 = new Mood(happy);
+        Mood mood3 = new Mood(happy, user);
 
         moods.add(mood);
         moods.add(mood1);
@@ -180,13 +187,14 @@ public class MoodListTest extends ActivityInstrumentationTestCase2 {
         Emotion sad = new Emotion("Sad", "#1864D6", "☺");
         Emotion angry = new Emotion("Angry", "#D61C1C", "☺");
 
-        Mood mood = new Mood(happy);
+        User user = new User("Greg");
+        Mood mood = new Mood(happy, user);
 
-        Mood mood1 = new Mood(sad);
+        Mood mood1 = new Mood(sad, user);
 
-        Mood mood2 = new Mood(angry);
+        Mood mood2 = new Mood(angry, user);
 
-        Mood mood3 = new Mood(happy);
+        Mood mood3 = new Mood(happy, user);
 
         moods.add(mood);
         moods.add(mood1);
@@ -219,16 +227,17 @@ public class MoodListTest extends ActivityInstrumentationTestCase2 {
         Emotion sad = new Emotion("Sad", "#1864D6", "☺");
         Emotion angry = new Emotion("Angry", "#D61C1C", "☺");
 
-        Mood mood = new Mood(happy);
+        User user = new User("Greg");
+        Mood mood = new Mood(happy, user);
         moods.add(mood);
 
-        Mood mood1 = new Mood(sad);
+        Mood mood1 = new Mood(sad, user);
         moods.add(mood1);
 
-        Mood mood2 = new Mood(angry);
+        Mood mood2 = new Mood(angry, user);
         moods.add(mood2);
 
-        Mood mood3 = new Mood(happy);
+        Mood mood3 = new Mood(happy, user);
         moods.add(mood3);
 
         moods.sortByRecentWeek();

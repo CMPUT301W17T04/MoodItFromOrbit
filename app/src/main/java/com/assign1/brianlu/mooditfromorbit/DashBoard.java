@@ -12,6 +12,7 @@ import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.ListView;
 import android.widget.TextView;
 
 import com.google.gson.Gson;
@@ -23,9 +24,15 @@ import com.google.gson.GsonBuilder;
 
 public class DashBoard extends AppCompatActivity implements MView<MainModel>{
 
+    private ListView moodListView;
+    private MoodListAdapter adapter;
+
+
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.dash_board);
+
+        moodListView = (ListView) findViewById(R.id.dashboardListView);
 
         //used https://developer.android.com/training/appbar/setting-up.html#utility
         Toolbar myToolbar = (Toolbar) findViewById(R.id.my_toolbar);
@@ -37,7 +44,12 @@ public class DashBoard extends AppCompatActivity implements MView<MainModel>{
     @Override
     protected void onStart() {
         // TODO Auto-generated method stub
+
+        MainController mc = MainApplication.getMainController();
+
         super.onStart();
+        adapter = new MoodListAdapter(this, mc.getFollowingMoods().getMoods());
+        moodListView.setAdapter(adapter);
 
     }
 
@@ -89,8 +101,9 @@ public class DashBoard extends AppCompatActivity implements MView<MainModel>{
 
 
 
-    public void update(MainModel mc){
+    public void update(MainModel mm){
         // TODO code to redisplay the data
+        adapter.notifyDataSetChanged();
     }
 
 

@@ -91,7 +91,7 @@ public class ProfileActivity extends AppCompatActivity implements MView<MainMode
 
 
 
-    public void update(MainModel mc){
+    public void update(MainModel m ){
         //TODO code to redisplay the data
     }
 }

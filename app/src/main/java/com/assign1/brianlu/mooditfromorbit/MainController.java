@@ -8,6 +8,8 @@
 
 package com.assign1.brianlu.mooditfromorbit;
 
+import android.util.Log;
+
 import java.util.ArrayList;
 
 /**
@@ -60,4 +62,14 @@ public class MainController implements MController {
     public ArrayList<Emotion> getEmotions(){
         return mm.getEmotions();
     }
+
+    public MoodList getFollowingMoods() {
+        User user = mm.getUserByName("Joe");
+        //mm.getMe().addFollowing(user);
+        Log.d("test add following", mm.getMe().getFollowing().toString());
+        mm.generateFollowingMoods();
+        Log.d("testing following", mm.getFollowingMoods().getMoods().toString());
+        return mm.getFollowingMoods();
+    }
+
 }
