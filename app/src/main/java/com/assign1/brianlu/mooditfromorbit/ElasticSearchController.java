@@ -34,79 +34,6 @@ public class ElasticSearchController {
     private static JestDroidClient client;
 
     /**
-     * adds moods to elastic search
-     */
-    public static class AddMoodsTask extends AsyncTask<Mood, Void, Void> {
-
-        @Override
-        protected Void doInBackground(Mood... moods) {
-            verifySettings();
-
-            for (Mood mood : moods) {
-                Index index = new Index.Builder(mood).index("cmput301w17t4").type("mood").build();
-
-                try {
-                    // where is the client?
-                    DocumentResult result = client.execute(index);
-                    if (result.isSucceeded()) {
-                        mood.setId(result.getId());
-                    }
-                    else {
-                        Log.i("Error", "Elastics was not able to to add the mood");
-                    }
-                }
-                catch (Exception e) {
-                    Log.i("Error", "The application failed to build and send the moods");
-                }
-
-            }
-            return null;
-        }
-    }
-
-    /**
-     * gets moods from elastic search
-     */
-    public static class GetMoodsTask extends AsyncTask<String, Void, MoodList> {
-        @Override
-        protected MoodList doInBackground(String... search_parameters) {
-            verifySettings();
-
-            MoodList moods = new MoodList();
-
-            String query = "";
-
-            if(search_parameters[0] != "") {
-                query = "{\"query\" : {\"term\" : { \"username\" : \"" + search_parameters[0] + "\" }}}";
-            }
-
-            Log.d("search parameter", search_parameters[0]);
-            // TODO Build the query
-            Search search = new Search.Builder(query)
-                    .addIndex("cmput301w17t4")
-                    .addType("mood")
-                    .build();
-
-            try {
-                // TODO get the results of the query
-                SearchResult result = client.execute(search);
-                if (result.isSucceeded()){
-                    MoodList foundMoods = new MoodList(result.getSourceAsObjectList(Mood.class));
-                    moods.merge(foundMoods);
-                }
-                else {
-                    Log.i("Error", "The search query failed to find any tweets that matched");
-                }
-            }
-            catch (Exception e) {
-                Log.i("Error", "Something went wrong when we tried to communicate with the elasticsearch server!");
-            }
-
-            return moods;
-        }
-    }
-
-    /**
      * adds users to elastic search
      */
     public static class AddUsersTask extends AsyncTask<User, Void, Void> {
@@ -170,11 +97,14 @@ public class ElasticSearchController {
                 Log.d("testing", "after search");
                 if (result.isSucceeded()){
                     Log.d("testing", "here");
-                    Log.d("testing", "error here");
+                    Log.d("testing json", result.getJsonString());
                     UserList foundUsers = new UserList(result.getSourceAsObjectList(User.class));
                     //UserList foundUsers = new UserList(result.getHits(User.class));
 
-                    List<SearchResult.Hit<Map,Void>> hits = client.execute(search).getHits(Map.class);
+
+                    //taken from http://stackoverflow.com/questions/33352798/elasticsearch-jest-client-how-to-return-document-id-from-hit
+                    // March 7, 2017 10:00pm
+                    List<SearchResult.Hit<Map,Void>> hits = result.getHits(Map.class);
 
                     int i = 0;
                     for(SearchResult.Hit hit : hits){
@@ -224,7 +154,7 @@ public class ElasticSearchController {
 
                 query = "{\"doc\" : " + user.getGsonMoods() + "}";
 
-                Log.d("userid", user.getId());
+                Log.d("userid update", user.getId());
                 Log.d("gson string", query);
                 Update update = new Update.Builder(query)
                         .index("cmput301w17t4")

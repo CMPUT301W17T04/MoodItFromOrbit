@@ -74,6 +74,7 @@ public class MainModel extends MModel<MView> {
 
     public void addUser(User user){
         Log.d("testing", user.getUserName());
+        user.newMood();
         users.add(user);
         ElasticSearchController.AddUsersTask addUsersTask = new ElasticSearchController.AddUsersTask();
         addUsersTask.execute(user);

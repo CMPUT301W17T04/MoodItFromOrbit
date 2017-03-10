@@ -106,15 +106,20 @@ public class SignUpActivity extends AppCompatActivity implements MView<MainModel
     }
 
     public void updateUsers(User user){
+        MainController mc = MainApplication.getMainController();
         //Log.d("userdid dash", user.getId());
-        /*String test = user.getGsonMoods();
+        String test = user.getGsonMoods();
+        //mc.getUsers().getUser(0).setFollowing(user);
+        //user.setFollowing(mc.getUsers().getUser(0));
         Gson gson = new Gson();
 
         String userTest = gson.toJson(user);
-        Log.d("testing gson", userTest);*/
+        //Log.d("testing gson", userTest);
         //TODO manually convert to json
 
-        MainController mc = MainApplication.getMainController();
+
+
+
         mc.addUser(user);
     }
 
