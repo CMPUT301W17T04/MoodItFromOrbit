@@ -25,23 +25,25 @@ public class User{
 
     public User(String userName){
         this.userName = userName;
-        this.moods = new MoodList();
+        this.moods = null;
+        this.following = null;
+        this.followers = null;
     }
 
     public String getUserName(){
         return this.userName;
     }
 
-    public void newMood(){
+    /*public void newMood(){
         //dont use
         Emotion happy = new Emotion("Happy", "#06B31D", "F263A");
         Mood newMood = new Mood(happy);
         moods.add(newMood);
-    }
+    }*/
 
     public String getGsonMoods(){
         //dont use
-        newMood();
+        //newMood();
         Gson gson = new Gson();
 
         return gson.toJson(moods);
@@ -56,7 +58,10 @@ public class User{
         this.moods = moods;
     }
 
-    public void addSingleMood(Mood mood){
+    public void addMood(Mood mood){
+        if(moods == null){
+            moods = new MoodList();
+        }
         this.moods.add(mood);
     }
 

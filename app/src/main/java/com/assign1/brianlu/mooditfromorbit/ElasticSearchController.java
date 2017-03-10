@@ -119,7 +119,6 @@ public class ElasticSearchController {
 
                     //UserList foundUsers = new UserList(hits);
 
-                    Log.d("testing", "maybe");
                     users.merge(foundUsers);
 
 
@@ -166,9 +165,9 @@ public class ElasticSearchController {
 
                 try {
                     // TODO get the results of the query
-                    Log.d("testing", "before search");
+
                     client.execute(update);
-                    Log.d("testing", "after search");
+
                     /*if (result.isSucceeded()){
                         Log.d("testing", "here");
                         UserList foundUsers = new UserList(result.getSourceAsObjectList(User.class));

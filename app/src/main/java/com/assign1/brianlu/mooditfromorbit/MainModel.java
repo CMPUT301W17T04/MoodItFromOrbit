@@ -10,6 +10,8 @@ package com.assign1.brianlu.mooditfromorbit;
 
 import android.util.Log;
 
+import com.google.gson.Gson;
+
 import java.util.ArrayList;
 
 /**
@@ -74,8 +76,11 @@ public class MainModel extends MModel<MView> {
 
     public void addUser(User user){
         Log.d("testing", user.getUserName());
-        user.newMood();
         users.add(user);
+        Gson gson = new Gson();
+
+        String upload = gson.toJson(user);
+
         ElasticSearchController.AddUsersTask addUsersTask = new ElasticSearchController.AddUsersTask();
         addUsersTask.execute(user);
     }
