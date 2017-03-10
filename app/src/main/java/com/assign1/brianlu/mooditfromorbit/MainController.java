@@ -66,9 +66,8 @@ public class MainController implements MController {
     public MoodList getFollowingMoods() {
         User user = mm.getUserByName("Joe");
         //mm.getMe().addFollowing(user);
-        Log.d("test add following", mm.getMe().getFollowing().toString());
         mm.generateFollowingMoods();
-        Log.d("testing following", mm.getFollowingMoods().getMoods().toString());
+
         return mm.getFollowingMoods();
     }
 

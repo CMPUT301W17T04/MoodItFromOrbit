@@ -25,9 +25,9 @@ public class User{
 
     public User(String userName){
         this.userName = userName;
-        this.moods = null;
-        this.following = null;
-        this.followers = null;
+        this.moods = new MoodList();
+        this.following = new ArrayList<>();
+        this.followers = new ArrayList<>();
     }
 
     public String getUserName(){

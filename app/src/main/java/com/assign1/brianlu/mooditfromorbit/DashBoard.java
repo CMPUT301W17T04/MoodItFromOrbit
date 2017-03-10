@@ -44,10 +44,9 @@ public class DashBoard extends AppCompatActivity implements MView<MainModel>{
     @Override
     protected void onStart() {
         // TODO Auto-generated method stub
-
+        super.onStart();
         MainController mc = MainApplication.getMainController();
 
-        super.onStart();
         adapter = new MoodListAdapter(this, mc.getFollowingMoods().getMoods());
         moodListView.setAdapter(adapter);
 

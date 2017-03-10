@@ -16,14 +16,21 @@ import android.os.Bundle;
 import android.support.v7.view.menu.MenuView;
 import android.support.v7.widget.SearchView;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.ListView;
 
 public class ProfileActivity extends AppCompatActivity implements MView<MainModel>{
 
+    private ListView moodListView;
+    private MoodListAdapter adapter;
+
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.dash_board);
+        setContentView(R.layout.activity_profile);
+
+        moodListView = (ListView) findViewById(R.id.profileListView);
 
         //used https://developer.android.com/training/appbar/setting-up.html#utility
         Toolbar myToolbar = (Toolbar) findViewById(R.id.my_toolbar);
@@ -46,6 +53,10 @@ public class ProfileActivity extends AppCompatActivity implements MView<MainMode
     protected void onStart() {
         // TODO Auto-generated method stub
         super.onStart();
+        MainController mc = MainApplication.getMainController();
+        Log.d("hello", mc.getMe().getId());
+        adapter = new MoodListAdapter(this, mc.getMe().getMoods().getMoods());
+        moodListView.setAdapter(adapter);
 
     }
 
@@ -93,5 +104,6 @@ public class ProfileActivity extends AppCompatActivity implements MView<MainMode
 
     public void update(MainModel m ){
         //TODO code to redisplay the data
+        adapter.notifyDataSetChanged();
     }
 }

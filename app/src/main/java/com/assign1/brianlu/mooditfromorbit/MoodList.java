@@ -13,13 +13,10 @@ import java.util.List;
  */
 
 public class MoodList{
-    private ArrayList<Mood> moods = new ArrayList<Mood>();
+    private ArrayList<Mood> moods = null;
 
     public MoodList(){
-    }
-
-    public MoodList(List moods){
-        moods.addAll(moods);
+        moods = new ArrayList<>();
     }
 
     public void add(Mood mood){
