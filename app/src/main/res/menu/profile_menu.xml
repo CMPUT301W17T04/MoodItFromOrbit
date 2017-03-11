@@ -27,17 +27,10 @@
         app:showAsAction="always"
         app:actionViewClass="android.support.v7.widget.SearchView" />
 
-    <item android:id="@+id/action_profile"
-        android:title="@string/action_profile"
-        app:showAsAction="never"/>
 
     <item android:id="@+id/action_map"
         android:title="@string/action_map"
         app:showAsAction="never" />
 
-    <item
-        android:id="@+id/menu_refresh"
-        app:showAsAction="never"
-        android:title="@string/menu_refresh"/>
 
 </menu>

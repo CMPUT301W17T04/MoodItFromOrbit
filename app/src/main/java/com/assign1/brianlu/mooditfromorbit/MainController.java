@@ -64,11 +64,12 @@ public class MainController implements MController {
     }
 
     public MoodList getFollowingMoods() {
-        User user = mm.getUserByName("Joe");
-        //mm.getMe().addFollowing(user);
         mm.generateFollowingMoods();
-
         return mm.getFollowingMoods();
+    }
+
+    public void generateFollowingMoods(){
+        mm.generateFollowingMoods();
     }
 
 }

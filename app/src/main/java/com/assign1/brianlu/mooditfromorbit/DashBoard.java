@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.view.MenuItemCompat;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.view.menu.MenuView;
@@ -26,6 +27,7 @@ public class DashBoard extends AppCompatActivity implements MView<MainModel>{
 
     private ListView moodListView;
     private MoodListAdapter adapter;
+    private SwipeRefreshLayout refreshLayout;
 
 
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,6 +39,31 @@ public class DashBoard extends AppCompatActivity implements MView<MainModel>{
         //used https://developer.android.com/training/appbar/setting-up.html#utility
         Toolbar myToolbar = (Toolbar) findViewById(R.id.my_toolbar);
         setSupportActionBar(myToolbar);
+
+
+        // taken from https://developer.android.com/training/swipe/respond-refresh-request.html
+        //March 10, 2017 4:45pm
+        /**
+         * Sets up a SwipeRefreshLayout.OnRefreshListener that is invoked when the user
+         * performs a swipe-to-refresh gesture.
+         */
+        refreshLayout = (SwipeRefreshLayout) findViewById(R.id.refreshLayout);
+        refreshLayout.setOnRefreshListener(
+                new SwipeRefreshLayout.OnRefreshListener() {
+                    @Override
+                    public void onRefresh() {
+                        Log.d("updating", "onRefresh called from SwipeRefreshLayout");
+
+                        // This method performs the actual data-refresh operation.
+                        // The method calls setRefreshing(false) when it's finished.
+
+                        updateList();
+                        refreshLayout.setRefreshing(false);
+
+                    }
+                }
+        );
+
 
         MainModel mm = MainApplication.getMainModel();
         mm.addView(this);
@@ -75,6 +102,11 @@ public class DashBoard extends AppCompatActivity implements MView<MainModel>{
 
                 return true;
 
+            case R.id.menu_refresh:
+                refreshLayout.setRefreshing(true);
+                updateList();
+                refreshLayout.setRefreshing(false);
+
             default:
                 // If we got here, the user's action was not recognized.
                 // Invoke the superclass to handle it.
@@ -102,7 +134,14 @@ public class DashBoard extends AppCompatActivity implements MView<MainModel>{
 
     public void update(MainModel mm){
         // TODO code to redisplay the data
+
+    }
+
+    public void updateList(){
+        MainController mc = MainApplication.getMainController();
+        mc.generateFollowingMoods();
         adapter.notifyDataSetChanged();
+
     }
 
 

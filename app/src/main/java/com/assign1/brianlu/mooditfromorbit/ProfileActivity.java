@@ -86,7 +86,7 @@ public class ProfileActivity extends AppCompatActivity implements MView<MainMode
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.dash_board_menu, menu);
+        getMenuInflater().inflate(R.menu.profile_menu, menu);
 
         MenuItem searchItem = menu.findItem(R.id.action_search);
         SearchView searchView =
