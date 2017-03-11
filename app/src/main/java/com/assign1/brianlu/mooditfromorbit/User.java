@@ -70,19 +70,6 @@ public class User{
         this.userName = userName;
     }
 
-    /*public void setFollowing(User user){
-        Boolean add = true;
-        for(int i =0; i< following.getCount();i++){
-            if(user.getUserName().equals(following.getUser(i).getUserName())){
-                add = false;
-            }
-        }
-        if(add){
-            following.add(user);
-        } else{
-            throw new IllegalArgumentException("You already followed this user!");
-        }
-    }*/
 
     public void addFollowing(User user){
         if(following == null){
@@ -99,19 +86,6 @@ public class User{
         followers.add(user.getId());
     }
 
-    /*public void setSharing(User user){
-        Boolean add = true;
-        for(int i =0; i<this.sharing.getCount();i++){
-            if(user.getUserName().equals(this.sharing.getUser(i).getUserName())){
-                add =false;
-            }
-        }
-        if(add){
-            this.sharing.add(user);
-        }else{
-            throw new IllegalArgumentException("You already shared this user!");
-        }
-    }*/
 
     public int getFollowingCount(){
         return following.size();
@@ -138,51 +112,6 @@ public class User{
             return false;
         }
     }
-
-    /*public Boolean hasFollower(User user){
-        boolean has = false;
-        for(int i = 0; i< following.getCount();i++){
-            if(this.following.getUser(i).getUserName().equals(user.getUserName())){
-                has = true;
-
-            }
-        }
-        return has;
-    }*/
-
-    /*public Boolean hasSharer(User user){
-        boolean has = false;
-        for(int i = 0; i< sharing.getCount();i++){
-            if(this.sharing.getUser(i).getUserName().equals(user.getUserName())){
-                has = true;
-            }
-        }
-        return has;
-    }*/
-
-    /*public void deleteSharing(User user){
-        boolean has = false;
-        for(int i =0; i<this.sharing.getCount();i++){
-            if(user.getUserName().equals(this.sharing.getUser(i).getUserName())){
-                has = true;
-            }
-        }
-        if(has){
-            sharing.deleteUser(user);
-        }
-    }*/
-
-    /*public void deleteFollowing(User user){
-        boolean has = false;
-        for(int i =0; i<this.following.getCount();i++){
-            if(user.getUserName().equals(this.following.getUser(i).getUserName())){
-                has = true;
-            }
-        }
-        if(has){
-            following.deleteUser(user);
-        }
-    }*/
 
     public ArrayList<String> getFollowing() {
         return following;

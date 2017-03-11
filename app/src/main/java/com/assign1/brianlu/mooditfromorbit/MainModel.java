@@ -18,6 +18,10 @@ import java.util.ArrayList;
  * Created by Gregory on 2017-03-06.
  */
 
+/**
+ * this is our model
+ */
+
 public class MainModel extends MModel<MView> {
     static private UserList users = null;
     static private ArrayList<Emotion> emotions;
@@ -77,6 +81,11 @@ public class MainModel extends MModel<MView> {
         return users;
     }
 
+    public void addNewMood(Mood mood){
+        me.addMood(mood);
+        ElasticSearchController.UpdateUsersMoodTask updateUsersMoodTask = new ElasticSearchController.UpdateUsersMoodTask();
+        updateUsersMoodTask.execute(me);
+    }
     /**
      * puts the moods of all people that the current user follows into followingMoods
      */

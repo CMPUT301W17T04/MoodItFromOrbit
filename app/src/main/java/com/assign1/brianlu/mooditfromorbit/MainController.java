@@ -16,6 +16,9 @@ import java.util.ArrayList;
  * Created by Gregory on 2017-03-06.
  */
 
+/**
+ * this is our controller
+ */
 public class MainController implements MController {
     MainModel mm = null;
 
@@ -70,6 +73,10 @@ public class MainController implements MController {
 
     public void generateFollowingMoods(){
         mm.generateFollowingMoods();
+    }
+
+    public void addNewMood(Mood mood){
+        mm.addNewMood(mood);
     }
 
 }
