@@ -10,20 +10,29 @@ package com.assign1.brianlu.mooditfromorbit;
 
 import android.util.Log;
 
+import com.google.gson.Gson;
+
 import java.util.ArrayList;
 
 /**
  * Created by Gregory on 2017-03-06.
  */
 
+/**
+ * this is our model
+ */
+
 public class MainModel extends MModel<MView> {
     static private UserList users = null;
     static private ArrayList<Emotion> emotions;
+    static private User me = null;
+    static private MoodList followingMoods = null;
 
     MainModel(){
         super();
         pullUsersFromServer();
         fillEmotions();
+        this.followingMoods = new MoodList();
     }
 
     private void pullUsersFromServer(){
@@ -35,7 +44,7 @@ public class MainModel extends MModel<MView> {
         } catch (Exception e){
             Log.i("Error", "Failed to get the users from the async object");
         }
-        //Log.d("users", users.getUser(0).getUserName());
+
     }
 
     /**
@@ -72,9 +81,43 @@ public class MainModel extends MModel<MView> {
         return users;
     }
 
+    public void addNewMood(Mood mood){
+        me.addMood(mood);
+        ElasticSearchController.UpdateUsersMoodTask updateUsersMoodTask = new ElasticSearchController.UpdateUsersMoodTask();
+        updateUsersMoodTask.execute(me);
+    }
+    /**
+     * puts the moods of all people that the current user follows into followingMoods
+     */
+    public void generateFollowingMoods(){
+        for(User user: users.getUsers()){
+            if(me.getFollowing().contains(user.getId())){
+                followingMoods.merge(user.getMoods());
+            }
+        }
+    }
+
+    public static MoodList getFollowingMoods() {
+        return followingMoods;
+    }
+
+    public void addFollower(User user){
+        me.addFollower(user);
+
+        ElasticSearchController.UpdateUsersFollowersTask updateUsersFollowersTask = new ElasticSearchController.UpdateUsersFollowersTask();
+        updateUsersFollowersTask.execute(me);
+    }
+
+    public void addFollowing(User user){
+        me.addFollowing(user);
+
+        ElasticSearchController.UpdateUsersFollowingTask updateUsersFollowingTask = new ElasticSearchController.UpdateUsersFollowingTask();
+        updateUsersFollowingTask.execute(user);
+    }
+
     public void addUser(User user){
-        Log.d("testing", user.getUserName());
         users.add(user);
+
         ElasticSearchController.AddUsersTask addUsersTask = new ElasticSearchController.AddUsersTask();
         addUsersTask.execute(user);
     }
@@ -83,16 +126,23 @@ public class MainModel extends MModel<MView> {
         return users.hasUser(user);
     }
 
+    public User getUserByName(String userName){
+        return users.getUserByName(userName);
+    }
+
     //taken from http://stackoverflow.com/questions/26893796/how-set-emoji-by-unicode-in-android-textview
     //March 6, 2017 11:36pm
     public String getEmojiByUnicode(int unicode){
         return new String(Character.toChars(unicode));
     }
 
-    public void updateUser(User user,String field, String content){
-        String userId = user.getId();
-        ElasticSearchController.UpdateUserTask updateUserTask = new ElasticSearchController.UpdateUserTask();
-        updateUserTask.execute(userId,field, content);
+
+    public User getMe() {
+        return me;
+    }
+
+    public void setMe(User me) {
+        MainModel.me = me;
 
     }
 }

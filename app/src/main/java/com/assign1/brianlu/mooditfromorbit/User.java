@@ -5,6 +5,11 @@ import android.text.BoringLayout;
 import android.util.Log;
 import android.widget.Toast;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.google.gson.reflect.TypeToken;
+
+import java.lang.reflect.Type;
 import java.util.ArrayList;
 
 /**
@@ -12,24 +17,38 @@ import java.util.ArrayList;
  */
 
 public class User{
-//    private Integer userID;
     private String userName;
     private MoodList moods;
-    private UserList following;
-    private UserList sharing;
+    private ArrayList<String> following;
+    private ArrayList<String> followers;
     private String id;
 
     public User(String userName){
         this.userName = userName;
         this.moods = new MoodList();
-        this.following = new UserList();
-        this.sharing = new UserList();
+        this.following = new ArrayList<>();
+        this.followers = new ArrayList<>();
     }
 
     public String getUserName(){
         return this.userName;
     }
 
+    public String getGsonMoods(){
+        //returns moods as gson string
+        GsonBuilder gsonBuilder = new GsonBuilder();
+        gsonBuilder.registerTypeAdapter(Mood.class, new MoodSerializer());
+        gsonBuilder.registerTypeAdapter(Emotion.class, new EmotionSerializer());
+
+        Gson gson = gsonBuilder.create();
+
+        String json = gson.toJson(moods);
+
+        json = json.replace("\\", "");
+        json = json.replace("}\"", "}");
+        json = json.replace("\"{", "{");
+        return json;
+    }
 
     public MoodList getMoods(){
         return this.moods;
@@ -40,7 +59,10 @@ public class User{
         this.moods = moods;
     }
 
-    public void addSingleMood(Mood mood){
+    public void addMood(Mood mood){
+        if(moods == null){
+            moods = new MoodList();
+        }
         this.moods.add(mood);
     }
 
@@ -48,100 +70,67 @@ public class User{
         this.userName = userName;
     }
 
-    public void setFollowing(User user){
-        Boolean add = true;
-        for(int i =0; i< following.getCount();i++){
-            if(user.getUserName().equals(following.getUser(i).getUserName())){
-                add = false;
-            }
+
+    public void addFollowing(User user){
+        if(following == null){
+            following = new ArrayList<>();
         }
-        if(add){
-            following.add(user);
-        } else{
-            throw new IllegalArgumentException("You already followed this user!");
-        }
+        following.add(user.getId());
+
     }
 
-    public void setSharing(User user){
-        Boolean add = true;
-        for(int i =0; i<this.sharing.getCount();i++){
-            if(user.getUserName().equals(this.sharing.getUser(i).getUserName())){
-                add =false;
-            }
+    public void addFollower(User user){
+        if(followers == null){
+            followers = new ArrayList<>();
         }
-        if(add){
-            this.sharing.add(user);
-        }else{
-            throw new IllegalArgumentException("You already shared this user!");
-        }
+        followers.add(user.getId());
     }
+
 
     public int getFollowingCount(){
-        return following.getCount();
+        return following.size();
     }
 
-    public int getSharingCount(){
-        return sharing.getCount();
+    public int getFollowersCount(){
+        return followers.size();
+    }
+
+    public Boolean hasFollowing(User user){
+        if(this.following.contains(user.getId())){
+            return true;
+        }
+        else{
+            return false;
+        }
     }
 
     public Boolean hasFollower(User user){
-        boolean has = false;
-        for(int i = 0; i< following.getCount();i++){
-            if(this.following.getUser(i).getUserName().equals(user.getUserName())){
-                has = true;
-
-            }
+        if(this.followers.contains(user.getId())){
+            return true;
         }
-        return has;
-    }
-
-    public Boolean hasSharer(User user){
-        boolean has = false;
-        for(int i = 0; i< sharing.getCount();i++){
-            if(this.sharing.getUser(i).getUserName().equals(user.getUserName())){
-                has = true;
-            }
-        }
-        return has;
-    }
-
-    public void deleteSharing(User user){
-        boolean has = false;
-        for(int i =0; i<this.sharing.getCount();i++){
-            if(user.getUserName().equals(this.sharing.getUser(i).getUserName())){
-                has = true;
-            }
-        }
-        if(has){
-            sharing.deleteUser(user);
+        else{
+            return false;
         }
     }
 
-    public void deleteFollowing(User user){
-        boolean has = false;
-        for(int i =0; i<this.following.getCount();i++){
-            if(user.getUserName().equals(this.following.getUser(i).getUserName())){
-                has = true;
-            }
-        }
-        if(has){
-            following.deleteUser(user);
-        }
+    public ArrayList<String> getFollowing() {
+        return following;
     }
 
-    public User getAFollower(int index){
-        return this.following.getUser(index);
+    public ArrayList<String> getFollowers() {
+        return followers;
     }
 
-    public User getASharer(int index){
-        return this.following.getUser(index);
+    public String getGsonFollowers(){
+        Gson gson = new Gson();
+
+        return gson.toJson(followers);
     }
 
-    public UserList getFollowing(){
-        return this.following;
-    }
-    public UserList getSharing(){
-        return this.sharing;
+    public String getGsonFollowing(){
+        Gson gson = new Gson();
+
+        return gson.toJson(following);
     }
 
     public String getId() {

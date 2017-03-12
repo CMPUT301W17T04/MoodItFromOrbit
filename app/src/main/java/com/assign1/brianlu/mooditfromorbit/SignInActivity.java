@@ -17,6 +17,7 @@ import android.widget.Toast;
  */
 
 public class SignInActivity extends AppCompatActivity implements MView<MainModel> {
+
     private EditText userName;
 
     protected void onCreate(Bundle savedInstanceState){
@@ -26,6 +27,7 @@ public class SignInActivity extends AppCompatActivity implements MView<MainModel
         Button logInButton = (Button) findViewById(R.id.logIn);
         TextView toSignUp = (TextView) findViewById(R.id.toSignUp);
         userName = (EditText) findViewById(R.id.signInInput);
+
         logInButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -36,9 +38,9 @@ public class SignInActivity extends AppCompatActivity implements MView<MainModel
 
                 String input = userName.getText().toString();
 
-                User user = new User(input);
+                Log.d("username", input);
 
-                Boolean exists = mc.checkForUser(user);
+                Boolean exists = mc.checkSignIn(input);
 
                 Log.d("boolean Value", exists.toString());
 
@@ -58,7 +60,7 @@ public class SignInActivity extends AppCompatActivity implements MView<MainModel
             public void onClick(View v) {
                 setResult(RESULT_OK);
                 Intent intent = new Intent(SignInActivity.this,SignUpActivity.class);
-                //intent.putExtra("filename", FILENAME);
+
                 startActivity(intent);
             }
         });
@@ -69,6 +71,7 @@ public class SignInActivity extends AppCompatActivity implements MView<MainModel
     @Override
     protected void onStart(){
         super.onStart();
+
     }
 
     @Override
@@ -78,8 +81,8 @@ public class SignInActivity extends AppCompatActivity implements MView<MainModel
         mm.deleteView(this);
     }
 
-    public void update(MainModel mc){
-        //mc.getUsers().add(user);
+    public void update(MainModel mm){
+        //TODO code to resync data
     }
 
 

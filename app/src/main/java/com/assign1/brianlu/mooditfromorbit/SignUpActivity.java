@@ -4,10 +4,13 @@ package com.assign1.brianlu.mooditfromorbit;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
+
+import com.google.gson.Gson;
 
 /**
  * Created by brianlu on 2017-02-23.
@@ -16,6 +19,9 @@ import android.widget.Toast;
  */
 
 public class SignUpActivity extends AppCompatActivity implements MView<MainModel> {
+
+
+
     private EditText userName;
     private EditText confirm;
 
@@ -30,7 +36,6 @@ public class SignUpActivity extends AppCompatActivity implements MView<MainModel
         userName = (EditText) findViewById(R.id.userInput);
         confirm = (EditText) findViewById(R.id.inputConfirm);
 
-        //FILENAME = getIntent().getExtras().getString("filename");
         logInButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -44,11 +49,16 @@ public class SignUpActivity extends AppCompatActivity implements MView<MainModel
                 if(!input.equals("") & input.equals(inputConfirm)){
 
                     User user = new User(input);
-                    //Log.i("match string","two input matches!!");
+
                     Boolean exists = mc.checkForUser(user);
+
+
                     if(!exists){
                         updateUsers(user);
+
                         Intent intent = new Intent(SignUpActivity.this, DashBoard.class);
+
+
                         startActivity(intent);
                     }
                     else{
@@ -57,6 +67,7 @@ public class SignUpActivity extends AppCompatActivity implements MView<MainModel
                 } else{
                     Toast.makeText(getBaseContext(),"Username doesn't match!",Toast.LENGTH_SHORT).show();
                 }
+
             }
         });
 
@@ -80,10 +91,16 @@ public class SignUpActivity extends AppCompatActivity implements MView<MainModel
         mm.deleteView(this);
     }
 
-    public void update(MainModel mc){}
+    public void update(MainModel mm){
+        //TODO code to resync data
+    }
 
     public void updateUsers(User user){
         MainController mc = MainApplication.getMainController();
+
+
+        //TODO manually convert to json
+
         mc.addUser(user);
     }
 

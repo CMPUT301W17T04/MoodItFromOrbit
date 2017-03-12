@@ -19,7 +19,8 @@
         android:layout_height="60dp"
         android:textSize="20sp"
         android:textColorHint="#ff444444"
-        android:hint="@string/signInInput" />
+        android:hint="@string/signInInput"
+        android:inputType="textPersonName" />
 
     <Button
         android:id="@+id/logIn"

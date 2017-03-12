@@ -10,41 +10,23 @@ package com.assign1.brianlu.mooditfromorbit;
 
 import android.content.Intent;
 import android.support.v4.view.MenuItemCompat;
-import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.view.menu.MenuView;
 import android.support.v7.widget.SearchView;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.ListView;
 
-public class ProfileActivity extends AppCompatActivity implements MView<MainModel>{
-
-    private ListView moodListView;
-    private MoodListAdapter adapter;
+public class MapActivity extends AppCompatActivity implements MView<MainModel> {
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_profile);
-
-        moodListView = (ListView) findViewById(R.id.profileListView);
+        setContentView(R.layout.activity_map);
 
         //used https://developer.android.com/training/appbar/setting-up.html#utility
         Toolbar myToolbar = (Toolbar) findViewById(R.id.my_toolbar);
         setSupportActionBar(myToolbar);
-
-        //back button
-        // Get a support ActionBar corresponding to this toolbar
-        ActionBar ab = getSupportActionBar();
-
-        // Enable the Up button
-        ab.setDisplayHomeAsUpEnabled(true);
-
-
-
 
         MainModel mm = MainApplication.getMainModel();
         mm.addView(this);
@@ -53,10 +35,6 @@ public class ProfileActivity extends AppCompatActivity implements MView<MainMode
     protected void onStart() {
         // TODO Auto-generated method stub
         super.onStart();
-        MainController mc = MainApplication.getMainController();
-        Log.d("hello", mc.getMe().getId());
-        adapter = new MoodListAdapter(this, mc.getMe().getMoods().getMoods());
-        moodListView.setAdapter(adapter);
 
     }
 
@@ -72,8 +50,15 @@ public class ProfileActivity extends AppCompatActivity implements MView<MainMode
         switch (item.getItemId()) {
             case R.id.action_add_mood:
                 //switch to add mood activity
-                Intent intent1 = new Intent(ProfileActivity.this, AddMood.class);
+                Intent intent1 = new Intent(MapActivity.this, AddMood.class);
                 startActivity(intent1);
+                return true;
+
+            case R.id.action_profile:
+
+                Intent intent = new Intent(MapActivity.this, ProfileActivity.class);
+                startActivity(intent);
+
                 return true;
 
             default:
@@ -86,7 +71,7 @@ public class ProfileActivity extends AppCompatActivity implements MView<MainMode
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.profile_menu, menu);
+        getMenuInflater().inflate(R.menu.dash_board_menu, menu);
 
         MenuItem searchItem = menu.findItem(R.id.action_search);
         SearchView searchView =
@@ -95,15 +80,13 @@ public class ProfileActivity extends AppCompatActivity implements MView<MainMode
         MenuItem sortItem = menu.findItem(R.id.action_sort);
         MenuView menuView =
                 (MenuView) MenuItemCompat.getActionView(sortItem);
-        // Configure the search info and add any event listeners...
 
         return super.onCreateOptionsMenu(menu);
     }
 
 
 
-    public void update(MainModel m ){
-        //TODO code to redisplay the data
-        adapter.notifyDataSetChanged();
+    public void update(MainModel mc){
+        // TODO code to redisplay the data
     }
 }

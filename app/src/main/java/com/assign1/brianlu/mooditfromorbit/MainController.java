@@ -8,12 +8,17 @@
 
 package com.assign1.brianlu.mooditfromorbit;
 
+import android.util.Log;
+
 import java.util.ArrayList;
 
 /**
  * Created by Gregory on 2017-03-06.
  */
 
+/**
+ * this is our controller
+ */
 public class MainController implements MController {
     MainModel mm = null;
 
@@ -27,13 +32,51 @@ public class MainController implements MController {
 
     public void addUser(User user){
         mm.addUser(user);
+        mm.setMe(user);
+    }
+    public void addFollower(User user){
+        mm.addFollower(user);
+    }
+
+    public void addFollowing(User user){
+        mm.addFollowing(user);
+    }
+
+    public boolean checkSignIn(String userName){
+        User me = mm.getUserByName(userName);
+
+        if(me != null){
+            mm.setMe(me);
+            return true;
+        }
+        else{
+            return false;
+        }
     }
 
     public boolean checkForUser(User user){
         return mm.checkForUser(user);
     }
 
+    public User getMe(){
+        return mm.getMe();
+    }
+
     public ArrayList<Emotion> getEmotions(){
         return mm.getEmotions();
     }
+
+    public MoodList getFollowingMoods() {
+        mm.generateFollowingMoods();
+        return mm.getFollowingMoods();
+    }
+
+    public void generateFollowingMoods(){
+        mm.generateFollowingMoods();
+    }
+
+    public void addNewMood(Mood mood){
+        mm.addNewMood(mood);
+    }
+
 }

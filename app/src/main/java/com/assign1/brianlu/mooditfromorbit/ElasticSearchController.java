@@ -17,7 +17,9 @@ import com.searchly.jestdroid.JestDroidClient;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
+import io.searchbox.client.JestResult;
 import io.searchbox.core.DocumentResult;
 import io.searchbox.core.Index;
 import io.searchbox.core.Search;
@@ -32,79 +34,6 @@ public class ElasticSearchController {
     private static JestDroidClient client;
 
     /**
-     * adds moods to elastic search
-     */
-    public static class AddMoodsTask extends AsyncTask<Mood, Void, Void> {
-
-        @Override
-        protected Void doInBackground(Mood... moods) {
-            verifySettings();
-
-            for (Mood mood : moods) {
-                Index index = new Index.Builder(mood).index("cmput301w17t4").type("mood").build();
-
-                try {
-                    // where is the client?
-                    DocumentResult result = client.execute(index);
-                    if (result.isSucceeded()) {
-                        mood.setId(result.getId());
-                    }
-                    else {
-                        Log.i("Error", "Elastics was not able to to add the mood");
-                    }
-                }
-                catch (Exception e) {
-                    Log.i("Error", "The application failed to build and send the moods");
-                }
-
-            }
-            return null;
-        }
-    }
-
-    /**
-     * gets moods from elastic search
-     */
-    public static class GetMoodsTask extends AsyncTask<String, Void, MoodList> {
-        @Override
-        protected MoodList doInBackground(String... search_parameters) {
-            verifySettings();
-
-            MoodList moods = new MoodList();
-
-            String query = "";
-
-            if(search_parameters[0] != "") {
-                query = "{\"query\" : {\"term\" : { \"username\" : \"" + search_parameters[0] + "\" }}}";
-            }
-
-            Log.d("search parameter", search_parameters[0]);
-            // TODO Build the query
-            Search search = new Search.Builder(query)
-                    .addIndex("cmput301w17t4")
-                    .addType("mood")
-                    .build();
-
-            try {
-                // TODO get the results of the query
-                SearchResult result = client.execute(search);
-                if (result.isSucceeded()){
-                    MoodList foundMoods = new MoodList(result.getSourceAsObjectList(Mood.class));
-                    moods.merge(foundMoods);
-                }
-                else {
-                    Log.i("Error", "The search query failed to find any tweets that matched");
-                }
-            }
-            catch (Exception e) {
-                Log.i("Error", "Something went wrong when we tried to communicate with the elasticsearch server!");
-            }
-
-            return moods;
-        }
-    }
-
-    /**
      * adds users to elastic search
      */
     public static class AddUsersTask extends AsyncTask<User, Void, Void> {
@@ -114,15 +43,16 @@ public class ElasticSearchController {
             verifySettings();
 
             for (User user : users) {
-                Log.d("testsing", user.getUserName());
+
                 Index index = new Index.Builder(user).index("cmput301w17t4").type("user").build();
 
                 try {
                     // where is the client?
                     DocumentResult result = client.execute(index);
                     if (result.isSucceeded()) {
+
                         user.setId(result.getId());
-//                        Log.i("the user id is:",result.getId());
+
                     }
                     else {
                         Log.i("Error", "Elastics was not able to to add the user");
@@ -151,24 +81,40 @@ public class ElasticSearchController {
                 query = "{\"query\" : {\"term\" : { \"username\" : \"" + search_parameters[0] + "\" }}}";
             }
 
-            Log.d("search parameters", search_parameters[0]);
             // TODO Build the query
             Search search = new Search.Builder(query)
                     .addIndex("cmput301w17t4")
                     .addType("user")
                     .build();
 
-            Log.d("search", search.toString());
-
             try {
                 // TODO get the results of the query
-                Log.d("testing", "before search");
+
                 SearchResult result = client.execute(search);
-                Log.d("testing", "after search");
+
                 if (result.isSucceeded()){
-                    Log.d("testing", "here");
+
                     UserList foundUsers = new UserList(result.getSourceAsObjectList(User.class));
+
+                    //taken from http://stackoverflow.com/questions/33352798/elasticsearch-jest-client-how-to-return-document-id-from-hit
+                    // March 7, 2017 10:00pm
+                    List<SearchResult.Hit<Map,Void>> hits = result.getHits(Map.class);
+
+                    int i = 0;
+                    for(SearchResult.Hit hit : hits){
+
+                        Map source = (Map)hit.source;
+
+                        String id = (String)source.get(JestResult.ES_METADATA_ID);
+                        foundUsers.getUser(i).setId(id);
+                        i++;
+                        Log.d("testing", source.toString());
+
+                    }
+
+
                     users.merge(foundUsers);
+
                 }
                 else {
                     Log.i("Error", "The search query failed to find any tweets that matched");
@@ -183,6 +129,120 @@ public class ElasticSearchController {
         }
     }
 
+
+    /**
+     * updates moodslist on the server
+     */
+    public static class UpdateUsersMoodTask extends AsyncTask<User, Void, Void> {
+
+        @Override
+        protected Void doInBackground(User... users) {
+            verifySettings();
+
+            for (User user : users) {
+
+                String query = "";
+
+
+                query = "{\"doc\" : { \"type\" : \"nested\", \"moods\" : " + user.getGsonMoods() + "}}";
+
+                Log.d("userid update", user.getId());
+                Log.d("gson string", query);
+                Update update = new Update.Builder(query)
+                        .index("cmput301w17t4")
+                        .type("user")
+                        .id(user.getId())
+                        .build();
+
+                try {
+
+                    // TODO get the results of the query
+
+                    client.execute(update);
+
+
+                }
+                catch (Exception e) {
+                    Log.i("Error", "Something went wrong when we tried to communicate with the elasticsearch server!");
+                    Log.d("Error", e.toString());
+                }
+
+            }
+            return null;
+        }
+    }
+
+    public static class UpdateUsersFollowersTask extends AsyncTask<User, Void, Void> {
+
+        @Override
+        protected Void doInBackground(User... users) {
+            verifySettings();
+
+            for (User user : users) {
+
+                String query = "";
+
+
+                query = "{\"doc\" : { \"followers\" : " + user.getGsonFollowers() + "}}";
+
+                Log.d("gson string", query);
+                Update update = new Update.Builder(query)
+                        .index("cmput301w17t4")
+                        .type("user")
+                        .id(user.getId())
+                        .build();
+
+                try {
+                    // TODO get the results of the query
+
+                    client.execute(update);
+
+                }
+                catch (Exception e) {
+                    Log.i("Error", "Something went wrong when we tried to communicate with the elasticsearch server!");
+                    Log.d("Error", e.toString());
+                }
+
+            }
+            return null;
+        }
+    }
+
+    public static class UpdateUsersFollowingTask extends AsyncTask<User, Void, Void> {
+
+        @Override
+        protected Void doInBackground(User... users) {
+            verifySettings();
+
+            for (User user : users) {
+
+                String query = "";
+
+
+                query = "{\"doc\" : { \"following\" : " + user.getGsonFollowing() + "}}";
+
+                Log.d("gson string", query);
+                Update update = new Update.Builder(query)
+                        .index("cmput301w17t4")
+                        .type("user")
+                        .id(user.getId())
+                        .build();
+
+                try {
+                    // TODO get the results of the query
+
+                    client.execute(update);
+
+                }
+                catch (Exception e) {
+                    Log.i("Error", "Something went wrong when we tried to communicate with the elasticsearch server!");
+                    Log.d("Error", e.toString());
+                }
+
+            }
+            return null;
+        }
+    }
 
 
 

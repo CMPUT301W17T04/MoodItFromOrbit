@@ -23,7 +23,6 @@ import java.util.ArrayList;
  */
 
 public class MoodMainActivity extends AppCompatActivity {
-    //private String FILENAME = "user.sav";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,9 +37,9 @@ public class MoodMainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 setResult(RESULT_OK);
-                Log.i("click sign in", "click signed in button");
+
                 Intent intent = new Intent(MoodMainActivity.this, SignInActivity.class);
-                //intent.putExtra("filename",FILENAME);
+
                 startActivity(intent);
             }
         });
@@ -49,9 +48,9 @@ public class MoodMainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 setResult(RESULT_OK);
-                Log.i("click sign up", "clicked sign Up");
+
                 Intent intent = new Intent(MoodMainActivity.this,SignUpActivity.class);
-                //intent.putExtra("filename", FILENAME);
+
                 startActivity(intent);
             }
         });
@@ -59,34 +58,12 @@ public class MoodMainActivity extends AppCompatActivity {
 
     }
 
-
     @Override
     protected void onStart() {
         // TODO Auto-generated method stub
         super.onStart();
-        //loadFromFile();
+
     }
 
-
-    /*private void loadFromFile() {
-        try {
-            Log.i("file name is: ",FILENAME);
-            FileInputStream fis = openFileInput(FILENAME);
-            BufferedReader in = new BufferedReader(new InputStreamReader(fis));
-
-            Gson gson = new Gson();
-            // Took from https://google-gson.googlecode.com/svn/trunk/gson/docs/javadocs/com/google/gson/Gson.html Jan-21-2016
-            Type listType = new TypeToken<ArrayList<User>>(){}.getType();
-            users = gson.fromJson(in, listType);
-
-        } catch (FileNotFoundException e) {
-            // TODO Auto-generated catch block
-            users = new ArrayList<User>();
-        } catch (IOException e) {
-            // TODO Auto-generated catch block
-            throw new RuntimeException();
-        }
-
-    }*/
 
 }

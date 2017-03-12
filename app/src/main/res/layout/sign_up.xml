@@ -20,6 +20,7 @@
         android:textSize="20sp"
         android:textColorHint="#ff444444"
         android:hint="@string/signUpInput"
+        android:inputType="textPersonName"
         />
     <EditText
         android:id="@+id/inputConfirm"
@@ -29,6 +30,7 @@
         android:textSize="20sp"
         android:textColorHint="#ff444444"
         android:hint="@string/signUpConfirm"
+        android:inputType="textPersonName"
         />
 
 
