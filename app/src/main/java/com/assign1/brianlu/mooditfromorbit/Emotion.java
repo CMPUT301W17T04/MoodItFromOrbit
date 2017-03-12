@@ -14,6 +14,8 @@ import android.graphics.Color;
  * Created by Gregory on 2017-02-26.
  */
 
+
+
 public class Emotion {
     private String emotion;
     private int colour;

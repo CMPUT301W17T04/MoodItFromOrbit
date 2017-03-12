@@ -88,4 +88,11 @@ public class MainModel extends MModel<MView> {
     public String getEmojiByUnicode(int unicode){
         return new String(Character.toChars(unicode));
     }
+
+    public void updateUser(User user,String field, String content){
+        String userId = user.getId();
+        ElasticSearchController.UpdateUserTask updateUserTask = new ElasticSearchController.UpdateUserTask();
+        updateUserTask.execute(userId,field, content);
+
+    }
 }
