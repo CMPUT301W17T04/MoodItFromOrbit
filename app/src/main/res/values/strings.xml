@@ -34,6 +34,7 @@
 
     <string-array name="group_status">
         <item>Alone</item>
+        <item>With One Other</item>
         <item>2 to Several</item>
         <item>Crowd</item>
     </string-array>

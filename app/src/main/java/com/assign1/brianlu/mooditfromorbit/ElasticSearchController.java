@@ -170,7 +170,44 @@ public class ElasticSearchController {
         }
     }
 
-    public static class UpdateUsersFollowersTask extends AsyncTask<User, Void, Void> {
+    public static class UpdateUsersFollowListTask extends AsyncTask<User, Void, Void> {
+
+        @Override
+        protected Void doInBackground(User... users) {
+            verifySettings();
+
+            for (User user : users) {
+
+                String query = "";
+
+
+                query = "{\"doc\" : { \"type\" : \"nested\", \"followList\" : " + user.getGsonFollowList() + "}}";
+                //query = "{\"doc\" : { \"followers\" : " + user.getGsonFollowList() + "}}";
+
+                Log.d("gson string", query);
+                Update update = new Update.Builder(query)
+                        .index("cmput301w17t4")
+                        .type("user")
+                        .id(user.getId())
+                        .build();
+
+                try {
+                    // TODO get the results of the query
+
+                    client.execute(update);
+
+                }
+                catch (Exception e) {
+                    Log.i("Error", "Something went wrong when we tried to communicate with the elasticsearch server!");
+                    Log.d("Error", e.toString());
+                }
+
+            }
+            return null;
+        }
+    }
+
+    /*public static class UpdateUsersFollowersTask extends AsyncTask<User, Void, Void> {
 
         @Override
         protected Void doInBackground(User... users) {
@@ -204,9 +241,9 @@ public class ElasticSearchController {
             }
             return null;
         }
-    }
+    }*/
 
-    public static class UpdateUsersFollowingTask extends AsyncTask<User, Void, Void> {
+    /*public static class UpdateUsersFollowingTask extends AsyncTask<User, Void, Void> {
 
         @Override
         protected Void doInBackground(User... users) {
@@ -240,7 +277,7 @@ public class ElasticSearchController {
             }
             return null;
         }
-    }
+    }*/
 
 
 

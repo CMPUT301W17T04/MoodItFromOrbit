@@ -41,6 +41,11 @@ public class DashBoard extends AppCompatActivity implements MView<MainModel>{
         setSupportActionBar(myToolbar);
 
 
+        ActionBar ab = getSupportActionBar();
+
+        ab.setTitle("Dashboard");
+
+
         // taken from https://developer.android.com/training/swipe/respond-refresh-request.html
         //March 10, 2017 4:45pm
         /**
