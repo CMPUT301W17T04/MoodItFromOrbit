@@ -24,15 +24,16 @@ public class EditMood extends AppCompatActivity implements MView<MainModel> {
     ImageView IMG;
     Bitmap imageBitmap;
     Mood mood;
+    int moodId;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edit_mood);
 
 
-        MainController mc = MainApplication.getMainController();
+        final MainController mc = MainApplication.getMainController();
 
-        int moodId = getIntent().getExtras().getInt("moodId");
+        moodId = getIntent().getExtras().getInt("moodId");
         mood = mc.getMe().getMoods().getMood(moodId);
 
         EditText get_comment = (EditText) findViewById(R.id.comment);
@@ -59,8 +60,8 @@ public class EditMood extends AppCompatActivity implements MView<MainModel> {
 
 
         // when done button is pressed
-        Button button = (Button) findViewById(R.id.update);
-        button.setOnClickListener(new View.OnClickListener() {
+        Button updateButton = (Button) findViewById(R.id.update);
+        updateButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 //TODO get info from input
@@ -111,10 +112,22 @@ public class EditMood extends AppCompatActivity implements MView<MainModel> {
                 }
                 Log.d("location", moodLocation.toString());
 //                mc.addNewMood(mood);
-//                mc.
+                mc.updateMoodList();
 
                 finish();
             }
+        });
+
+
+        Button deleteButton = (Button) findViewById(R.id.delete);
+        deleteButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                mc.getMe().getMoods().delete(mood);
+                mc.updateMoodList();
+                finish();
+            }
+
         });
 
 
