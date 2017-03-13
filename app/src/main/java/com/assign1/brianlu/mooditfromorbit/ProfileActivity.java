@@ -113,8 +113,9 @@ public class ProfileActivity extends AppCompatActivity implements MView<MainMode
                         continue;
                     }
                     else{
-                        mc.getMe().addFollowing(user);
+                        mc.addFollowing(user);
                     }
+
                 }
 
 
