@@ -39,7 +39,7 @@ public class EditMood extends AppCompatActivity implements MView<MainModel> {
         mood = mc.getMe().getMoods().getMood(moodId);
 
         EditText get_comment = (EditText) findViewById(R.id.Ecomment);
-        if (mood.getMessage()== null){get_comment.setText(mood.getMessage());}
+        if (mood.getMessage()!= null){get_comment.setText(mood.getMessage());}
 
 
 //        Spinner s_emotions = (Spinner) findViewById(R.id.emotions);
