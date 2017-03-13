@@ -18,6 +18,8 @@
     <string name="action_add_mood">Add Mood</string>
     <string name="action_map">Show Map</string>
     <string name="menu_refresh">Refresh</string>
+    <string name="delete">Delete</string>
+    <string name="update">Update</string>
 
     <string-array name="Emotions_List">
         <item>Angry</item>

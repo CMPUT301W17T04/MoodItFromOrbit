@@ -67,6 +67,7 @@ public class MapActivity extends AppCompatActivity implements MView<MainModel> {
 
         MoodList moods = me.getMoods();
 
+        // recursively add more marker overlays to the map
         for(int i =0;i< moods.getCount();i++){
             Mood mood = moods.getMood(i);
             GeoPoint pt = new GeoPoint(mood.getLatitude(), mood.getLongitude());

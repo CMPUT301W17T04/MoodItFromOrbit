@@ -21,6 +21,8 @@ import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ListView;
 
 /**
@@ -57,6 +59,18 @@ public class ProfileActivity extends AppCompatActivity implements MView<MainMode
 
         MainModel mm = MainApplication.getMainModel();
         mm.addView(this);
+
+
+
+
+
+        moodListView.setOnItemClickListener(new AdapterView.OnItemClickListener(){
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Intent intent = new Intent(ProfileActivity.this, EditMood.class);
+                intent.putExtra("moodId",position);
+                startActivity(intent);
+            }
+        });
     }
     @Override
     protected void onStart() {
