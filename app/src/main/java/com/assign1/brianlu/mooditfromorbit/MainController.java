@@ -8,6 +8,8 @@
 
 package com.assign1.brianlu.mooditfromorbit;
 
+import android.content.Context;
+import android.location.Location;
 import android.util.Log;
 
 import java.util.ArrayList;
@@ -77,6 +79,18 @@ public class MainController implements MController {
 
     public void addNewMood(Mood mood){
         mm.addNewMood(mood);
+    }
+
+    public void startLocationListen(Context context){
+        mm.startLocationListen(context);
+    }
+
+    public void stopLocationListener(){
+        mm.stopLocationListener();
+    }
+
+    public Location getLocation(){
+        return mm.getLocation();
     }
 
 }

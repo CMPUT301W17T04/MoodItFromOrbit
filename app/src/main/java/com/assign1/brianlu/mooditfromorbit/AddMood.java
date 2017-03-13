@@ -8,7 +8,9 @@
 
 package com.assign1.brianlu.mooditfromorbit;
 
+import android.content.Context;
 import android.location.Location;
+import android.location.LocationListener;
 import android.location.LocationManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -25,6 +27,10 @@ public class AddMood extends AppCompatActivity implements MView<MainModel> {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_mood);
+
+        MainController mc = MainApplication.getMainController();
+
+        mc.startLocationListen(this);
 
 /*        Spinner s = (Spinner) findViewById(R.id.emotions);
 
@@ -51,19 +57,14 @@ public class AddMood extends AppCompatActivity implements MView<MainModel> {
                 mood.setSocialSituation("With One Other");
                 mood.setMessage("A Test Message");
 
-                LocationManager locationManager = (LocationManager) getApplicationContext().getSystemService(LOCATION_SERVICE);
 
-                Location location = null;
-                try {
-                    location = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
-                }
-                catch(SecurityException e){
-                    Log.d("Location error", e.toString());
+                // Remove the listener you previously added
+                mc.stopLocationListener();
+                Location moodLocation = mc.getLocation();
 
-                }
-                mood.setLocation(location);
+                mood.setLocation(moodLocation);
 
-                Log.d("location", location.toString());
+                Log.d("location", moodLocation.toString());
                 mc.addNewMood(mood);
                 finish();
             }

@@ -8,6 +8,11 @@
 
 package com.assign1.brianlu.mooditfromorbit;
 
+import android.content.Context;
+import android.location.Location;
+import android.location.LocationListener;
+import android.location.LocationManager;
+import android.os.Bundle;
 import android.util.Log;
 
 import com.google.gson.Gson;
@@ -27,6 +32,9 @@ public class MainModel extends MModel<MView> {
     static private ArrayList<Emotion> emotions;
     static private User me = null;
     static private MoodList followingMoods = null;
+    static private Location moodLocation;
+    private LocationManager locationManager;
+    private LocationListener locationListener;
 
     MainModel(){
         super();
@@ -147,5 +155,49 @@ public class MainModel extends MModel<MView> {
 
     public void setMe(User me) {
         MainModel.me = me;
+    }
+
+    public void startLocationListen(Context context){
+        // referenced https://developer.android.com/guide/topics/location/strategies.html
+        // March 12, 2017 10:00pm
+
+        // Acquire a reference to the system Location Manager
+        locationManager = (LocationManager) context.getSystemService(Context.LOCATION_SERVICE);
+
+        // Define a listener that responds to location updates
+        locationListener = new LocationListener() {
+            public void onLocationChanged(Location location) {
+                // Called when a new location is found by the network location provider.
+                moodLocation = location;
+            }
+
+            public void onStatusChanged(String provider, int status, Bundle extras) {}
+
+            public void onProviderEnabled(String provider) {}
+
+            public void onProviderDisabled(String provider) {}
+        };
+
+        // Register the listener with the Location Manager to receive location updates
+        try {
+            locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0, locationListener);
+        }
+        catch (SecurityException e){
+            Log.d("location", e.toString());
+        }
+    }
+
+    public void stopLocationListener(){
+        try {
+            moodLocation = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
+            locationManager.removeUpdates(locationListener);
+        }
+        catch(SecurityException e){
+            Log.d("Location error", e.toString());
+
+        }
+    }
+    public Location getLocation(){
+        return moodLocation;
     }
 }
