@@ -20,7 +20,8 @@ import java.util.Date;
 public class Mood {
     private Emotion emotion;
     private Date date;
-    private Location geoLoc;
+    private Double latitude;
+    private Double longitude;
     private String message;
     private Bitmap image;
     private String socialSituation;
@@ -31,6 +32,8 @@ public class Mood {
         this.emotion = emotion;
         this.userName = user.getUserName();
         this.date = new Date(System.currentTimeMillis());
+        this.latitude = null;
+        this.longitude = null;
     }
 
     public String getUserName() {
@@ -59,10 +62,6 @@ public class Mood {
         return df.format(date);
     }
 
-    public String getStringLocation(){
-        Gson gson = new Gson();
-        return gson.toJson(geoLoc);
-    }
 
     public String getStringImage(){
         //TODO convert image to string
@@ -73,13 +72,6 @@ public class Mood {
         this.emotion = emotion;
     }
 
-    public Location getGeoLoc() {
-        return geoLoc;
-    }
-
-    public void setGeoLoc(Location geoLoc) {
-        this.geoLoc = geoLoc;
-    }
 
     public Bitmap getImage() {
         return image;
@@ -114,4 +106,17 @@ public class Mood {
         this.message = message;
     }
 
+    public Double getLatitude() {
+        return latitude;
+    }
+
+    public Double getLongitude() {
+        return longitude;
+    }
+
+    public void setLocation(Location location) {
+        this.longitude = location.getLongitude();
+        this.latitude = location.getLatitude();
+
+    }
 }

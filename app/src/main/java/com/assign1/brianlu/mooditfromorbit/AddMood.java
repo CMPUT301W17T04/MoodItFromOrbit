@@ -61,7 +61,7 @@ public class AddMood extends AppCompatActivity implements MView<MainModel> {
                     Log.d("Location error", e.toString());
 
                 }
-                mood.setGeoLoc(location);
+                mood.setLocation(location);
 
                 Log.d("location", location.toString());
                 mc.addNewMood(mood);
