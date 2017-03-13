@@ -21,7 +21,9 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Toast;
-
+/**
+ * Created by cqtran on 2017-03-07.
+ */
 /**
  * creates mood from user input and adds it to the user
  */
