@@ -79,8 +79,8 @@ public class Mood {
      * @return string value of image
      */
     public String getStringImage(){
-        //TODO convert image to string
-        return null;
+        Gson gson = new Gson();
+        return gson.toJson(image);
     }
 
     public void setEmotion(Emotion emotion) {
