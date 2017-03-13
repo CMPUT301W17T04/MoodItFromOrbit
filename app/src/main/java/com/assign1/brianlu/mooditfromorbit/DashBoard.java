@@ -145,6 +145,9 @@ public class DashBoard extends AppCompatActivity implements MView<MainModel>{
 
     }
 
+    /**
+     * updates data in adapter
+     */
     public void updateList(){
         MainController mc = MainApplication.getMainController();
         mc.generateFollowingMoods();
