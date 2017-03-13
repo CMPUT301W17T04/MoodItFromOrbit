@@ -13,9 +13,10 @@ import android.widget.Toast;
 import com.google.gson.Gson;
 
 /**
+ * this activity allows users to sign up
  * Created by brianlu on 2017-02-23.
  *
- * this activity allows users to sign up
+ *
  */
 
 public class SignUpActivity extends AppCompatActivity implements MView<MainModel> {

@@ -16,9 +16,9 @@ import java.util.ArrayList;
 import java.util.Date;
 
 /**
+ * Contains data for mood event
  * Created by brianlu on 2017-02-23.
  *
- * Contains data for mood event
  */
 
 public class Mood {

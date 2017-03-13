@@ -20,10 +20,10 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
 /**
+ * this is the main view which will show the moods of people that the user is following
  * Created by brianlu on 2017-02-24.
  *
- * this is the main view which will show the moods of people
- * that the user is following
+ *
  */
 
 

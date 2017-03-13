@@ -20,9 +20,10 @@ import com.google.gson.Gson;
 import java.util.ArrayList;
 
 /**
+ * this is our model
  * Created by Gregory on 2017-03-06.
  *
- * this is our model
+ *
  */
 
 public class MainModel extends MModel<MView> {
