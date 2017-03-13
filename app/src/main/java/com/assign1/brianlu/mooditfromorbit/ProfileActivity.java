@@ -9,6 +9,7 @@
 package com.assign1.brianlu.mooditfromorbit;
 
 import android.content.Intent;
+import android.provider.ContactsContract;
 import android.support.v4.view.MenuItemCompat;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
@@ -74,6 +75,10 @@ public class ProfileActivity extends AppCompatActivity implements MView<MainMode
                 //switch to add mood activity
                 Intent intent1 = new Intent(ProfileActivity.this, AddMood.class);
                 startActivity(intent1);
+                return true;
+            case R.id.action_map:
+                Intent intent2 = new Intent(ProfileActivity.this, MapActivity.class);
+                startActivity(intent2);
                 return true;
 
             default:

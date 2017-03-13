@@ -1,20 +1,63 @@
 package com.assign1.brianlu.mooditfromorbit;
 
+import android.content.Context;
 import android.content.Intent;
+import android.location.Criteria;
+import android.location.Location;
+import android.location.LocationListener;
+import android.location.LocationManager;
+import android.preference.PreferenceManager;
 import android.support.v4.view.MenuItemCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.view.menu.MenuView;
 import android.support.v7.widget.SearchView;
 import android.support.v7.widget.Toolbar;
+
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Toast;
+
+import org.osmdroid.views.overlay.Marker;
+
+
+
+import org.osmdroid.tileprovider.tilesource.TileSourceFactory;
+import org.osmdroid.util.GeoPoint;
+import org.osmdroid.views.MapController;
+import org.osmdroid.views.MapView;
+
+
 
 public class MapActivity extends AppCompatActivity implements MView<MainModel> {
+    private MapView mMapView;
+    private MapController mMapController;
 
+    Location location = new Location("test");
+    double longitude;
+    double latitude;
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_map);
+        LocationManager lm = (LocationManager)getSystemService(Context.LOCATION_SERVICE);
+
+        Log.d("the lat is",String.valueOf(latitude));
+        Log.d("the lng is",String.valueOf(longitude));
+
+        mMapView = (MapView) findViewById(R.id.mapview);
+        mMapView.setTileSource(TileSourceFactory.DEFAULT_TILE_SOURCE);
+        mMapView.setBuiltInZoomControls(true);
+        mMapView.setTileSource(TileSourceFactory.MAPNIK);
+        mMapController = (MapController) mMapView.getController();
+        mMapController.setZoom(17);
+        GeoPoint gPt = new GeoPoint(53.5444, -113.4909);
+        mMapController.setCenter(gPt);
+        Marker startMarker = new Marker(mMapView);
+        startMarker.setPosition(gPt);
+        startMarker.setAnchor(Marker.ANCHOR_CENTER, Marker.ANCHOR_BOTTOM);
+        mMapView.getOverlays().add(startMarker);
+
 
         //used https://developer.android.com/training/appbar/setting-up.html#utility
         Toolbar myToolbar = (Toolbar) findViewById(R.id.my_toolbar);
@@ -23,6 +66,10 @@ public class MapActivity extends AppCompatActivity implements MView<MainModel> {
         MainModel mm = MainApplication.getMainModel();
         mm.addView(this);
     }
+    
+
+
+
     @Override
     protected void onStart() {
         // TODO Auto-generated method stub
