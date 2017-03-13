@@ -9,9 +9,12 @@
 package com.assign1.brianlu.mooditfromorbit;
 
 import android.content.Context;
+import android.content.Intent;
+import android.graphics.Bitmap;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
+import android.provider.MediaStore;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -19,9 +22,13 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.Switch;
 import android.widget.Toast;
+
+import static android.R.attr.data;
+import static android.app.Activity.RESULT_OK;
 /**
  * Created by cqtran on 2017-03-07.
  */
@@ -29,26 +36,38 @@ import android.widget.Toast;
  * creates mood from user input and adds it to the user
  */
 public class AddMood extends AppCompatActivity implements MView<MainModel> {
+    ImageView IMG;
 
+    public static final int REQUEST_CODE = 1;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_mood);
 
+        IMG = (ImageView) findViewById(R.id.pic);
+
         MainController mc = MainApplication.getMainController();
 
         mc.startLocationListen(this);
 
-/*        Spinner s = (Spinner) findViewById(R.id.emotions);
 
-        s.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        //camera implementation
+        Button cam = (Button) findViewById(R.id.camera);
+        cam.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                // do something with selected item.
-                // incomplete
-                //Toast.makeText(AddMood.this, parent.getselected)
+            public void onClick(View view) {
+                Intent i = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+                if(i.resolveActivity(getPackageManager())!= null)
+                {
+                    startActivityForResult(i, REQUEST_CODE);
+                }
             }
-        });*/
+        });
+
+
+
+
+
 
 
 
@@ -74,6 +93,8 @@ public class AddMood extends AppCompatActivity implements MView<MainModel> {
                 Mood mood = new Mood(mc.getEmotion(t_emotions), mc.getMe());
                 mood.setSocialSituation(groupstring);
                 mood.setMessage(commentstring);
+
+
 
 
 
@@ -117,6 +138,22 @@ public class AddMood extends AppCompatActivity implements MView<MainModel> {
     }
 
 
+
+// setting photo to imageview
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data)
+    {
+        if(requestCode == REQUEST_CODE){
+            if(resultCode == RESULT_OK){
+                Bundle extras = data.getExtras();
+                Bitmap imageBitmap = (Bitmap) extras.get("data");
+                IMG.setImageBitmap(imageBitmap);
+
+            }
+        }
+    }
+
+
     @Override
     public void onDestroy() {
         super.onDestroy();
@@ -124,4 +161,6 @@ public class AddMood extends AppCompatActivity implements MView<MainModel> {
         mm.deleteView(this);
     }
     public void update(MainModel mc){}
+
+
 }
