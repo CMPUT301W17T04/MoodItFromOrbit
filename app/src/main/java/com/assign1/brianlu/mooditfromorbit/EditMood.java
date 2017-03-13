@@ -19,6 +19,7 @@ import org.apache.commons.lang3.ObjectUtils;
 import static com.assign1.brianlu.mooditfromorbit.AddMood.REQUEST_CODE;
 
 /**
+ * Edits a mood that is clicked on
  * Created by FENGYI on 2017-03-12.
  */
 

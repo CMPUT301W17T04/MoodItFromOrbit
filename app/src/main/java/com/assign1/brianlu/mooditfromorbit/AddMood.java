@@ -30,11 +30,10 @@ import android.widget.Toast;
 import static android.R.attr.data;
 import static android.app.Activity.RESULT_OK;
 /**
+ * creates mood from user input and adds it to the user
  * Created by cqtran on 2017-03-07.
  */
-/**
- * creates mood from user input and adds it to the user
- */
+
 public class AddMood extends AppCompatActivity implements MView<MainModel> {
     ImageView IMG;
     Bitmap imageBitmap;
