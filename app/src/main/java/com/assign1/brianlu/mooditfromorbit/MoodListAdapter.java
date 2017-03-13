@@ -22,9 +22,9 @@ import android.widget.TextView;
 import java.util.ArrayList;
 
 /**
+ * this class is a custom adapter to display moods on the views
  * Created by Gregory on 2017-03-10.
  *
- * this class is a custom adapter to display moods on the views
  */
 
 public class MoodListAdapter extends ArrayAdapter<Mood>{

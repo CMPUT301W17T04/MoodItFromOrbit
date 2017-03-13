@@ -15,9 +15,10 @@ import android.util.Log;
 import java.util.ArrayList;
 
 /**
+ * this is our controller, it interacts with the model
  * Created by Gregory on 2017-03-06.
  *
- * this is our controller, it interacts with the model
+ *
  */
 
 public class MainController implements MController {

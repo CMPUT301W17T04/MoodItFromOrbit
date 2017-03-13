@@ -13,9 +13,10 @@ import java.lang.reflect.Type;
 import java.util.ArrayList;
 
 /**
+ * this class stores data about each user
  * Created by brianlu on 2017-02-23.
  *
- * this class stores data about each user
+ *
  */
 
 public class User{

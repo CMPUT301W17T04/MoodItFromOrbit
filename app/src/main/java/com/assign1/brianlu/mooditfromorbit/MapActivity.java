@@ -29,7 +29,9 @@ import android.os.Bundle;
 
 import java.util.ArrayList;
 
-
+/**
+ * activity that displays the map
+ */
 public class MapActivity extends AppCompatActivity implements MView<MainModel> {
     private MapView mMapView;
     private MapController mMapController;

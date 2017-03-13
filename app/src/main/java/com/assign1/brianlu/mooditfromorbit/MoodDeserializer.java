@@ -15,6 +15,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 /**
+ * deserializes the data from a json mood object
  * Created by Gregory on 2017-03-13.
  */
 
