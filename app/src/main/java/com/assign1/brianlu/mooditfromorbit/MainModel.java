@@ -21,9 +21,7 @@ import java.util.ArrayList;
 
 /**
  * Created by Gregory on 2017-03-06.
- */
-
-/**
+ *
  * this is our model
  */
 

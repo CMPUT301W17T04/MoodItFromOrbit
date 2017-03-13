@@ -16,11 +16,10 @@ import java.util.ArrayList;
 
 /**
  * Created by Gregory on 2017-03-06.
+ *
+ * this is our controller, it interacts with the model
  */
 
-/**
- * this is our controller
- */
 public class MainController implements MController {
     MainModel mm = null;
 

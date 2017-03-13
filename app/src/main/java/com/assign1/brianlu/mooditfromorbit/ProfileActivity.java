@@ -21,6 +21,9 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.ListView;
 
+/**
+ * this activity class displays the current users mood history
+ */
 public class ProfileActivity extends AppCompatActivity implements MView<MainModel>{
 
     private ListView moodListView;

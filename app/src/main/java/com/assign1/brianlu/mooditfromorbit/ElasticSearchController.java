@@ -30,6 +30,11 @@ import io.searchbox.core.Update;
  * Created by Gregory on 2017-03-06.
  */
 
+/**
+ * this class is our elastic search controller.
+ * It allows up to upload data to the server
+ * and pull data down from the server.
+ */
 public class ElasticSearchController {
     private static JestDroidClient client;
 

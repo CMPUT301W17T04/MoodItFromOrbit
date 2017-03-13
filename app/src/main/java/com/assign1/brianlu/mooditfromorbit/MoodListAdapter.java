@@ -23,6 +23,8 @@ import java.util.ArrayList;
 
 /**
  * Created by Gregory on 2017-03-10.
+ *
+ * this class is a custom adapter to display moods on the views
  */
 
 public class MoodListAdapter extends ArrayAdapter<Mood>{

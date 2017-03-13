@@ -17,6 +17,9 @@ import java.lang.reflect.Type;
 
 /**
  * Created by Gregory on 2017-03-09.
+ *
+ * this is a custom json serializer to convert a mood object into
+ * a string of json form
  */
 
 //taken from http://stackoverflow.com/questions/6856937/gson-custom-serializer-in-specific-case

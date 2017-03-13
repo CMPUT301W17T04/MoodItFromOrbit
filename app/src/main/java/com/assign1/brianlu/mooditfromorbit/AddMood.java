@@ -21,6 +21,9 @@ import android.widget.Button;
 import android.widget.Spinner;
 import android.widget.Toast;
 
+/**
+ * creates mood from user input and adds it to the user
+ */
 public class AddMood extends AppCompatActivity implements MView<MainModel> {
 
     @Override
@@ -60,12 +63,15 @@ public class AddMood extends AppCompatActivity implements MView<MainModel> {
 
                 // Remove the listener you previously added
                 mc.stopLocationListener();
+
                 Location moodLocation = mc.getLocation();
 
+                //only if share location is toggled
                 mood.setLocation(moodLocation);
 
                 Log.d("location", moodLocation.toString());
                 mc.addNewMood(mood);
+
                 finish();
             }
         });

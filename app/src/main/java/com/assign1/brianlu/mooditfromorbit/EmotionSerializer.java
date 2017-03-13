@@ -19,6 +19,9 @@ import java.lang.reflect.Type;
  * Created by Gregory on 2017-03-10.
  */
 
+/**
+ * this is a custom json serializer for the emotion class
+ */
 //taken from http://stackoverflow.com/questions/6856937/gson-custom-serializer-in-specific-case
     //March 9, 11:00 pm
 public class EmotionSerializer implements JsonSerializer<Emotion> {

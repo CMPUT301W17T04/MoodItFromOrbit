@@ -7,6 +7,8 @@ import java.util.List;
 
 /**
  * Created by brianlu on 2017-02-24.
+ *
+ * this class contains an ArrayList of users.
  */
 
 public class UserList{

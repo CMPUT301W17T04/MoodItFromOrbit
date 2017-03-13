@@ -14,13 +14,13 @@ import java.util.ArrayList;
 
 /**
  * Created by brianlu on 2017-02-23.
+ *
+ * this class stores data about each user
  */
 
 public class User{
     private String userName;
     private MoodList moods;
-    //private ArrayList<String> following;
-    //private ArrayList<String> followers;
     private FollowList followList;
     private String id;
 
@@ -65,11 +65,6 @@ public class User{
         }
         this.moods.add(mood);
     }
-
-    public void setUserName(String userName){
-        this.userName = userName;
-    }
-
 
     public void addFollowing(User user){
 
