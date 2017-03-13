@@ -67,13 +67,17 @@ public class MapActivity extends AppCompatActivity implements MView<MainModel> {
 
         MoodList moods = me.getMoods();
 
+        // recursively add more marker overlays to the map
         for(int i =0;i< moods.getCount();i++){
             Mood mood = moods.getMood(i);
-            GeoPoint pt = new GeoPoint(mood.getLatitude(), mood.getLongitude());
-            Marker startMarker1 = new Marker(mMapView);
-            startMarker1.setPosition(pt);
-            startMarker1.setAnchor(Marker.ANCHOR_CENTER, Marker.ANCHOR_BOTTOM);
-            mMapView.getOverlays().add(startMarker1);
+            if(mood.getLatitude() != null && mood.getLongitude() != null){
+                GeoPoint pt = new GeoPoint(mood.getLatitude(), mood.getLongitude());
+                Marker startMarker1 = new Marker(mMapView);
+                startMarker1.setPosition(pt);
+                startMarker1.setAnchor(Marker.ANCHOR_CENTER, Marker.ANCHOR_BOTTOM);
+                mMapView.getOverlays().add(startMarker1);
+            }
+
         }
 
 
