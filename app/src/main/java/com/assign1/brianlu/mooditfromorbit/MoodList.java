@@ -5,6 +5,9 @@ import android.util.Log;
 import java.lang.reflect.Array;
 import java.util.AbstractList;
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.Date;
 import java.util.List;
 
@@ -113,7 +116,21 @@ public class MoodList{
         }
     }
 
+
+    /**
+     * sorts moods by reverse chronological order
+     */
     public void sortByNewest(){
-        //TODO add sorting algorithm
+        Comparator<Mood> compareByDate = new Comparator<Mood>() {
+            @Override
+            public int compare(Mood o1, Mood o2) {
+                Date d1 = o1.getDate();
+                Date d2 = o2.getDate();
+
+                return d2.compareTo(d1);
+            }
+        };
+
+        Collections.sort(this.moods, compareByDate);
     }
 }

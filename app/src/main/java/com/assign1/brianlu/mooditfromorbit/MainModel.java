@@ -122,6 +122,7 @@ public class MainModel extends MModel<MView> {
                 followingMoods.merge(user.getMoods());
             }
         }
+        followingMoods.sortByNewest();
     }
 
     /**

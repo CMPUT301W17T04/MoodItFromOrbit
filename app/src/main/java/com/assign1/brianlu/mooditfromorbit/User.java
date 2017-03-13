@@ -55,6 +55,7 @@ public class User{
     }
 
     public MoodList getMoods(){
+        moods.sortByNewest();
         return this.moods;
     }
 
@@ -68,6 +69,7 @@ public class User{
             moods = new MoodList();
         }
         this.moods.add(mood);
+        moods.sortByNewest();
     }
 
     public void addFollowing(User user){
