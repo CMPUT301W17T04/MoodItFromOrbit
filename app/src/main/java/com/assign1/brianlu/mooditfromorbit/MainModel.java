@@ -109,6 +109,10 @@ public class MainModel extends MModel<MView> {
      */
     public void addNewMood(Mood mood){
         me.addMood(mood);
+        updateMoodList();
+    }
+
+    public void updateMoodList(){
         ElasticSearchController.UpdateUsersMoodTask updateUsersMoodTask = new ElasticSearchController.UpdateUsersMoodTask();
         updateUsersMoodTask.execute(me);
     }

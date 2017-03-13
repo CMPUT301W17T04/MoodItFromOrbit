@@ -47,6 +47,9 @@ public class MainController implements MController {
         mm.addFollowing(user);
     }
 
+    public void updateMoodList(){
+        mm.updateMoodList();
+    }
     public boolean checkSignIn(String userName){
         User me = mm.getUserByName(userName);
 

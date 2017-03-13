@@ -4,6 +4,7 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.location.Location;
 import android.util.Base64;
+import android.util.Log;
 
 
 import com.google.gson.Gson;
@@ -99,11 +100,14 @@ public class Mood {
 
     private void convertByteToImage(){
         byte[] decodedString = Base64.decode(encoded, Base64.DEFAULT);
+        Log.d("error here", "may");
         image = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length);
+        Log.d("possible error", "possible");
     }
 
     public void setImageFromEncoded(String encoded){
         this.encoded = encoded;
+        Log.d("encoded", encoded);
         if(encoded.equals("")){
             image = null;
         }
