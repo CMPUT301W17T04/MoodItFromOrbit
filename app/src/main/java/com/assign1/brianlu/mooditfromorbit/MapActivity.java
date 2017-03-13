@@ -44,10 +44,8 @@ public class MapActivity extends AppCompatActivity implements MView<MainModel> {
         mc.startLocationListen(this);
         mc.stopLocationListener();
         Location currentLocation = mc.getLocation();
-        Double lat =  currentLocation.getLatitude();
-        Double lng = currentLocation.getLongitude();
-        Log.d("the latitude is: ", Double.toString(lat));
-        Log.d("the longitude is: ",Double.toString(lng));
+
+
 
 //        OpenStreetMapTileProviderConstants.setCachePath(...)
         mMapView = (MapView) findViewById(R.id.map_view);
@@ -56,12 +54,20 @@ public class MapActivity extends AppCompatActivity implements MView<MainModel> {
         mMapView.setTileSource(TileSourceFactory.MAPNIK);
         mMapController = (MapController) mMapView.getController();
         mMapController.setZoom(17);
-        GeoPoint gPt = new GeoPoint(lat, lng);
-        mMapController.setCenter(gPt);
-        Marker startMarker = new Marker(mMapView);
-        startMarker.setPosition(gPt);
-        startMarker.setAnchor(Marker.ANCHOR_CENTER, Marker.ANCHOR_BOTTOM);
-        mMapView.getOverlays().add(startMarker);
+
+        if(currentLocation != null){
+            Double lat =  currentLocation.getLatitude();
+            Double lng = currentLocation.getLongitude();
+            Log.d("the latitude is: ", Double.toString(lat));
+            Log.d("the longitude is: ",Double.toString(lng));
+            GeoPoint gPt = new GeoPoint(lat, lng);
+            mMapController.setCenter(gPt);
+            Marker startMarker = new Marker(mMapView);
+            startMarker.setPosition(gPt);
+            startMarker.setAnchor(Marker.ANCHOR_CENTER, Marker.ANCHOR_BOTTOM);
+            mMapView.getOverlays().add(startMarker);
+        }
+
 
         User me = mc.getMe();
 
