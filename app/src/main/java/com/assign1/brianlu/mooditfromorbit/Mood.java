@@ -41,6 +41,7 @@ public class Mood {
         this.date = new Date(System.currentTimeMillis());
         this.latitude = null;
         this.longitude = null;
+        this.message = null;
     }
 
 

@@ -66,9 +66,9 @@ public class ProfileActivity extends AppCompatActivity implements MView<MainMode
 
         moodListView.setOnItemClickListener(new AdapterView.OnItemClickListener(){
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Intent intent = new Intent(ProfileActivity.this, EditMood.class);
-                intent.putExtra("moodId",position);
-                startActivity(intent);
+                Intent intent3 = new Intent(ProfileActivity.this, EditMood.class);
+                intent3.putExtra("moodId",position);
+                startActivity(intent3);
             }
         });
     }

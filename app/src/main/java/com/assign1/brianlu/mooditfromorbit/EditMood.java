@@ -14,6 +14,8 @@ import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.Switch;
 
+import org.apache.commons.lang3.ObjectUtils;
+
 import static com.assign1.brianlu.mooditfromorbit.AddMood.REQUEST_CODE;
 
 /**
@@ -36,8 +38,9 @@ public class EditMood extends AppCompatActivity implements MView<MainModel> {
         moodId = getIntent().getExtras().getInt("moodId");
         mood = mc.getMe().getMoods().getMood(moodId);
 
-        EditText get_comment = (EditText) findViewById(R.id.comment);
-        get_comment.setText(mood.getMessage());
+        EditText get_comment = (EditText) findViewById(R.id.Ecomment);
+        if (mood.getMessage()== null){get_comment.setText(mood.getMessage());}
+
 
 //        Spinner s_emotions = (Spinner) findViewById(R.id.emotions);
 //        s_emotions.setSel
@@ -68,13 +71,13 @@ public class EditMood extends AppCompatActivity implements MView<MainModel> {
                 //this creates a test mood and adds it
 
                 // emotions, groupstatus, and comment from spinner and edittext
-                Spinner s_emotions = (Spinner) findViewById(R.id.emotions);
+                Spinner s_emotions = (Spinner) findViewById(R.id.Eemotions);
                 String t_emotions = s_emotions.getSelectedItem().toString();
 
-                Spinner g_status = (Spinner) findViewById(R.id.groupstatus);
+                Spinner g_status = (Spinner) findViewById(R.id.Egroupstatus);
                 String groupstring = g_status.getSelectedItem().toString();
 
-                EditText get_comment = (EditText) findViewById(R.id.comment);
+                EditText get_comment = (EditText) findViewById(R.id.Ecomment);
                 String commentstring = get_comment.getText().toString();
 
                 MainController mc = MainApplication.getMainController();
@@ -98,7 +101,7 @@ public class EditMood extends AppCompatActivity implements MView<MainModel> {
 
 
 
-                Switch locationswitch = (Switch) findViewById(R.id.locations);
+                Switch locationswitch = (Switch) findViewById(R.id.Elocations);
                 locationswitch.setTextOn("On"); // displayed text of the Switch whenever it is in checked or on state
                 locationswitch.setTextOff("Off"); // displayed text of the Switch whenever it is in unchecked i.e. off state
                 // if true or false
