@@ -1,6 +1,7 @@
 package com.assign1.brianlu.mooditfromorbit;
 
 import android.content.Intent;
+import android.location.Location;
 import android.support.v4.view.MenuItemCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -9,10 +10,12 @@ import android.support.v7.widget.SearchView;
 import android.support.v7.widget.Toolbar;
 
 
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 
 
+import org.osmdroid.tileprovider.constants.OpenStreetMapTileProviderConstants;
 import org.osmdroid.views.overlay.Marker;
 
 
@@ -24,30 +27,56 @@ import org.osmdroid.views.MapView;
 import android.app.Activity;
 import android.os.Bundle;
 
+import java.util.ArrayList;
 
 
 public class MapActivity extends AppCompatActivity implements MView<MainModel> {
     private MapView mMapView;
     private MapController mMapController;
 
+
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_map);
 
+        MainController mc = MainApplication.getMainController();
+        // used to get the current location when click on the map
+        mc.startLocationListen(this);
+        mc.stopLocationListener();
+        Location currentLocation = mc.getLocation();
+        double lat =  currentLocation.getLatitude();
+        double lng = currentLocation.getLongitude();
+        Log.d("the latitude is: ", Double.toString(lat));
+        Log.d("the longitude is: ",Double.toString(lng));
 
-
+//        OpenStreetMapTileProviderConstants.setCachePath(...)
         mMapView = (MapView) findViewById(R.id.map_view);
         mMapView.setTileSource(TileSourceFactory.DEFAULT_TILE_SOURCE);
         mMapView.setBuiltInZoomControls(true);
         mMapView.setTileSource(TileSourceFactory.MAPNIK);
         mMapController = (MapController) mMapView.getController();
         mMapController.setZoom(17);
-        GeoPoint gPt = new GeoPoint(53.5444, -113.4909);
-//        mMapController.setCenter(gPt);
+        GeoPoint gPt = new GeoPoint(lat, lng);
+        mMapController.setCenter(gPt);
         Marker startMarker = new Marker(mMapView);
         startMarker.setPosition(gPt);
         startMarker.setAnchor(Marker.ANCHOR_CENTER, Marker.ANCHOR_BOTTOM);
         mMapView.getOverlays().add(startMarker);
+
+        User me = mc.getMe();
+
+        MoodList moods = me.getMoods();
+
+        for(int i =0;i< moods.getCount();i++){
+            Mood mood = moods.getMood(i);
+            GeoPoint pt = new GeoPoint(mood.getLatitude(), mood.getLongitude());
+            Marker startMarker1 = new Marker(mMapView);
+            startMarker1.setPosition(pt);
+            startMarker1.setAnchor(Marker.ANCHOR_CENTER, Marker.ANCHOR_BOTTOM);
+            mMapView.getOverlays().add(startMarker1);
+        }
+
+
 
 
         //used https://developer.android.com/training/appbar/setting-up.html#utility

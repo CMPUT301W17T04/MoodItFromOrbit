@@ -9,6 +9,7 @@
 package com.assign1.brianlu.mooditfromorbit;
 
 import android.content.Intent;
+import android.location.Location;
 import android.provider.ContactsContract;
 import android.support.v4.view.MenuItemCompat;
 import android.support.v7.app.ActionBar;
@@ -41,6 +42,7 @@ public class ProfileActivity extends AppCompatActivity implements MView<MainMode
         setSupportActionBar(myToolbar);
 
         MainController mc = MainApplication.getMainController();
+
 
         //back button
         // Get a support ActionBar corresponding to this toolbar
@@ -83,6 +85,7 @@ public class ProfileActivity extends AppCompatActivity implements MView<MainMode
                 startActivity(intent1);
                 return true;
             case R.id.action_map:
+
                 Intent intent2 = new Intent(ProfileActivity.this, MapActivity.class);
                 startActivity(intent2);
                 return true;
