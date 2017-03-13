@@ -8,8 +8,11 @@
 
 package com.assign1.brianlu.mooditfromorbit;
 
+import android.location.Location;
+import android.location.LocationManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
@@ -34,11 +37,34 @@ public class AddMood extends AppCompatActivity implements MView<MainModel> {
             }
         });*/
 
+
+
         // when done button is pressed
         Button button = (Button) findViewById(R.id.button);
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                //TODO get info from input
+                //this creates a test mood and adds it
+                MainController mc = MainApplication.getMainController();
+                Mood mood = new Mood(mc.getEmotion("Happy"), mc.getMe());
+                mood.setSocialSituation("With One Other");
+                mood.setMessage("A Test Message");
+
+                LocationManager locationManager = (LocationManager) getApplicationContext().getSystemService(LOCATION_SERVICE);
+
+                Location location = null;
+                try {
+                    location = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
+                }
+                catch(SecurityException e){
+                    Log.d("Location error", e.toString());
+
+                }
+                mood.setGeoLoc(location);
+
+                Log.d("location", location.toString());
+                mc.addNewMood(mood);
                 finish();
             }
         });

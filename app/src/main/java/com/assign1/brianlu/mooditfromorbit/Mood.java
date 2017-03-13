@@ -37,10 +37,6 @@ public class Mood {
         return userName;
     }
 
-    public void setUserName(String userName) {
-        this.userName = userName;
-    }
-
     public Emotion getEmotion() {
         return emotion;
     }
@@ -64,8 +60,8 @@ public class Mood {
     }
 
     public String getStringLocation(){
-        //TODO implement string
-        return null;
+        Gson gson = new Gson();
+        return gson.toJson(geoLoc);
     }
 
     public String getStringImage(){

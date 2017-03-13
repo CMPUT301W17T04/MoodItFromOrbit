@@ -73,8 +73,13 @@ public class MainModel extends MModel<MView> {
         emotions.add(surprise);
     }
 
-    public static ArrayList<Emotion> getEmotions() {
-        return emotions;
+    public static Emotion getEmotion(String emotionName) {
+        for(Emotion emotion: emotions){
+            if(emotion.getEmotion().equals(emotionName)){
+                return emotion;
+            }
+        }
+        return null;
     }
 
     public UserList getUsers() {

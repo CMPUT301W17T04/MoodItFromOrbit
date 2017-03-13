@@ -62,8 +62,8 @@ public class MainController implements MController {
         return mm.getMe();
     }
 
-    public ArrayList<Emotion> getEmotions(){
-        return mm.getEmotions();
+    public Emotion getEmotion(String emotionName){
+        return mm.getEmotion(emotionName);
     }
 
     public MoodList getFollowingMoods() {

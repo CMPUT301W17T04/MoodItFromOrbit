@@ -31,7 +31,7 @@ public class MoodSerializer implements JsonSerializer<Mood> {
         obj.addProperty("emotion", src.getGsonEmotion());
         obj.addProperty("username", src.getUserName());
         obj.addProperty("date", src.getStringDate());
-        obj.addProperty("geoloc", src.getStringLocation());
+        obj.addProperty("type\" : \"nested\", \"geoloc", src.getStringLocation());
         obj.addProperty("message", src.getMessage());
         obj.addProperty("image", src.getStringImage());
         obj.addProperty("socialsituation", src.getSocialSituation());
