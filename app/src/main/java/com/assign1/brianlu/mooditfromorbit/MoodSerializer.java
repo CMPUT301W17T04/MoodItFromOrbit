@@ -29,13 +29,13 @@ public class MoodSerializer implements JsonSerializer<Mood> {
     {
         final JsonObject obj = new JsonObject();
         obj.addProperty("emotion", src.getGsonEmotion());
-        obj.addProperty("username", src.getUserName());
+        obj.addProperty("userName", src.getUserName());
         obj.addProperty("date", src.getStringDate());
         obj.addProperty("latitude", src.getLatitude());
         obj.addProperty("longitude", src.getLongitude());
         obj.addProperty("message", src.getMessage());
         obj.addProperty("image", src.getStringImage());
-        obj.addProperty("socialsituation", src.getSocialSituation());
+        obj.addProperty("socialSituation", src.getSocialSituation());
 
         return obj;
     }

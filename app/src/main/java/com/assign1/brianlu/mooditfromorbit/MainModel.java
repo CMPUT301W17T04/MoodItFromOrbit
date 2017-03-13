@@ -118,14 +118,14 @@ public class MainModel extends MModel<MView> {
         me.addFollower(user);
 
         ElasticSearchController.UpdateUsersFollowListTask updateUsersFollowListTask = new ElasticSearchController.UpdateUsersFollowListTask();
-        updateUsersFollowListTask.execute(user);
+        updateUsersFollowListTask.execute(me);
     }
 
     public void addFollowing(User user){
         me.addFollowing(user);
 
         ElasticSearchController.UpdateUsersFollowListTask updateUsersFollowListTask = new ElasticSearchController.UpdateUsersFollowListTask();
-        updateUsersFollowListTask.execute(user);
+        updateUsersFollowListTask.execute(me);
     }
 
     public void addUser(User user){

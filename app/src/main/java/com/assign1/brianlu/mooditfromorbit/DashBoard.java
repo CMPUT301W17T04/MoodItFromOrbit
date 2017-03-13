@@ -61,7 +61,10 @@ public class DashBoard extends AppCompatActivity implements MView<MainModel>{
 
                         // This method performs the actual data-refresh operation.
                         // The method calls setRefreshing(false) when it's finished.
+                        MainController mc = MainApplication.getMainController();
 
+                        mc.addFollowing(mc.getUsers().getUserByName("Geoff"));
+                        mc.addFollowing(mc.getUsers().getUserByName("Joe"));
                         updateList();
                         refreshLayout.setRefreshing(false);
 
