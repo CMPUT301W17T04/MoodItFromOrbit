@@ -5,11 +5,16 @@ import android.util.Log;
 import java.lang.reflect.Array;
 import java.util.AbstractList;
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.Date;
 import java.util.List;
 
 /**
  * Created by FENGYI on 2017-02-24.
+ *
+ * this class stores moods in an ArrayList
  */
 
 public class MoodList{
@@ -23,6 +28,11 @@ public class MoodList{
         moods.add(mood);
     }
 
+    /**
+     * check if contains mood
+     * @param mood mood to check for
+     * @return true or false
+     */
     public boolean hasMood (Mood mood){
         boolean has = false;
         for(int i = 0; i< moods.size();i++){
@@ -54,6 +64,10 @@ public class MoodList{
         return this.moods.size();
     }
 
+    public void clear(){
+        moods.clear();
+    }
+
     /**
      * removes all moods that do not contain the keyword
      * @param keyword word to search for
@@ -68,17 +82,26 @@ public class MoodList{
         }
     }
 
-//    public void sortByEmotion(Emotion emotion){
-//        for(int i = 0; i < this.getCount(); i++){
-//            if (this.getMood(i).getEmotion() == emotion){
-//            }
-//            else{
-//                this.delete(this.getMood(i));
-//                i--;
-//            }
-//        }
-//    }
 
+    /**
+     * sort by emotion
+     * @param emotion emotion to sort by
+     */
+    public void sortByEmotion(Emotion emotion){
+        for(int i = 0; i < this.getCount(); i++){
+            if (this.getMood(i).getEmotion() == emotion){
+            }
+            else{
+                this.delete(this.getMood(i));
+                i--;
+            }
+        }
+    }
+
+
+    /**
+     * sort by most recent week
+     */
     public void sortByRecentWeek(){
         // taken from http://stackoverflow.com/questions/494180/java-how-do-i-check-if-a-date-is-within-a-certain-range
         // Feb 26, 2017 6:03pm
@@ -95,7 +118,21 @@ public class MoodList{
         }
     }
 
+
+    /**
+     * sorts moods by reverse chronological order
+     */
     public void sortByNewest(){
-        //TODO add sorting algorithm
+        Comparator<Mood> compareByDate = new Comparator<Mood>() {
+            @Override
+            public int compare(Mood o1, Mood o2) {
+                Date d1 = o1.getDate();
+                Date d2 = o2.getDate();
+
+                return d2.compareTo(d1);
+            }
+        };
+
+        Collections.sort(this.moods, compareByDate);
     }
 }

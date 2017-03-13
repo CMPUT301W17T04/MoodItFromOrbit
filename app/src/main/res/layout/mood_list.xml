@@ -22,7 +22,6 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal">
         <TextView
-            android:text="Greg"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/moodUserName"
@@ -35,24 +34,26 @@
             android:layout_height="wrap_content"
             android:id="@+id/moodEmoticon"
             android:textStyle="bold"
+            android:textSize="@dimen/user_name_size"
             android:layout_gravity="center_horizontal|bottom" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/moodGroup"
-            android:text="With one other"
             android:layout_gravity="bottom|end"
             android:textSize="@dimen/group"
             />
     </FrameLayout>
 
     <ImageView
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/moodImageView"
         android:paddingTop="@dimen/activity_vertical_buffer"
-        android:paddingBottom="@dimen/activity_vertical_buffer"/>
+        android:paddingBottom="@dimen/activity_vertical_buffer"
+        android:scaleType="centerCrop"
+        android:adjustViewBounds="true"/>
 
     <TextView
         android:layout_width="match_parent"
@@ -66,7 +67,6 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/moodEmotion"
-        android:text="Angry"
         android:textStyle="bold"
         android:layout_gravity="bottom"
         android:textSize="@dimen/group"
@@ -76,7 +76,6 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/moodDetails"
-        android:text="Ate a taco"
         android:layout_gravity="bottom"
         android:textSize="@dimen/group"
         />

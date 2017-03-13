@@ -10,6 +10,7 @@ package com.assign1.brianlu.mooditfromorbit;
 
 import android.content.Context;
 import android.support.annotation.Nullable;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -22,6 +23,8 @@ import java.util.ArrayList;
 
 /**
  * Created by Gregory on 2017-03-10.
+ *
+ * this class is a custom adapter to display moods on the views
  */
 
 public class MoodListAdapter extends ArrayAdapter<Mood>{
@@ -58,6 +61,8 @@ public class MoodListAdapter extends ArrayAdapter<Mood>{
         date.setText(mood.getDateForView());
         image.setImageBitmap(mood.getImage());
         item.setBackgroundColor(mood.getEmotion().getColour());
+
+        //Log.d("username moods", mood.getUserName());
 
 
         // Return the completed view to render on screen

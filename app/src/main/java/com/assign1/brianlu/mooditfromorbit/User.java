@@ -14,26 +14,30 @@ import java.util.ArrayList;
 
 /**
  * Created by brianlu on 2017-02-23.
+ *
+ * this class stores data about each user
  */
 
 public class User{
     private String userName;
     private MoodList moods;
-    private ArrayList<String> following;
-    private ArrayList<String> followers;
+    private FollowList followList;
     private String id;
 
     public User(String userName){
         this.userName = userName;
         this.moods = new MoodList();
-        this.following = new ArrayList<>();
-        this.followers = new ArrayList<>();
+        this.followList = new FollowList();
     }
 
     public String getUserName(){
         return this.userName;
     }
 
+    /**
+     * returns moods as a json string
+     * @return moods as json string
+     */
     public String getGsonMoods(){
         //returns moods as gson string
         GsonBuilder gsonBuilder = new GsonBuilder();
@@ -51,6 +55,7 @@ public class User{
     }
 
     public MoodList getMoods(){
+        moods.sortByNewest();
         return this.moods;
     }
 
@@ -64,39 +69,21 @@ public class User{
             moods = new MoodList();
         }
         this.moods.add(mood);
+        moods.sortByNewest();
     }
-
-    public void setUserName(String userName){
-        this.userName = userName;
-    }
-
 
     public void addFollowing(User user){
-        if(following == null){
-            following = new ArrayList<>();
-        }
-        following.add(user.getId());
+
+        followList.addFollowing(user.getId());
 
     }
 
     public void addFollower(User user){
-        if(followers == null){
-            followers = new ArrayList<>();
-        }
-        followers.add(user.getId());
+        followList.addFollower(user.getId());
     }
 
-
-    public int getFollowingCount(){
-        return following.size();
-    }
-
-    public int getFollowersCount(){
-        return followers.size();
-    }
-
-    public Boolean hasFollowing(User user){
-        if(this.following.contains(user.getId())){
+    /*public Boolean hasFollowing(User user){
+        if(followList.contains(user.getId())){
             return true;
         }
         else{
@@ -111,26 +98,20 @@ public class User{
         else{
             return false;
         }
-    }
+    }*/
 
     public ArrayList<String> getFollowing() {
-        return following;
+        return followList.getFollowing();
     }
 
     public ArrayList<String> getFollowers() {
-        return followers;
+        return followList.getFollower();
     }
 
-    public String getGsonFollowers(){
+    public String getGsonFollowList(){
         Gson gson = new Gson();
 
-        return gson.toJson(followers);
-    }
-
-    public String getGsonFollowing(){
-        Gson gson = new Gson();
-
-        return gson.toJson(following);
+        return gson.toJson(followList);
     }
 
     public String getId() {

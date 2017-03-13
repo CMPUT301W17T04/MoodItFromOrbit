@@ -8,17 +8,18 @@
 
 package com.assign1.brianlu.mooditfromorbit;
 
+import android.content.Context;
+import android.location.Location;
 import android.util.Log;
 
 import java.util.ArrayList;
 
 /**
  * Created by Gregory on 2017-03-06.
+ *
+ * this is our controller, it interacts with the model
  */
 
-/**
- * this is our controller
- */
 public class MainController implements MController {
     MainModel mm = null;
 
@@ -30,6 +31,10 @@ public class MainController implements MController {
         return mm.getUsers();
     }
 
+    /**
+     * calls addUser() and setMe()
+     * @param user
+     */
     public void addUser(User user){
         mm.addUser(user);
         mm.setMe(user);
@@ -62,10 +67,14 @@ public class MainController implements MController {
         return mm.getMe();
     }
 
-    public ArrayList<Emotion> getEmotions(){
-        return mm.getEmotions();
+    public Emotion getEmotion(String emotionName){
+        return mm.getEmotion(emotionName);
     }
 
+    /**
+     * generate following moods and return them
+     * @return following moods
+     */
     public MoodList getFollowingMoods() {
         mm.generateFollowingMoods();
         return mm.getFollowingMoods();
@@ -77,6 +86,18 @@ public class MainController implements MController {
 
     public void addNewMood(Mood mood){
         mm.addNewMood(mood);
+    }
+
+    public void startLocationListen(Context context){
+        mm.startLocationListen(context);
+    }
+
+    public void stopLocationListener(){
+        mm.stopLocationListener();
+    }
+
+    public Location getLocation(){
+        return mm.getLocation();
     }
 
 }

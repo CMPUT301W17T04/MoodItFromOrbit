@@ -7,6 +7,8 @@ import java.util.List;
 
 /**
  * Created by brianlu on 2017-02-24.
+ *
+ * this class contains an ArrayList of users.
  */
 
 public class UserList{
@@ -15,10 +17,18 @@ public class UserList{
     public UserList(){
     }
 
+    /**
+     * adds users that
+     * @param foundUsers users that are added
+     */
     public UserList(List foundUsers){
         users.addAll(foundUsers);
     }
 
+    /**
+     * adds user to users if not already there
+     * @param user user to be added
+     */
     public void add(User user){
         boolean add = true;
         for(int i = 0; i< users.size();i++){
@@ -33,6 +43,11 @@ public class UserList{
         }
     }
 
+    /**
+     * checks if user is in users
+     * @param user user to check for
+     * @return true or false
+     */
     public boolean hasUser (User user){
         boolean has = false;
         for(int i = 0; i< users.size();i++){
@@ -57,6 +72,11 @@ public class UserList{
         return this.users.get(index);
     }
 
+    /**
+     * returns user that matches username
+     * @param userName username to check for
+     * @return user
+     */
     public User getUserByName(String userName){
         for(User user : users){
 

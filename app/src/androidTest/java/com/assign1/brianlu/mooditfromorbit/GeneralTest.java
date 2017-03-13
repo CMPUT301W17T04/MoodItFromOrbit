@@ -20,11 +20,4 @@ public class GeneralTest extends ActivityInstrumentationTestCase2 {
         super(MoodMainActivity.class);
     }
 
-    public void testGetUsersFromServer(){
-
-    }
-
-    public void testAddFollowing(){
-
-    }
 }

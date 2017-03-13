@@ -12,7 +12,10 @@ import android.app.Application;
 
 /**
  * Created by Gregory on 2017-03-06.
+ *
+ * this is where we store all of our local data
  */
+
 
 public class MainApplication extends Application {
 

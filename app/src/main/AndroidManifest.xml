@@ -4,6 +4,7 @@
 
 
     <uses-permission android:name="android.permission.INTERNET" />
+<<<<<<< HEAD
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
@@ -14,6 +15,13 @@
 
 
 
+=======
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
+    <uses-feature android:name="android.hardware.location.gps" />
+    <uses-feature android:name="android.hardware.camera"
+
+        android:required = "true"/>
+>>>>>>> 948c55cf9c223f0813e6387d0807917875eb2af0
 
     <application
         android:name=".MainApplication"

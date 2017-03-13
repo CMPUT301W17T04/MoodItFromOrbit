@@ -12,6 +12,8 @@ import android.graphics.Color;
 
 /**
  * Created by Gregory on 2017-02-26.
+ * this class holds information for each emotion.
+ * Emotions are implemented in every mood
  */
 
 

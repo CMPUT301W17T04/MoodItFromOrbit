@@ -8,37 +8,124 @@
 
 package com.assign1.brianlu.mooditfromorbit;
 
+import android.content.Context;
+import android.content.Intent;
+import android.graphics.Bitmap;
+import android.location.Location;
+import android.location.LocationListener;
+import android.location.LocationManager;
+import android.provider.MediaStore;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
+import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.Spinner;
+import android.widget.Switch;
 import android.widget.Toast;
 
+import static android.R.attr.data;
+import static android.app.Activity.RESULT_OK;
+/**
+ * Created by cqtran on 2017-03-07.
+ */
+/**
+ * creates mood from user input and adds it to the user
+ */
 public class AddMood extends AppCompatActivity implements MView<MainModel> {
+    ImageView IMG;
+    Bitmap imageBitmap;
 
+    public static final int REQUEST_CODE = 1;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_mood);
 
-/*        Spinner s = (Spinner) findViewById(R.id.emotions);
+        IMG = (ImageView) findViewById(R.id.pic);
 
-        s.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        MainController mc = MainApplication.getMainController();
+
+        mc.startLocationListen(this);
+
+
+        //camera implementation
+        Button cam = (Button) findViewById(R.id.camera);
+        cam.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                // do something with selected item.
-                // incomplete
-                //Toast.makeText(AddMood.this, parent.getselected)
+            public void onClick(View view) {
+                Intent i = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+                if(i.resolveActivity(getPackageManager())!= null)
+                {
+                    startActivityForResult(i, REQUEST_CODE);
+                }
             }
-        });*/
+        });
+
+
+
+
+
+
+
 
         // when done button is pressed
         Button button = (Button) findViewById(R.id.button);
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                //TODO get info from input
+                //this creates a test mood and adds it
+
+                // emotions, groupstatus, and comment from spinner and edittext
+                Spinner s_emotions = (Spinner) findViewById(R.id.emotions);
+                String t_emotions = s_emotions.getSelectedItem().toString();
+
+                Spinner g_status = (Spinner) findViewById(R.id.groupstatus);
+                String groupstring = g_status.getSelectedItem().toString();
+
+                EditText get_comment = (EditText) findViewById(R.id.comment);
+                String commentstring = get_comment.getText().toString();
+
+                MainController mc = MainApplication.getMainController();
+                Mood mood = new Mood(mc.getEmotion(t_emotions), mc.getMe());
+                mood.setSocialSituation(groupstring);
+                mood.setMessage(commentstring);
+                mood.setImage(imageBitmap);
+
+
+
+
+
+                // Remove the listener you previously added
+                mc.stopLocationListener();
+
+                Location moodLocation = mc.getLocation();
+
+                //only if share location is toggled
+              //  mood.setLocation(moodLocation);
+
+
+
+
+                Switch locationswitch = (Switch) findViewById(R.id.locations);
+                locationswitch.setTextOn("On"); // displayed text of the Switch whenever it is in checked or on state
+                locationswitch.setTextOff("Off"); // displayed text of the Switch whenever it is in unchecked i.e. off state
+                // if true or false
+                Boolean switchState = locationswitch.isChecked();
+                if (switchState){
+                    // if on locations enabled
+                    mood.setLocation(moodLocation);
+
+                } else {
+                    // if off locations disabled
+                }
+                Log.d("location", moodLocation.toString());
+                mc.addNewMood(mood);
+
                 finish();
             }
         });
@@ -54,6 +141,22 @@ public class AddMood extends AppCompatActivity implements MView<MainModel> {
     }
 
 
+
+// setting photo to imageview
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data)
+    {
+        if(requestCode == REQUEST_CODE){
+            if(resultCode == RESULT_OK){
+                Bundle extras = data.getExtras();
+                imageBitmap = (Bitmap) extras.get("data");
+                IMG.setImageBitmap(imageBitmap);
+
+            }
+        }
+    }
+
+
     @Override
     public void onDestroy() {
         super.onDestroy();
@@ -61,4 +164,6 @@ public class AddMood extends AppCompatActivity implements MView<MainModel> {
         mm.deleteView(this);
     }
     public void update(MainModel mc){}
+
+
 }

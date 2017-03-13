@@ -22,6 +22,9 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.ListView;
 
+/**
+ * this activity class displays the current users mood history
+ */
 public class ProfileActivity extends AppCompatActivity implements MView<MainModel>{
 
     private ListView moodListView;
@@ -37,12 +40,15 @@ public class ProfileActivity extends AppCompatActivity implements MView<MainMode
         Toolbar myToolbar = (Toolbar) findViewById(R.id.my_toolbar);
         setSupportActionBar(myToolbar);
 
+        MainController mc = MainApplication.getMainController();
+
         //back button
         // Get a support ActionBar corresponding to this toolbar
         ActionBar ab = getSupportActionBar();
 
         // Enable the Up button
         ab.setDisplayHomeAsUpEnabled(true);
+        ab.setTitle(mc.getMe().getUserName());
 
 
 

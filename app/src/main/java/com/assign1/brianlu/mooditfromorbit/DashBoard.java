@@ -21,6 +21,9 @@ import com.google.gson.GsonBuilder;
 
 /**
  * Created by brianlu on 2017-02-24.
+ *
+ * this is the main view which will show the moods of people
+ * that the user is following
  */
 
 
@@ -42,6 +45,11 @@ public class DashBoard extends AppCompatActivity implements MView<MainModel>{
         //used https://developer.android.com/training/appbar/setting-up.html#utility
         Toolbar myToolbar = (Toolbar) findViewById(R.id.my_toolbar);
         setSupportActionBar(myToolbar);
+
+
+        ActionBar ab = getSupportActionBar();
+
+        ab.setTitle("Dashboard");
 
 
         // taken from https://developer.android.com/training/swipe/respond-refresh-request.html
@@ -140,6 +148,9 @@ public class DashBoard extends AppCompatActivity implements MView<MainModel>{
 
     }
 
+    /**
+     * updates data in adapter
+     */
     public void updateList(){
         MainController mc = MainApplication.getMainController();
         mc.generateFollowingMoods();
