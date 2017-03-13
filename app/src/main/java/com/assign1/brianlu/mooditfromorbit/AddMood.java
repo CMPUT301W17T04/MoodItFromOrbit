@@ -20,8 +20,11 @@ import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
+import android.widget.Switch;
 import android.widget.Toast;
-
+/**
+ * Created by cqtran on 2017-03-07.
+ */
 /**
  * creates mood from user input and adds it to the user
  */
@@ -71,6 +74,18 @@ public class AddMood extends AppCompatActivity implements MView<MainModel> {
                 Mood mood = new Mood(mc.getEmotion(t_emotions), mc.getMe());
                 mood.setSocialSituation(groupstring);
                 mood.setMessage(commentstring);
+
+                Switch locationswitch = (Switch) findViewById(R.id.locations);
+                // if true or false
+                Boolean switchState = locationswitch.isChecked();
+                if (switchState){
+                    // if on locations enabled
+                } else {
+                    // if off locations disabled
+                }
+
+
+
 
 
                 // Remove the listener you previously added
