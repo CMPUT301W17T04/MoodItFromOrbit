@@ -54,6 +54,9 @@ public class MoodList{
         return this.moods.size();
     }
 
+    public void clear(){
+        moods.clear();
+    }
     /**
      * removes all moods that do not contain the keyword
      * @param keyword word to search for
