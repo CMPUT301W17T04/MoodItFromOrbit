@@ -44,8 +44,8 @@ public class MapActivity extends AppCompatActivity implements MView<MainModel> {
         mc.startLocationListen(this);
         mc.stopLocationListener();
         Location currentLocation = mc.getLocation();
-        double lat =  currentLocation.getLatitude();
-        double lng = currentLocation.getLongitude();
+        Double lat =  currentLocation.getLatitude();
+        Double lng = currentLocation.getLongitude();
         Log.d("the latitude is: ", Double.toString(lat));
         Log.d("the longitude is: ",Double.toString(lng));
 

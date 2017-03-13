@@ -10,6 +10,8 @@ import com.google.gson.JsonParseException;
 import com.google.gson.JsonSerializationContext;
 
 import java.lang.reflect.Type;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 /**
@@ -18,6 +20,8 @@ import java.util.Date;
 
 //referenced http://www.javacreed.com/gson-deserialiser-example/
 public class MoodDeserializer implements JsonDeserializer<Mood> {
+
+    DateFormat df = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ssZ");
 
     @Override
     public Mood deserialize(JsonElement src, Type typeOfSrc,
@@ -33,8 +37,15 @@ public class MoodDeserializer implements JsonDeserializer<Mood> {
         String userName = jsonUserName.getAsString();
 
         JsonElement jsonDate = jsonObject.get("date");
-        //Date date = context.deserialize(jsonDate, Date.class);
 
+        Date date;
+        try {
+            date = df.parse(jsonDate.getAsString());
+        }
+        catch (Exception e){
+            Log.d("Date failed", "failure");
+            date = new Date();
+        }
         Double latitude;
         JsonElement jsonLatitude = jsonObject.get("latitude");
         try{
@@ -81,7 +92,7 @@ public class MoodDeserializer implements JsonDeserializer<Mood> {
         Mood mood = new Mood(emotion, user);
         mood.setImageFromEncoded(encoded);
         mood.setSocialSituation(socialSituation);
-        //mood.setDate(date);
+        mood.setDate(date);
         mood.setLatitude(latitude);
         mood.setLongitude(longitude);
         mood.setMessage(message);
