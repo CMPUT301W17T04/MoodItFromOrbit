@@ -55,7 +55,7 @@
         android:layout_height="wrap_content"
         android:inputType="textPersonName"
         android:ems="10"
-        android:id="@+id/editText"
+        android:id="@+id/comment"
         android:hint="Enter a comment! (Maximum 20 characters)"
         android:maxLength="20"
         android:layout_weight="0.08" />

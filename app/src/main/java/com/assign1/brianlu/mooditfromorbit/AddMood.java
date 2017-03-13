@@ -18,6 +18,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Toast;
 
@@ -55,10 +56,21 @@ public class AddMood extends AppCompatActivity implements MView<MainModel> {
             public void onClick(View view) {
                 //TODO get info from input
                 //this creates a test mood and adds it
+
+                // emotions, groupstatus, and comment from spinner and edittext
+                Spinner s_emotions = (Spinner) findViewById(R.id.emotions);
+                String t_emotions = s_emotions.getSelectedItem().toString();
+
+                Spinner g_status = (Spinner) findViewById(R.id.groupstatus);
+                String groupstring = g_status.getSelectedItem().toString();
+
+                EditText get_comment = (EditText) findViewById(R.id.comment);
+                String commentstring = get_comment.getText().toString();
+
                 MainController mc = MainApplication.getMainController();
-                Mood mood = new Mood(mc.getEmotion("Happy"), mc.getMe());
-                mood.setSocialSituation("With One Other");
-                mood.setMessage("A Test Message");
+                Mood mood = new Mood(mc.getEmotion(t_emotions), mc.getMe());
+                mood.setSocialSituation(groupstring);
+                mood.setMessage(commentstring);
 
 
                 // Remove the listener you previously added
