@@ -12,9 +12,9 @@ import java.util.Date;
 import java.util.List;
 
 /**
+ * this class stores moods in an ArrayList
  * Created by FENGYI on 2017-02-24.
  *
- * this class stores moods in an ArrayList
  */
 
 public class MoodList{

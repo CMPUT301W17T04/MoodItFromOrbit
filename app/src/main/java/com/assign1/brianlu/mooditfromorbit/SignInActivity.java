@@ -11,9 +11,10 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 /**
+ * This activity allows users to sign in
  * Created by brianlu on 2017-02-24.
  *
- * This activity allows users to sign in
+ *
  */
 
 public class SignInActivity extends AppCompatActivity implements MView<MainModel> {

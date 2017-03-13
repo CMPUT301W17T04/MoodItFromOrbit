@@ -11,9 +11,11 @@ package com.assign1.brianlu.mooditfromorbit;
 import android.app.Application;
 
 /**
+ * this is where we store all of our local data
+ *
  * Created by Gregory on 2017-03-06.
  *
- * this is where we store all of our local data
+ *
  */
 
 

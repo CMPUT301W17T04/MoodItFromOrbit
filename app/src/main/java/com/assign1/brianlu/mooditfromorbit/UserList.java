@@ -6,9 +6,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
+ * this class contains an ArrayList of users.
  * Created by brianlu on 2017-02-24.
  *
- * this class contains an ArrayList of users.
+ *
  */
 
 public class UserList{
