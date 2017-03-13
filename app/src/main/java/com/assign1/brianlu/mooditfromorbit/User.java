@@ -48,7 +48,7 @@ public class User{
 
         String json = gson.toJson(moods);
 
-        json = json.replace("\\", "");
+        json = json.replace("\\\"", "\"");
         json = json.replace("}\"", "}");
         json = json.replace("\"{", "{");
         return json;
