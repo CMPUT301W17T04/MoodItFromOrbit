@@ -34,6 +34,10 @@ public class User{
         return this.userName;
     }
 
+    /**
+     * returns moods as a json string
+     * @return moods as json string
+     */
     public String getGsonMoods(){
         //returns moods as gson string
         GsonBuilder gsonBuilder = new GsonBuilder();

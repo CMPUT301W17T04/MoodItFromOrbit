@@ -44,25 +44,40 @@ public class Mood {
         return emotion;
     }
 
+    /**
+     * returns emotion object as a json string
+     * @return emotino object as json string
+     */
     public String getGsonEmotion(){
         Gson gson = new Gson();
 
         return gson.toJson(this.emotion);
     }
 
+    /**
+     * return date formatted for upload to server
+     * @return date in string format
+     */
     public String getStringDate(){
         DateFormat df = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ssZ");
 
         return df.format(date);
     }
 
+    /**
+     * return date formatted for displaying on the screen
+     * @return date in string format
+     */
     public String getDateForView(){
         DateFormat df = new SimpleDateFormat("dd MMMM yyyy");
 
         return df.format(date);
     }
 
-
+    /**
+     * returns string value of image
+     * @return string value of image
+     */
     public String getStringImage(){
         //TODO convert image to string
         return null;
@@ -114,6 +129,10 @@ public class Mood {
         return longitude;
     }
 
+    /**
+     * set the latitude and longitude
+     * @param location current location
+     */
     public void setLocation(Location location) {
         this.longitude = location.getLongitude();
         this.latitude = location.getLatitude();

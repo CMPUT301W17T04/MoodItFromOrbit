@@ -25,6 +25,11 @@ public class MoodList{
         moods.add(mood);
     }
 
+    /**
+     * check if contains mood
+     * @param mood mood to check for
+     * @return true or false
+     */
     public boolean hasMood (Mood mood){
         boolean has = false;
         for(int i = 0; i< moods.size();i++){
@@ -59,6 +64,7 @@ public class MoodList{
     public void clear(){
         moods.clear();
     }
+
     /**
      * removes all moods that do not contain the keyword
      * @param keyword word to search for
@@ -73,6 +79,10 @@ public class MoodList{
         }
     }
 
+    /**
+     * sort by emotion
+     * @param emotion emotion to sort by
+     */
     public void sortByEmotion(Emotion emotion){
         for(int i = 0; i < this.getCount(); i++){
             if (this.getMood(i).getEmotion() == emotion){
@@ -84,6 +94,9 @@ public class MoodList{
         }
     }
 
+    /**
+     * sort by most recent week
+     */
     public void sortByRecentWeek(){
         // taken from http://stackoverflow.com/questions/494180/java-how-do-i-check-if-a-date-is-within-a-certain-range
         // Feb 26, 2017 6:03pm

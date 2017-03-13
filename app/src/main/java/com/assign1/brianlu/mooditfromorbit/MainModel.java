@@ -38,9 +38,12 @@ public class MainModel extends MModel<MView> {
         super();
         pullUsersFromServer();
         fillEmotions();
-        this.followingMoods = new MoodList();
+        followingMoods = new MoodList();
     }
 
+    /**
+     * grabs all users from the server
+     */
     private void pullUsersFromServer(){
         ElasticSearchController.GetUsersTask getUsersTask = new ElasticSearchController.GetUsersTask();
         getUsersTask.execute("");
@@ -57,7 +60,6 @@ public class MainModel extends MModel<MView> {
      * Fills the ArrayList emotions with required emotions
      */
     private void fillEmotions(){
-        //TODO: Add rest of the emotions
         emotions = new ArrayList<>();
 
         Emotion happy = new Emotion("Happy", "#06B31D", getEmojiByUnicode(0x263A));
@@ -79,6 +81,11 @@ public class MainModel extends MModel<MView> {
         emotions.add(surprise);
     }
 
+    /**
+     * returns emotion that has the same name as emotionName
+     * @param emotionName name of emotion
+     * @return emotion with name
+     */
     public static Emotion getEmotion(String emotionName) {
         for(Emotion emotion: emotions){
             if(emotion.getEmotion().equals(emotionName)){
@@ -88,10 +95,18 @@ public class MainModel extends MModel<MView> {
         return null;
     }
 
+    /**
+     * returns all users
+     * @return all users
+     */
     public UserList getUsers() {
         return users;
     }
 
+    /**
+     * adds new mood to current users mood history
+     * @param mood new mood
+     */
     public void addNewMood(Mood mood){
         me.addMood(mood);
         ElasticSearchController.UpdateUsersMoodTask updateUsersMoodTask = new ElasticSearchController.UpdateUsersMoodTask();
@@ -109,10 +124,18 @@ public class MainModel extends MModel<MView> {
         }
     }
 
+    /**
+     * returns followingMoods
+     * @return list of moods of users that current user is following
+     */
     public static MoodList getFollowingMoods() {
         return followingMoods;
     }
 
+    /**
+     * adds user to follower
+     * @param user user that is following current user
+     */
     public void addFollower(User user){
         me.addFollower(user);
 
@@ -120,6 +143,10 @@ public class MainModel extends MModel<MView> {
         updateUsersFollowListTask.execute(me);
     }
 
+    /**
+     * adds user to following
+     * @param user user that current user is following
+     */
     public void addFollowing(User user){
         me.addFollowing(user);
 
@@ -127,6 +154,10 @@ public class MainModel extends MModel<MView> {
         updateUsersFollowListTask.execute(me);
     }
 
+    /**
+     * adds a user and syncs to server
+     * @param user user to add
+     */
     public void addUser(User user){
         users.add(user);
 
@@ -134,28 +165,56 @@ public class MainModel extends MModel<MView> {
         addUsersTask.execute(user);
     }
 
+    /**
+     * checks if user already exists
+     * @param user user to check for
+     * @return true or false
+     */
     public boolean checkForUser(User user){
         return users.hasUser(user);
     }
 
+    /**
+     * returns user with username
+     * @param userName username of requested user
+     * @return user with username
+     */
     public User getUserByName(String userName){
         return users.getUserByName(userName);
     }
 
-    //taken from http://stackoverflow.com/questions/26893796/how-set-emoji-by-unicode-in-android-textview
-    //March 6, 2017 11:36pm
+    /**
+     * converts unicode to string emoji
+     * taken from http://stackoverflow.com/questions/26893796/how-set-emoji-by-unicode-in-android-textview
+     * March 6, 2017 11:36pm
+     *
+     * @param unicode unicode value of an emoji
+     * @return string value of emoji
+     */
     public String getEmojiByUnicode(int unicode){
         return new String(Character.toChars(unicode));
     }
 
+    /**
+     * returns current user
+     * @return current user
+     */
     public User getMe() {
         return me;
     }
 
+    /**
+     * sets current user
+     * @param me current user
+     */
     public void setMe(User me) {
         MainModel.me = me;
     }
 
+    /**
+     * activate gps and look for current location
+     * @param context context of activity
+     */
     public void startLocationListen(Context context){
         // referenced https://developer.android.com/guide/topics/location/strategies.html
         // March 12, 2017 10:00pm
@@ -186,6 +245,9 @@ public class MainModel extends MModel<MView> {
         }
     }
 
+    /**
+     * stop gps from looking for current location
+     */
     public void stopLocationListener(){
         try {
             moodLocation = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
@@ -196,6 +258,11 @@ public class MainModel extends MModel<MView> {
 
         }
     }
+
+    /**
+     * return current location
+     * @return current location
+     */
     public Location getLocation(){
         return moodLocation;
     }

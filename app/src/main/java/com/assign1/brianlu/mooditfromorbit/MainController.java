@@ -31,6 +31,10 @@ public class MainController implements MController {
         return mm.getUsers();
     }
 
+    /**
+     * calls addUser() and setMe()
+     * @param user
+     */
     public void addUser(User user){
         mm.addUser(user);
         mm.setMe(user);
@@ -67,6 +71,10 @@ public class MainController implements MController {
         return mm.getEmotion(emotionName);
     }
 
+    /**
+     * generate following moods and return them
+     * @return following moods
+     */
     public MoodList getFollowingMoods() {
         mm.generateFollowingMoods();
         return mm.getFollowingMoods();

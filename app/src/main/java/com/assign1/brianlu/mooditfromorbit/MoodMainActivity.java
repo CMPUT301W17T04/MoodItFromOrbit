@@ -27,7 +27,7 @@ import java.util.ArrayList;
  */
 
 public class MoodMainActivity extends AppCompatActivity {
-
+    // referenced https://developer.android.com/training/permissions/requesting.html
     private final static int MY_PERMISSIONS_REQUEST_ACCESS_FINE_LOCATION = 1;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
