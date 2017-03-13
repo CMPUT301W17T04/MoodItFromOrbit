@@ -104,6 +104,20 @@ public class ProfileActivity extends AppCompatActivity implements MView<MainMode
                 startActivity(intent2);
                 return true;
 
+            case R.id.action_follow:
+                // temporary because the main following function is not implemented
+                MainController mc = MainApplication.getMainController();
+
+                for(User user : mc.getUsers().getUsers()){
+                    if(mc.getMe().getId().equals(user.getId())){
+                        continue;
+                    }
+                    else{
+                        mc.getMe().addFollowing(user);
+                    }
+                }
+
+
             default:
                 // If we got here, the user's action was not recognized.
                 // Invoke the superclass to handle it.

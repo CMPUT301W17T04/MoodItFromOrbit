@@ -55,12 +55,12 @@ public class Mood {
 
     /**
      * returns emotion object as a json string
-     * @return emotino object as json string
+     * @return emotion object as json string
      */
     public String getGsonEmotion(){
         Gson gson = new Gson();
-
         return gson.toJson(this.emotion);
+
     }
 
     /**
@@ -91,24 +91,33 @@ public class Mood {
         return df.format(date);
     }
 
-    // taken from http://stackoverflow.com/questions/4837110/how-to-convert-a-base64-string-into-a-bitmap-image-to-show-it-in-a-imageview
-    private void convertImageToByte(){
+    /**
+     * converts Bitmap image to string
+     * using base64 bytes
+     *
+     * taken from http://stackoverflow.com/questions/4837110/how-to-convert-a-base64-string-into-a-bitmap-image-to-show-it-in-a-imageview
+     */
+     private void convertImageToByte(){
         ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
         image.compress(Bitmap.CompressFormat.PNG, 100, byteArrayOutputStream);
         byte[] byteArray = byteArrayOutputStream.toByteArray();
         encoded = Base64.encodeToString(byteArray, Base64.DEFAULT);
     }
 
+    /**
+     * converts encoded image string to bitmap
+     */
     private void convertByteToImage(){
         byte[] decodedString = Base64.decode(encoded, Base64.DEFAULT);
-        Log.d("error here", "may");
         image = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length);
-        Log.d("possible error", "possible");
     }
 
+    /**
+     * sets image to the value of the encoded string
+     * @param encoded encoded image string
+     */
     public void setImageFromEncoded(String encoded){
         this.encoded = encoded;
-        Log.d("encoded", encoded);
         if(encoded.equals("")){
             image = null;
         }
@@ -116,6 +125,7 @@ public class Mood {
             convertByteToImage();
         }
     }
+
     public String getEncoded() {
         if(image == null){
             encoded = "";
