@@ -11,6 +11,8 @@ package com.assign1.brianlu.mooditfromorbit;
 import android.os.AsyncTask;
 import android.util.Log;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import com.searchly.jestdroid.DroidClientConfig;
 import com.searchly.jestdroid.JestClientFactory;
 import com.searchly.jestdroid.JestDroidClient;
@@ -224,9 +226,17 @@ public class ElasticSearchController {
             DroidClientConfig.Builder builder = new DroidClientConfig.Builder("http://cmput301.softwareprocess.es:8080");
             DroidClientConfig config = builder.build();
 
+            Gson gson = new GsonBuilder()
+                    .registerTypeAdapter(Mood.class, new MoodDeserializer()).create();
+
+
             JestClientFactory factory = new JestClientFactory();
             factory.setDroidClientConfig(config);
+
             client = (JestDroidClient) factory.getObject();
+
+            // referenced http://codenav.org/code.html?project=/io/searchbox/jest-droid/0.1.0&path=/Source%20Packages/com.searchly.jestdroid/JestClientFactory.java
+            client.setGson(gson);
         }
     }
 }

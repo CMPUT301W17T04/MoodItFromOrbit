@@ -60,6 +60,7 @@ public class MoodListAdapter extends ArrayAdapter<Mood>{
         details.setText(mood.getMessage());
         date.setText(mood.getDateForView());
         image.setImageBitmap(mood.getImage());
+
         item.setBackgroundColor(mood.getEmotion().getColour());
 
         //Log.d("username moods", mood.getUserName());

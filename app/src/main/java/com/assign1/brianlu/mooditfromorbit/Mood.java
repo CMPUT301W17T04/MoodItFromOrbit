@@ -1,11 +1,14 @@
 package com.assign1.brianlu.mooditfromorbit;
 
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.location.Location;
+import android.util.Base64;
 
 
 import com.google.gson.Gson;
 
+import java.io.ByteArrayOutputStream;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -26,6 +29,7 @@ public class Mood {
     private Bitmap image;
     private String socialSituation;
     private String userName;
+    private String encoded;
 
 
 
@@ -67,6 +71,14 @@ public class Mood {
         return df.format(date);
     }
 
+    public void setLatitude(Double latitude) {
+        this.latitude = latitude;
+    }
+
+    public void setLongitude(Double longitude) {
+        this.longitude = longitude;
+    }
+
     /**
      * return date formatted for displaying on the screen
      * @return date in string format
@@ -77,13 +89,36 @@ public class Mood {
         return df.format(date);
     }
 
-    /**
-     * returns string value of image
-     * @return string value of image
-     */
-    public String getStringImage(){
-        Gson gson = new Gson();
-        return gson.toJson(image);
+    // taken from http://stackoverflow.com/questions/4837110/how-to-convert-a-base64-string-into-a-bitmap-image-to-show-it-in-a-imageview
+    private void convertImageToByte(){
+        ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
+        image.compress(Bitmap.CompressFormat.PNG, 100, byteArrayOutputStream);
+        byte[] byteArray = byteArrayOutputStream.toByteArray();
+        encoded = Base64.encodeToString(byteArray, Base64.DEFAULT);
+    }
+
+    private void convertByteToImage(){
+        byte[] decodedString = Base64.decode(encoded, Base64.DEFAULT);
+        image = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length);
+    }
+
+    public void setImageFromEncoded(String encoded){
+        this.encoded = encoded;
+        if(encoded.equals("")){
+            image = null;
+        }
+        else{
+            convertByteToImage();
+        }
+    }
+    public String getEncoded() {
+        if(image == null){
+            encoded = "";
+        }
+        else{
+            convertImageToByte();
+        }
+        return encoded;
     }
 
     public void setEmotion(Emotion emotion) {
