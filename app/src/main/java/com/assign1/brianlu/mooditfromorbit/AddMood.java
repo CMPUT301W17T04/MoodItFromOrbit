@@ -75,17 +75,6 @@ public class AddMood extends AppCompatActivity implements MView<MainModel> {
                 mood.setSocialSituation(groupstring);
                 mood.setMessage(commentstring);
 
-                Switch locationswitch = (Switch) findViewById(R.id.locations);
-                // if true or false
-                Boolean switchState = locationswitch.isChecked();
-                if (switchState){
-                    // if on locations enabled
-                } else {
-                    // if off locations disabled
-                }
-
-
-
 
 
                 // Remove the listener you previously added
@@ -94,10 +83,24 @@ public class AddMood extends AppCompatActivity implements MView<MainModel> {
                 Location moodLocation = mc.getLocation();
 
                 //only if share location is toggled
-                mood.setLocation(moodLocation);
+              //  mood.setLocation(moodLocation);
+
 
                 Log.d("location", moodLocation.toString());
                 mc.addNewMood(mood);
+
+                Switch locationswitch = (Switch) findViewById(R.id.locations);
+                locationswitch.setTextOn("On"); // displayed text of the Switch whenever it is in checked or on state
+                locationswitch.setTextOff("Off"); // displayed text of the Switch whenever it is in unchecked i.e. off state
+                // if true or false
+                Boolean switchState = locationswitch.isChecked();
+                if (switchState){
+                    // if on locations enabled
+                    mood.setLocation(moodLocation);
+
+                } else {
+                    // if off locations disabled
+                }
 
                 finish();
             }
