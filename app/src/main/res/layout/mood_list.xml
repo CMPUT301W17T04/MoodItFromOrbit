@@ -47,11 +47,13 @@
     </FrameLayout>
 
     <ImageView
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/moodImageView"
         android:paddingTop="@dimen/activity_vertical_buffer"
-        android:paddingBottom="@dimen/activity_vertical_buffer"/>
+        android:paddingBottom="@dimen/activity_vertical_buffer"
+        android:scaleType="centerCrop"
+        android:adjustViewBounds="true"/>
 
     <TextView
         android:layout_width="match_parent"

@@ -37,6 +37,7 @@ import static android.app.Activity.RESULT_OK;
  */
 public class AddMood extends AppCompatActivity implements MView<MainModel> {
     ImageView IMG;
+    Bitmap imageBitmap;
 
     public static final int REQUEST_CODE = 1;
     @Override
@@ -93,6 +94,7 @@ public class AddMood extends AppCompatActivity implements MView<MainModel> {
                 Mood mood = new Mood(mc.getEmotion(t_emotions), mc.getMe());
                 mood.setSocialSituation(groupstring);
                 mood.setMessage(commentstring);
+                mood.setImage(imageBitmap);
 
 
 
@@ -107,8 +109,7 @@ public class AddMood extends AppCompatActivity implements MView<MainModel> {
               //  mood.setLocation(moodLocation);
 
 
-                Log.d("location", moodLocation.toString());
-                mc.addNewMood(mood);
+
 
                 Switch locationswitch = (Switch) findViewById(R.id.locations);
                 locationswitch.setTextOn("On"); // displayed text of the Switch whenever it is in checked or on state
@@ -122,6 +123,8 @@ public class AddMood extends AppCompatActivity implements MView<MainModel> {
                 } else {
                     // if off locations disabled
                 }
+                Log.d("location", moodLocation.toString());
+                mc.addNewMood(mood);
 
                 finish();
             }
@@ -146,7 +149,7 @@ public class AddMood extends AppCompatActivity implements MView<MainModel> {
         if(requestCode == REQUEST_CODE){
             if(resultCode == RESULT_OK){
                 Bundle extras = data.getExtras();
-                Bitmap imageBitmap = (Bitmap) extras.get("data");
+                imageBitmap = (Bitmap) extras.get("data");
                 IMG.setImageBitmap(imageBitmap);
 
             }

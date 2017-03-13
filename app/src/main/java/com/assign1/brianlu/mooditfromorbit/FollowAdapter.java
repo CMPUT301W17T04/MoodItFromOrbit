@@ -9,7 +9,7 @@ import java.util.ArrayList;
  * Created by Neil on 2017/3/12.
  */
 
-public class FollowAdapter extends ArrayAdapter<String> {
+/*public class FollowAdapter extends ArrayAdapter<String> {
     private ArrayList<String>  userName;
     private Context context;
     public FollowAdapter(ArrayList<String> userName, Context context) {
@@ -17,4 +17,4 @@ public class FollowAdapter extends ArrayAdapter<String> {
         this.userName = userName;
         this.context = context;
     }
-}
+}*/

@@ -22,6 +22,7 @@ import java.util.ArrayList;
  * Created by Neil on 2017/3/12.
  */
 
+/* I had to comment out to allow the code to compile
 public class FollowActivity extends AppCompatActivity {
     private ListView followList;
 
@@ -54,5 +55,5 @@ public class FollowActivity extends AppCompatActivity {
 
         });
     }
-}
+}*/
 
