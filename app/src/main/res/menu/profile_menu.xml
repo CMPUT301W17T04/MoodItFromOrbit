@@ -30,5 +30,10 @@
         android:title="@string/action_map"
         app:showAsAction="never" />
 
+    <item android:id="@+id/action_follow"
+        android:title="@string/menu_follow"
+        app:showAsAction="never" />
+
+
 
 </menu>
