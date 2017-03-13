@@ -23,14 +23,20 @@
         android:layout_weight="0.91" />
 
     <Button
-        android:text="Followers"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/followers" />
-
-    <Button
         android:text="Following"
-        android:layout_width="match_parent"
+        android:layout_width="140dp"
         android:layout_height="wrap_content"
-        android:id="@+id/following" />
+        android:id="@+id/following"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true" />
+
+    <CheckBox
+        android:text="Follow"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/FollowCheck"
+        android:layout_alignParentBottom="true"
+        android:layout_toLeftOf="@+id/following"
+        android:layout_toStartOf="@+id/following" />
 </LinearLayout>
