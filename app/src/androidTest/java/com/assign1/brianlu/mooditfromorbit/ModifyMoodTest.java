@@ -60,7 +60,7 @@ public class ModifyMoodTest extends ActivityInstrumentationTestCase2 {
 //        ProfileActivity activity = (ProfileActivity) solo.getCurrentActivity();
         MainController mc = MainApplication.getMainController();
         final MoodList profileMoodList = mc.getMe().getMoods();
-        Mood mood = (Mood) profileMoodList.getMood(0);
+        Mood mood = profileMoodList.getMood(0);
         assertEquals("this is test", mood.getMessage());
 
         solo.clickInList(0);
@@ -94,7 +94,7 @@ public class ModifyMoodTest extends ActivityInstrumentationTestCase2 {
 
         MainController mc = MainApplication.getMainController();
         final MoodList profileMoodList = mc.getMe().getMoods();
-        Mood mood = (Mood) profileMoodList.getMood(0);
+        Mood mood = profileMoodList.getMood(0);
         assertEquals("this is test22", mood.getMessage());
         solo.clickInList(0);
         solo.assertCurrentActivity("Wrong Activity", EditMood.class);
