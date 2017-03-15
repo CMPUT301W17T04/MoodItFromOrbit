@@ -33,8 +33,7 @@ import java.util.ArrayList;
  * activity that displays the map
  */
 public class MapActivity extends AppCompatActivity implements MView<MainModel> {
-    private MapView mMapView;
-    private MapController mMapController;
+
 
 
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,7 +46,8 @@ public class MapActivity extends AppCompatActivity implements MView<MainModel> {
         mc.stopLocationListener();
         Location currentLocation = mc.getLocation();
 
-
+        MapView mMapView; //changed
+        MapController mMapController; //changed
 
 //        OpenStreetMapTileProviderConstants.setCachePath(...)
         mMapView = (MapView) findViewById(R.id.map_view);

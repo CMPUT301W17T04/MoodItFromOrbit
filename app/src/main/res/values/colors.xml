@@ -3,12 +3,5 @@
     <color name="colorPrimary">#3F51B5</color>
     <color name="colorPrimaryDark">#303F9F</color>
     <color name="colorAccent">#FF4081</color>
-    <color name="colorHappy">#06B31D</color>
-    <color name="colorSad">#1864D6</color>
-    <color name="colorAngry">#D61C1C</color>
-    <color name="colorFear">#FFFF00</color>
-    <color name="colorDisgust">#773A0E</color>
-    <color name="colorConfusion">#6A0888</color>
-    <color name="colorShame">#FF0080</color>
-    <color name="colorSurprise">#FF8000</color>
+
 </resources>
