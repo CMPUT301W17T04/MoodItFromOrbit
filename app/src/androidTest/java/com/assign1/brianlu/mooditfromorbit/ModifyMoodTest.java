@@ -12,7 +12,7 @@ import com.robotium.solo.Solo;
 import org.junit.Test;
 
 /**
- * Created by brianlu on 2017-03-13.
+ * Created by brianlu on 2017-03-13. ff
  */
 
 public class ModifyMoodTest extends ActivityInstrumentationTestCase2 {
