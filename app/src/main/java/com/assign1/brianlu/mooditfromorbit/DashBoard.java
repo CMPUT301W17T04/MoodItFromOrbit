@@ -105,6 +105,8 @@ public class DashBoard extends AppCompatActivity implements MView<MainModel>{
                 Intent intent1 = new Intent(DashBoard.this, AddMood.class);
                 startActivity(intent1);
                 return true;
+            case R.id.action_map:
+                Intent intent2 = new Intent(DashBoard.this, DashBoardMap.class);
 
             case R.id.action_profile:
 

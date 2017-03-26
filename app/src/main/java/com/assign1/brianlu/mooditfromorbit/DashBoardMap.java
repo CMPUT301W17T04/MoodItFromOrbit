@@ -2,40 +2,27 @@ package com.assign1.brianlu.mooditfromorbit;
 
 import android.content.Intent;
 import android.location.Location;
+import android.os.Bundle;
 import android.support.v4.view.MenuItemCompat;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.support.v7.view.menu.MenuView;
 import android.support.v7.widget.SearchView;
 import android.support.v7.widget.Toolbar;
-
-
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
-
-
-import org.osmdroid.tileprovider.constants.OpenStreetMapTileProviderConstants;
-import org.osmdroid.views.overlay.Marker;
-
-
 
 import org.osmdroid.tileprovider.tilesource.TileSourceFactory;
 import org.osmdroid.util.GeoPoint;
 import org.osmdroid.views.MapController;
 import org.osmdroid.views.MapView;
-import org.osmdroid.views.overlay.infowindow.InfoWindow;
-
-import android.app.Activity;
-import android.os.Bundle;
-
-import java.util.ArrayList;
+import org.osmdroid.views.overlay.Marker;
 
 /**
- * activity that displays the map
+ * Created by brianlu on 2017-03-21.
  */
-public class MapActivity extends AppCompatActivity implements MView<MainModel> {
 
+public class DashBoardMap extends AppCompatActivity implements MView<MainModel>{
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_map);
@@ -139,13 +126,13 @@ public class MapActivity extends AppCompatActivity implements MView<MainModel> {
         switch (item.getItemId()) {
             case R.id.action_add_mood:
                 //switch to add mood activity
-                Intent intent1 = new Intent(MapActivity.this, AddMood.class);
+                Intent intent1 = new Intent(DashBoardMap.this, AddMood.class);
                 startActivity(intent1);
                 return true;
 
             case R.id.action_profile:
 
-                Intent intent = new Intent(MapActivity.this, ProfileActivity.class);
+                Intent intent = new Intent(DashBoardMap.this, DashBoard.class);
                 startActivity(intent);
 
                 return true;
@@ -179,4 +166,3 @@ public class MapActivity extends AppCompatActivity implements MView<MainModel> {
         // TODO code to redisplay the data
     }
 }
-
