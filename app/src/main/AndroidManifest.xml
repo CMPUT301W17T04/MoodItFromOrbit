@@ -55,7 +55,8 @@
         </activity>
         <activity android:name=".AddMood" />
         <activity android:name=".EditMood"/>
-        <activity android:name=".MapActivity"/>
+
+        <activity android:name=".MapActivity"/> <!-- changed -->
     </application>
 
 </manifest>

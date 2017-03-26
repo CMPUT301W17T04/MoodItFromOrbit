@@ -60,6 +60,10 @@ public class User{
         return this.moods;
     }
 
+    public Mood getMostRecentMood(){
+        moods.sortByNewest();
+        return moods.getMood(0);
+    }
 
     public void setMoods(MoodList moods){
         this.moods = moods;

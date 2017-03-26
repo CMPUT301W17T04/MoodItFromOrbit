@@ -36,6 +36,9 @@ import java.util.ArrayList;
  */
 public class MapActivity extends AppCompatActivity implements MView<MainModel> {
 
+
+
+
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_map);
@@ -46,7 +49,6 @@ public class MapActivity extends AppCompatActivity implements MView<MainModel> {
         mc.startLocationListen(this);
         mc.stopLocationListener();
         Location currentLocation = mc.getLocation();
-
 
 
 //        OpenStreetMapTileProviderConstants.setCachePath(...)
