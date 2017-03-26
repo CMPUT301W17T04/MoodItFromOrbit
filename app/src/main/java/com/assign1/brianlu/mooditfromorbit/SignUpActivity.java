@@ -98,10 +98,6 @@ public class SignUpActivity extends AppCompatActivity implements MView<MainModel
 
     public void updateUsers(User user){
         MainController mc = MainApplication.getMainController();
-
-
-        //TODO manually convert to json
-
         mc.addUser(user);
     }
 

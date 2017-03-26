@@ -121,6 +121,7 @@ public class MainModel extends MModel<MView> {
      * puts the moods of all people that the current user follows into followingMoods
      */
     public void generateFollowingMoods(){
+        pullUsersFromServer();
         followingMoods.clear();
         for(User user: users.getUsers()){
             if(me.getFollowing().contains(user.getId())){
