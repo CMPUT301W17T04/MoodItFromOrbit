@@ -1,8 +1,12 @@
 package com.assign1.brianlu.mooditfromorbit;
 
 import android.content.Intent;
+import android.graphics.drawable.Drawable;
+import android.location.Address;
+import android.location.Geocoder;
 import android.location.Location;
 import android.os.Bundle;
+import android.support.v4.content.res.ResourcesCompat;
 import android.support.v4.view.MenuItemCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.view.menu.MenuView;
@@ -11,18 +15,28 @@ import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.Button;
+import android.widget.Toast;
 
 import org.osmdroid.tileprovider.tilesource.TileSourceFactory;
 import org.osmdroid.util.GeoPoint;
 import org.osmdroid.views.MapController;
 import org.osmdroid.views.MapView;
 import org.osmdroid.views.overlay.Marker;
+import org.osmdroid.views.overlay.infowindow.InfoWindow;
+import org.osmdroid.views.overlay.infowindow.MarkerInfoWindow;
+
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Locale;
 
 /**
  * Created by brianlu on 2017-03-21.
  */
 
-public class DashBoardMap extends AppCompatActivity implements MView<MainModel>{
+public class DashBoardMap extends AppCompatActivity implements MView<MainModel> {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_map);
@@ -35,8 +49,8 @@ public class DashBoardMap extends AppCompatActivity implements MView<MainModel>{
         Location currentLocation = mc.getLocation();
 
 
-
-//        OpenStreetMapTileProviderConstants.setCachePath(...)
+        Drawable icon = ResourcesCompat.getDrawable(getResources(), R.drawable.marker_kml_point, null);
+        // add map view,
         mMapView = (MapView) findViewById(R.id.map_view);
         mMapView.setTileSource(TileSourceFactory.DEFAULT_TILE_SOURCE);
         mMapView.setBuiltInZoomControls(true);
@@ -54,13 +68,14 @@ public class DashBoardMap extends AppCompatActivity implements MView<MainModel>{
             Marker startMarker = new Marker(mMapView);
             startMarker.setPosition(gPt);
             startMarker.setAnchor(Marker.ANCHOR_CENTER, Marker.ANCHOR_BOTTOM);
-            startMarker.setTitle("Current Location!");
+            String address = "Current Location: " + getAddressFromGeo( lat,lng);
+            startMarker.setTitle(address);
+            startMarker.setIcon(icon);
+
             mMapView.getOverlays().add(startMarker);
         }
+        MoodList moods = mc.getFollowingMoods();
 
-        User me = mc.getMe();
-
-        MoodList moods = me.getMoods();
 
         // recursively add more marker overlays to the map
         for(int i =0;i< moods.getCount();i++){
@@ -70,9 +85,12 @@ public class DashBoardMap extends AppCompatActivity implements MView<MainModel>{
                 Marker startMarker1 = new Marker(mMapView);
                 startMarker1.setPosition(pt);
                 startMarker1.setAnchor(Marker.ANCHOR_CENTER, Marker.ANCHOR_BOTTOM);
-//                InfoWindow infoWindow = new MyInfoWindow();
-//                startMarker1.set
                 mMapView.getOverlays().add(startMarker1);
+                startMarker1.setIcon(icon);
+                String address = getAddressFromGeo( mood.getLatitude(),mood.getLongitude());
+                String message = mood.getUserName() + ", " + mood.getEmotion().getEmotion() + "\n" + address + "\n" +mood.getMessage();
+                startMarker1.setTitle(message);
+
             }
 
         }
@@ -88,23 +106,6 @@ public class DashBoardMap extends AppCompatActivity implements MView<MainModel>{
         mm.addView(this);
     }
 
-//    private class MoodInfoWindow extends InfoWindow {
-//        public absMoodInfoWindow(int layoutid, MapView mapview){
-//            super(layoutid, mapview);
-//        }
-//
-//
-//        public void onClose(){
-//
-//        }
-//
-//
-//        public void onOpen(Mood mood){
-//
-//        }
-//
-//
-//    }
 
 
     @Override
@@ -160,7 +161,23 @@ public class DashBoardMap extends AppCompatActivity implements MView<MainModel>{
         return super.onCreateOptionsMenu(menu);
     }
 
+    private String getAddressFromGeo(double lat, double lng){
+        Geocoder geocoder;
+        geocoder = new Geocoder(this, Locale.getDefault());
+        String theAddress = "";
+        try{
+            List<Address> addresses = geocoder.getFromLocation(lat,lng,1);
+            theAddress += addresses.get(0).getAddressLine(0) + ", ";
+            theAddress += addresses.get(0).getLocality() + ", ";
+            theAddress += addresses.get(0).getAdminArea() + ", ";
+            theAddress += addresses.get(0).getCountryName();
+        } catch (IOException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
 
+        }
+        return theAddress;
+    }
 
     public void update(MainModel mc){
         // TODO code to redisplay the data

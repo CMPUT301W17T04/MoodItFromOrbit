@@ -105,8 +105,11 @@ public class DashBoard extends AppCompatActivity implements MView<MainModel>{
                 Intent intent1 = new Intent(DashBoard.this, AddMood.class);
                 startActivity(intent1);
                 return true;
+
             case R.id.action_map:
                 Intent intent2 = new Intent(DashBoard.this, DashBoardMap.class);
+                startActivity(intent2);
+                return true;
 
             case R.id.action_profile:
 
@@ -147,7 +150,6 @@ public class DashBoard extends AppCompatActivity implements MView<MainModel>{
 
     public void update(MainModel mm){
         updateList();
-
     }
 
     /**
