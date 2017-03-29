@@ -8,9 +8,12 @@
 
 package com.assign1.brianlu.mooditfromorbit;
 
+import android.app.FragmentManager;
 import android.content.Intent;
 import android.location.Location;
 import android.provider.ContactsContract;
+import android.provider.MediaStore;
+import android.support.v4.app.Fragment;
 import android.support.v4.view.MenuItemCompat;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
@@ -23,6 +26,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.Button;
 import android.widget.ListView;
 
 /**
@@ -32,7 +36,7 @@ public class ProfileActivity extends AppCompatActivity implements MView<MainMode
 
     private ListView moodListView;
     private MoodListAdapter adapter;
-
+    private FragmentManager fragmentManager = getFragmentManager();
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile);
@@ -110,8 +114,24 @@ public class ProfileActivity extends AppCompatActivity implements MView<MainMode
                 return true;
 
             case R.id.action_sort:
-                View filterbar = (View) findViewById(R.id.filterBar);
-                filterbar.setVisibility(View.VISIBLE);
+//                View filterbar = (View) findViewById(R.id.filterBar);
+//                filterbar.setVisibility(View.VISIBLE);
+                android.app.Fragment fragment = new FilterFragment();
+                fragmentManager.beginTransaction().add(R.id.overlay_fragment_container,fragment).commit();
+//                Button filter = (Button) findViewById(R.id.filterButton);
+//                if(filter != null) {
+//                    filter.setOnClickListener(new View.OnClickListener() {
+//                        @Override
+//                        public void onClick(View v) {
+//                            getSupportFragmentManager().beginTransaction().remove(getSupportFragmentManager().findFragmentById(R.id.overlay_fragment_container)).commit();
+//
+//                        }
+//                    });
+//                }else{
+//                    Log.i("haha","gg");
+//                }
+
+
 
             case R.id.action_follow:
                 // temporary because the main following function is not implemented
