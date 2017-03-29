@@ -149,7 +149,9 @@ public class AddMood extends AppCompatActivity implements MView<MainModel> {
             if(resultCode == RESULT_OK){
                 Bundle extras = data.getExtras();
                 imageBitmap = (Bitmap) extras.get("data");
-                IMG.setImageBitmap(imageBitmap);
+                // 256 * 256 = 65536 bytes which is the maximum allowed
+                Bitmap convertedImage = getResizedBitmap(imageBitmap, 256, 256);
+                IMG.setImageBitmap(convertedImage);
 
             }
         }
@@ -164,5 +166,21 @@ public class AddMood extends AppCompatActivity implements MView<MainModel> {
     }
     public void update(MainModel mc){}
 
+    // Resizes the bitmap image
+    public Bitmap getResizedBitmap(Bitmap image, int maxWidth, int maxHeight) {
+        int width = image.getWidth();
+        int height = image.getHeight();
+
+        float bitmapRatio = (float)width / (float) height;
+        if (bitmapRatio > 1) {
+            width = maxWidth;
+            height = (int) (width / bitmapRatio);
+
+        } else {
+            height = maxHeight;
+            width = (int) (height * bitmapRatio);
+        }
+        return Bitmap.createScaledBitmap(image, width, height, true);
+    }
 
 }
