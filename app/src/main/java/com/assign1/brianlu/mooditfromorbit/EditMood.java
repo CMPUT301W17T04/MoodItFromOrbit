@@ -38,15 +38,33 @@ public class EditMood extends AppCompatActivity implements MView<MainModel> {
 
         int moodId = getIntent().getExtras().getInt("moodId");
         mood = mc.getMe().getMoods().getMood(moodId);
-        Spinner s_emotions = (Spinner) findViewById(R.id.emotions);
-        s_emotions.getCount();
 
-//        s_emotions.setSelection(s_emotions.getSelectedItemPosition());
+
+        String moodEmotion = mood.getEmotion().getEmotion();
+        String moodGS = mood.getSocialSituation();
+
+        Spinner s_emotions = (Spinner) findViewById(R.id.Eemotions);
+        s_emotions.setSelection(getSelectedItem(s_emotions,moodEmotion));
+
+
+        Spinner g_status = (Spinner) findViewById(R.id.Egroupstatus);
+        g_status.setSelection(getSelectedItem(g_status,moodGS));
+
+        IMG = (ImageView) findViewById(R.id.Epic);
+        if (mood.getImage() != null) {
+            imageBitmap = mood.getImage();
+            IMG.setImageBitmap(imageBitmap);
+        }
 
 
         EditText get_comment = (EditText) findViewById(R.id.Ecomment);
         if (mood.getMessage()!= null){get_comment.setText(mood.getMessage());}
 
+
+        Switch locationswitch = (Switch) findViewById(R.id.Elocations);
+        if(mood.getLongitude() != null && mood.getLatitude() != null){
+            locationswitch.setChecked(true);
+        }
 
         mc.startLocationListen(this);
 
@@ -78,14 +96,15 @@ public class EditMood extends AppCompatActivity implements MView<MainModel> {
                 String t_emotions = s_emotions.getSelectedItem().toString();
 
                 Spinner g_status = (Spinner) findViewById(R.id.Egroupstatus);
-//                g_status.setSelection();
                 String groupstring = g_status.getSelectedItem().toString();
 
                 EditText get_comment = (EditText) findViewById(R.id.Ecomment);
                 String commentstring = get_comment.getText().toString();
 
                 MainController mc = MainApplication.getMainController();
-//                Mood mood = new Mood(mc.getEmotion(t_emotions), mc.getMe());
+
+
+                mood.setEmotion(mc.getEmotion(t_emotions));
                 mood.setSocialSituation(groupstring);
                 mood.setMessage(commentstring);
                 mood.setImage(imageBitmap);
@@ -116,9 +135,10 @@ public class EditMood extends AppCompatActivity implements MView<MainModel> {
 
                 } else {
                     // if off locations disabled
+                    mood.setLatitude(null);
+                    mood.setLongitude(null);
                 }
                 Log.d("location", moodLocation.toString());
-//                mc.addNewMood(mood);
                 mc.updateMoodList();
 
                 finish();
@@ -142,6 +162,30 @@ public class EditMood extends AppCompatActivity implements MView<MainModel> {
         mm.addView(this);
     }
 
+    private int getSelectedItem(Spinner s,String checkS){
+        int index = 0;
+
+        for (int i=0;i<s.getCount();i++){
+            if (s.getItemAtPosition(i).equals(checkS)){
+                index = i;
+            }
+        }
+        return index;
+    }
+
+    // setting photo to imageview
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data)
+    {
+        if(requestCode == REQUEST_CODE){
+            if(resultCode == RESULT_OK){
+                Bundle extras = data.getExtras();
+                imageBitmap = (Bitmap) extras.get("data");
+                IMG.setImageBitmap(imageBitmap);
+
+            }
+        }
+    }
 
     @Override
     public void onDestroy() {

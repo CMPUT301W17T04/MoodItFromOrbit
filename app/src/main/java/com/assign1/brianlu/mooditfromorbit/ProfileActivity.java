@@ -104,6 +104,15 @@ public class ProfileActivity extends AppCompatActivity implements MView<MainMode
                 startActivity(intent2);
                 return true;
 
+            case R.id.action_dashboard:
+                Intent intent = new Intent(ProfileActivity.this,DashBoard.class);
+                startActivity(intent);
+                return true;
+
+            case R.id.action_sort:
+                View filterbar = (View) findViewById(R.id.filterBar);
+                filterbar.setVisibility(View.VISIBLE);
+
             case R.id.action_follow:
                 // temporary because the main following function is not implemented
                 MainController mc = MainApplication.getMainController();

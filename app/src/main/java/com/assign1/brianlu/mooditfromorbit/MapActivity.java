@@ -1,8 +1,14 @@
 package com.assign1.brianlu.mooditfromorbit;
 
+import android.app.FragmentManager;
 import android.content.Intent;
+import android.graphics.drawable.Drawable;
+import android.location.Address;
+import android.location.Geocoder;
 import android.location.Location;
+import android.support.v4.content.res.ResourcesCompat;
 import android.support.v4.view.MenuItemCompat;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.view.menu.MenuView;
@@ -28,8 +34,14 @@ import org.osmdroid.views.overlay.infowindow.InfoWindow;
 
 import android.app.Activity;
 import android.os.Bundle;
+import android.widget.ListView;
 
+import java.io.IOException;
 import java.util.ArrayList;
+import java.util.List;
+import java.util.Locale;
+
+import static com.assign1.brianlu.mooditfromorbit.R.id.refreshLayout;
 
 /**
  * activity that displays the map
@@ -37,21 +49,22 @@ import java.util.ArrayList;
 public class MapActivity extends AppCompatActivity implements MView<MainModel> {
 
 
-
-
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_map);
         MapView mMapView;
         MapController mMapController;
+
+
         MainController mc = MainApplication.getMainController();
+
         // used to get the current location when click on the map
         mc.startLocationListen(this);
         mc.stopLocationListener();
         Location currentLocation = mc.getLocation();
 
+        Drawable icon = ResourcesCompat.getDrawable(getResources(), R.drawable.marker_kml_point, null);
 
-//        OpenStreetMapTileProviderConstants.setCachePath(...)
         mMapView = (MapView) findViewById(R.id.map_view);
         mMapView.setTileSource(TileSourceFactory.DEFAULT_TILE_SOURCE);
         mMapView.setBuiltInZoomControls(true);
@@ -69,7 +82,10 @@ public class MapActivity extends AppCompatActivity implements MView<MainModel> {
             Marker startMarker = new Marker(mMapView);
             startMarker.setPosition(gPt);
             startMarker.setAnchor(Marker.ANCHOR_CENTER, Marker.ANCHOR_BOTTOM);
-            startMarker.setTitle("Current Location!");
+            String address = "Current Location: " + getAddressFromGeo( lat,lng);
+            startMarker.setTitle(address);
+            startMarker.setIcon(icon);
+
             mMapView.getOverlays().add(startMarker);
         }
 
@@ -85,8 +101,10 @@ public class MapActivity extends AppCompatActivity implements MView<MainModel> {
                 Marker startMarker1 = new Marker(mMapView);
                 startMarker1.setPosition(pt);
                 startMarker1.setAnchor(Marker.ANCHOR_CENTER, Marker.ANCHOR_BOTTOM);
-//                InfoWindow infoWindow = new MyInfoWindow();
-//                startMarker1.set
+                startMarker1.setIcon(icon);
+                String address = getAddressFromGeo( mood.getLatitude(),mood.getLongitude());
+                String message = mood.getUserName() + ", " + mood.getEmotion().getEmotion() + "\n" + address + "\n" +mood.getMessage();
+                startMarker1.setTitle(message);
                 mMapView.getOverlays().add(startMarker1);
             }
 
@@ -99,27 +117,13 @@ public class MapActivity extends AppCompatActivity implements MView<MainModel> {
         Toolbar myToolbar = (Toolbar) findViewById(R.id.my_toolbar);
         setSupportActionBar(myToolbar);
 
+
+
+
         MainModel mm = MainApplication.getMainModel();
         mm.addView(this);
     }
 
-//    private class MoodInfoWindow extends InfoWindow {
-//        public absMoodInfoWindow(int layoutid, MapView mapview){
-//            super(layoutid, mapview);
-//        }
-//
-//
-//        public void onClose(){
-//
-//        }
-//
-//
-//        public void onOpen(Mood mood){
-//
-//        }
-//
-//
-//    }
 
 
     @Override
@@ -146,11 +150,14 @@ public class MapActivity extends AppCompatActivity implements MView<MainModel> {
                 return true;
 
             case R.id.action_profile:
-
                 Intent intent = new Intent(MapActivity.this, ProfileActivity.class);
                 startActivity(intent);
-
                 return true;
+
+            case R.id.menu_refresh:
+                finish();
+                startActivity(getIntent());
+
 
             default:
                 // If we got here, the user's action was not recognized.
@@ -176,9 +183,31 @@ public class MapActivity extends AppCompatActivity implements MView<MainModel> {
     }
 
 
+    private String getAddressFromGeo(double lat, double lng){
+        Geocoder geocoder;
+        geocoder = new Geocoder(this, Locale.getDefault());
+        String theAddress = "";
+        try{
+            List<Address> addresses = geocoder.getFromLocation(lat,lng,1);
+            theAddress += addresses.get(0).getAddressLine(0) + ", ";
+            theAddress += addresses.get(0).getLocality() + ", ";
+            theAddress += addresses.get(0).getAdminArea() + ", ";
+            theAddress += addresses.get(0).getCountryName();
+            String postalCode = addresses.get(0).getPostalCode();
+//            theAddress +=  addresses.get(0).getFeatureName();
+        } catch (IOException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+
+        }
+        return theAddress;
+    }
+
+
 
     public void update(MainModel mc){
         // TODO code to redisplay the data
     }
+
 }
 

@@ -25,14 +25,19 @@
         app:showAsAction="always"
         app:actionViewClass="android.support.v7.widget.SearchView" />
 
+    <item android:id="@+id/action_dashboard"
+        android:title="Dashboard"
+        app:showAsAction="never"/>
 
     <item android:id="@+id/action_map"
         android:title="@string/action_map"
         app:showAsAction="never" />
 
+
     <item android:id="@+id/action_follow"
         android:title="@string/menu_follow"
         app:showAsAction="never" />
+
 
 
 

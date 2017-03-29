@@ -85,11 +85,12 @@ public class DashBoardMap extends AppCompatActivity implements MView<MainModel> 
                 Marker startMarker1 = new Marker(mMapView);
                 startMarker1.setPosition(pt);
                 startMarker1.setAnchor(Marker.ANCHOR_CENTER, Marker.ANCHOR_BOTTOM);
-                mMapView.getOverlays().add(startMarker1);
+
                 startMarker1.setIcon(icon);
                 String address = getAddressFromGeo( mood.getLatitude(),mood.getLongitude());
                 String message = mood.getUserName() + ", " + mood.getEmotion().getEmotion() + "\n" + address + "\n" +mood.getMessage();
                 startMarker1.setTitle(message);
+                mMapView.getOverlays().add(startMarker1);
             }
 
         }
@@ -129,7 +130,7 @@ public class DashBoardMap extends AppCompatActivity implements MView<MainModel> 
 
             case R.id.action_profile:
 
-                Intent intent = new Intent(DashBoardMap.this, DashBoard.class);
+                Intent intent = new Intent(DashBoardMap.this, ProfileActivity.class);
                 startActivity(intent);
 
                 return true;
