@@ -90,13 +90,9 @@ public class DashBoardMap extends AppCompatActivity implements MView<MainModel> 
                 String address = getAddressFromGeo( mood.getLatitude(),mood.getLongitude());
                 String message = mood.getUserName() + ", " + mood.getEmotion().getEmotion() + "\n" + address + "\n" +mood.getMessage();
                 startMarker1.setTitle(message);
-
             }
 
         }
-
-
-
 
         //used https://developer.android.com/training/appbar/setting-up.html#utility
         Toolbar myToolbar = (Toolbar) findViewById(R.id.my_toolbar);
@@ -171,6 +167,8 @@ public class DashBoardMap extends AppCompatActivity implements MView<MainModel> 
             theAddress += addresses.get(0).getLocality() + ", ";
             theAddress += addresses.get(0).getAdminArea() + ", ";
             theAddress += addresses.get(0).getCountryName();
+            String postalCode = addresses.get(0).getPostalCode();
+//            theAddress +=  addresses.get(0).getFeatureName();
         } catch (IOException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();

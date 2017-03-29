@@ -8,6 +8,7 @@ import android.provider.MediaStore;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -27,24 +28,25 @@ public class EditMood extends AppCompatActivity implements MView<MainModel> {
     ImageView IMG;
     Bitmap imageBitmap;
     Mood mood;
-    int moodId;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edit_mood);
 
-
         final MainController mc = MainApplication.getMainController();
 
-        moodId = getIntent().getExtras().getInt("moodId");
+        int moodId = getIntent().getExtras().getInt("moodId");
         mood = mc.getMe().getMoods().getMood(moodId);
+        Spinner s_emotions = (Spinner) findViewById(R.id.emotions);
+        s_emotions.getCount();
+
+//        s_emotions.setSelection(s_emotions.getSelectedItemPosition());
+
 
         EditText get_comment = (EditText) findViewById(R.id.Ecomment);
         if (mood.getMessage()!= null){get_comment.setText(mood.getMessage());}
 
-
-//        Spinner s_emotions = (Spinner) findViewById(R.id.emotions);
-//        s_emotions.setSel
 
         mc.startLocationListen(this);
 
@@ -76,6 +78,7 @@ public class EditMood extends AppCompatActivity implements MView<MainModel> {
                 String t_emotions = s_emotions.getSelectedItem().toString();
 
                 Spinner g_status = (Spinner) findViewById(R.id.Egroupstatus);
+//                g_status.setSelection();
                 String groupstring = g_status.getSelectedItem().toString();
 
                 EditText get_comment = (EditText) findViewById(R.id.Ecomment);
