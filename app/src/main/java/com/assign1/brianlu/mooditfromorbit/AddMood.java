@@ -167,6 +167,8 @@ public class AddMood extends AppCompatActivity implements MView<MainModel> {
     public void update(MainModel mc){}
 
     // Resizes the bitmap image
+    // Taken from http://stackoverflow.com/questions/16954109/reduce-the-size-of-a-bitmap-to-a-specified-size-in-android
+    // but modified a bit to fit usecase.
     public Bitmap getResizedBitmap(Bitmap image, int maxWidth, int maxHeight) {
         int width = image.getWidth();
         int height = image.getHeight();
