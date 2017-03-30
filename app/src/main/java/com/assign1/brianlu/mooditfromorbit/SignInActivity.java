@@ -39,11 +39,7 @@ public class SignInActivity extends AppCompatActivity implements MView<MainModel
 
                 String input = userName.getText().toString();
 
-                Log.d("username", input);
-
                 Boolean exists = mc.checkSignIn(input);
-
-                Log.d("boolean Value", exists.toString());
 
                 if(!exists){
                     Toast.makeText(getBaseContext(),"Invalid User name, Please sign up!",Toast.LENGTH_SHORT).show();

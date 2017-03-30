@@ -114,7 +114,6 @@ public class ElasticSearchController {
                         String id = (String)source.get(JestResult.ES_METADATA_ID);
                         foundUsers.getUser(i).setId(id);
                         i++;
-                        Log.d("testing", source.toString());
 
                     }
 
@@ -123,7 +122,7 @@ public class ElasticSearchController {
 
                 }
                 else {
-                    Log.i("Error", "The search query failed to find any tweets that matched");
+                    Log.i("Error", "The search query failed to find any users that matched");
                 }
             }
             catch (Exception e) {
@@ -152,8 +151,6 @@ public class ElasticSearchController {
 
                 query = "{\"doc\" : { \"type\" : \"nested\", \"moods\" : " + user.getGsonMoods() + "}}";
 
-                Log.d("userid update", user.getId());
-                Log.d("gson string", query);
                 Update update = new Update.Builder(query)
                         .index("cmput301w17t4")
                         .type("user")
@@ -193,9 +190,7 @@ public class ElasticSearchController {
 
 
                 query = "{\"doc\" : { \"type\" : \"nested\", \"followList\" : " + user.getGsonFollowList() + "}}";
-                //query = "{\"doc\" : { \"followers\" : " + user.getGsonFollowList() + "}}";
 
-                Log.d("gson string", query);
                 Update update = new Update.Builder(query)
                         .index("cmput301w17t4")
                         .type("user")
@@ -222,6 +217,7 @@ public class ElasticSearchController {
 
     public static void verifySettings() {
         if (client == null) {
+
             DroidClientConfig.Builder builder = new DroidClientConfig.Builder("http://cmput301.softwareprocess.es:8080");
             DroidClientConfig config = builder.build();
 

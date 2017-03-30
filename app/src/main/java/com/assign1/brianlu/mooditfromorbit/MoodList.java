@@ -48,7 +48,12 @@ public class MoodList{
     }
 
     public Mood getMood(int index){
-        return moods.get(index);
+        try {
+            return moods.get(index);
+        }
+        catch (Exception e){
+            return null;
+        }
 
     }
 

@@ -125,7 +125,10 @@ public class MainModel extends MModel<MView> {
         followingMoods.clear();
         for(User user: users.getUsers()){
             if(me.getFollowing().contains(user.getId())){
-                followingMoods.add(user.getMostRecentMood());
+                Mood mood = user.getMostRecentMood();
+                if(mood != null) {
+                    followingMoods.add(mood);
+                }
             }
         }
         followingMoods.sortByNewest();
