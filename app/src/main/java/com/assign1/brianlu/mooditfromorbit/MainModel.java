@@ -34,12 +34,14 @@ public class MainModel extends MModel<MView> {
     static private Location moodLocation;
     private LocationManager locationManager;
     private LocationListener locationListener;
+    private ServerUploader serverUploader;
 
     MainModel(){
         super();
         pullUsersFromServer();
         fillEmotions();
         followingMoods = new MoodList();
+        serverUploader = new ServerUploader();
     }
 
     /**
@@ -50,7 +52,7 @@ public class MainModel extends MModel<MView> {
         getUsersTask.execute("");
 
         try {
-            this.users = getUsersTask.get();
+            users = getUsersTask.get();
         } catch (Exception e){
             Log.i("Error", "Failed to get the users from the async object");
         }
@@ -115,7 +117,8 @@ public class MainModel extends MModel<MView> {
 
     public void updateMoodList(){
         ElasticSearchController.UpdateUsersMoodTask updateUsersMoodTask = new ElasticSearchController.UpdateUsersMoodTask();
-        updateUsersMoodTask.execute(me);
+        serverUploader.addCommunication(updateUsersMoodTask);
+        serverUploader.sendCommunications();
     }
     /**
      * puts the moods of all people that the current user follows into followingMoods
