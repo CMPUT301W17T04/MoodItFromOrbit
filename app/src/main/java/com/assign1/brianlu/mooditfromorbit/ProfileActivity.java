@@ -176,8 +176,6 @@ public class ProfileActivity extends AppCompatActivity implements MView<MainMode
                 });
         builder.show();
     }
-
-    
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.profile_menu, menu);
