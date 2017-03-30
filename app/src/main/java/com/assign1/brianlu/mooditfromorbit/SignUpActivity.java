@@ -42,6 +42,7 @@ public class SignUpActivity extends AppCompatActivity implements MView<MainModel
             public void onClick(View v) {
                 setResult(RESULT_OK);
 
+                updateFromServer();
                 MainController mc = MainApplication.getMainController();
 
                 String input = userName.getText().toString();
@@ -93,12 +94,17 @@ public class SignUpActivity extends AppCompatActivity implements MView<MainModel
     }
 
     public void update(MainModel mm){
-        //TODO code to resync data
+        updateFromServer();
     }
 
     public void updateUsers(User user){
         MainController mc = MainApplication.getMainController();
         mc.addUser(user);
+    }
+
+    private void updateFromServer(){
+        MainController mc = MainApplication.getMainController();
+        mc.pullUsers();
     }
 
 }

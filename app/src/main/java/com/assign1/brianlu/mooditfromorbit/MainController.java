@@ -32,6 +32,9 @@ public class MainController implements MController {
         return mm.getUsers();
     }
 
+    public void pullUsers(){
+        mm.pullUsersFromServer();
+    }
     /**
      * calls addUser() and setMe()
      * @param user

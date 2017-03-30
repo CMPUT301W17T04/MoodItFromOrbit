@@ -47,7 +47,7 @@ public class MainModel extends MModel<MView> {
     /**
      * grabs all users from the server
      */
-    private void pullUsersFromServer(){
+    public void pullUsersFromServer(){
         ElasticSearchController.GetUsersTask getUsersTask = new ElasticSearchController.GetUsersTask();
         getUsersTask.execute("");
 
