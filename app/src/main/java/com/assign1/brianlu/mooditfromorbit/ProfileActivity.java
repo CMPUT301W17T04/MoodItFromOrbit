@@ -8,7 +8,11 @@
 
 package com.assign1.brianlu.mooditfromorbit;
 
+import android.app.AlertDialog;
+import android.app.Dialog;
+import android.app.DialogFragment;
 import android.app.FragmentManager;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.location.Location;
 import android.provider.ContactsContract;
@@ -22,11 +26,13 @@ import android.support.v7.view.menu.MenuView;
 import android.support.v7.widget.SearchView;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ListView;
 
 /**
@@ -36,7 +42,10 @@ public class ProfileActivity extends AppCompatActivity implements MView<MainMode
 
     private ListView moodListView;
     private MoodListAdapter adapter;
-    private FragmentManager fragmentManager = getFragmentManager();
+    private String searchMood;
+    private String searchText;
+
+
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile);
@@ -114,22 +123,11 @@ public class ProfileActivity extends AppCompatActivity implements MView<MainMode
                 return true;
 
             case R.id.action_sort:
-//                View filterbar = (View) findViewById(R.id.filterBar);
-//                filterbar.setVisibility(View.VISIBLE);
-                android.app.Fragment fragment = new FilterFragment();
-                fragmentManager.beginTransaction().add(R.id.overlay_fragment_container,fragment).commit();
-//                Button filter = (Button) findViewById(R.id.filterButton);
-//                if(filter != null) {
-//                    filter.setOnClickListener(new View.OnClickListener() {
-//                        @Override
-//                        public void onClick(View v) {
-//                            getSupportFragmentManager().beginTransaction().remove(getSupportFragmentManager().findFragmentById(R.id.overlay_fragment_container)).commit();
-//
-//                        }
-//                    });
-//                }else{
-//                    Log.i("haha","gg");
-//                }
+                showFilterDialog();
+
+
+
+                return true;
 
 
 
@@ -156,6 +154,30 @@ public class ProfileActivity extends AppCompatActivity implements MView<MainMode
         }
     }
 
+    private void showFilterDialog(){
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        LayoutInflater inflater = ProfileActivity.this.getLayoutInflater();
+        final View v_iew=inflater.inflate(R.layout.filter_view, null);
+        builder.setView(v_iew)
+                .setPositiveButton(R.string.filter, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        EditText stext = (EditText) v_iew.findViewById(R.id.searchText);
+                        EditText smood = (EditText) v_iew.findViewById(R.id.searchMood);
+                        searchText = stext.getText().toString();
+                        searchMood = smood.getText().toString();
+                    }
+                })
+                .setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int id) {
+                        dialog.cancel();
+                    }
+                });
+        builder.show();
+    }
+
+    
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.profile_menu, menu);

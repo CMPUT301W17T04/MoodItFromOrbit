@@ -24,6 +24,7 @@
     <string name="searchText">Search Text</string>
     <string name="searchMood">Search Mood</string>
     <string name="filter">Filter</string>
+    <string name="cancel">Cancel</string>
 
     <string-array name="Emotions_List">
         <item>Angry</item>
