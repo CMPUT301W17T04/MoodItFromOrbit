@@ -20,8 +20,17 @@ import android.app.Application;
 
 
 public class MainApplication extends Application {
-
+    transient private static Boolean connectedToServer = true;
     transient private static MainModel model = null;
+    transient private static MainController controller = null;
+
+    public static Boolean getConnectedToServer() {
+        return connectedToServer;
+    }
+
+    public static void setConnectedToServer(Boolean connectedToServer) {
+        MainApplication.connectedToServer = connectedToServer;
+    }
 
     public static MainModel getMainModel(){
         if(model == null){
@@ -29,8 +38,6 @@ public class MainApplication extends Application {
         }
         return model;
     }
-
-    transient private static MainController controller = null;
 
     public static MainController getMainController(){
         if(controller == null){
