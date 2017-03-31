@@ -28,7 +28,7 @@ import android.widget.EditText;
 import android.widget.ListView;
 
 /**
- * Created by Ji Cao on 2017/3/31.
+ *
  * add the user name to the following list while click the follow button on profile
  */
 
@@ -55,11 +55,8 @@ public class AddFollow extends AppCompatActivity {
 
 
     }
-    private void addfollowname(String countName){
-        /**
-         * ToDo
-         * addfollowname function which add username to server
-         **/
+    private void addfollowname(String AccountName){
+
 
     }
 
