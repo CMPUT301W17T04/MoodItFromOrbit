@@ -122,10 +122,8 @@ public class ProfileActivity extends AppCompatActivity implements MView<MainMode
                 startActivity(intent);
                 return true;
 
-            case R.id.action_sort:
+            case R.id.action_filter:
                 showFilterDialog();
-
-
 
                 return true;
 
@@ -184,14 +182,13 @@ public class ProfileActivity extends AppCompatActivity implements MView<MainMode
         SearchView searchView =
                 (SearchView) MenuItemCompat.getActionView(searchItem);
 
-        MenuItem sortItem = menu.findItem(R.id.action_sort);
+        MenuItem filterItem = menu.findItem(R.id.action_filter);
         MenuView menuView =
-                (MenuView) MenuItemCompat.getActionView(sortItem);
+                (MenuView) MenuItemCompat.getActionView(filterItem);
         // Configure the search info and add any event listeners...
 
         return super.onCreateOptionsMenu(menu);
     }
-
 
 
     public void update(MainModel m ){

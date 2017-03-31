@@ -1,6 +1,8 @@
 package com.assign1.brianlu.mooditfromorbit;
 
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.view.MenuItemCompat;
@@ -11,8 +13,11 @@ import android.support.v7.view.menu.MenuView;
 import android.support.v7.widget.SearchView;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -33,6 +38,8 @@ public class DashBoard extends AppCompatActivity implements MView<MainModel>{
     private ListView moodListView;
     private MoodListAdapter adapter;
     private SwipeRefreshLayout refreshLayout;
+    private String searchMood;
+    private String searchText;
 
 
 
@@ -111,10 +118,12 @@ public class DashBoard extends AppCompatActivity implements MView<MainModel>{
                 return true;
 
             case R.id.action_profile:
-
                 Intent intent = new Intent(DashBoard.this, ProfileActivity.class);
                 startActivity(intent);
+                return true;
 
+            case R.id.action_filter:
+                showFilterDialog();
                 return true;
 
             case R.id.menu_refresh:
@@ -130,6 +139,30 @@ public class DashBoard extends AppCompatActivity implements MView<MainModel>{
         }
     }
 
+    private void showFilterDialog(){
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        LayoutInflater inflater = DashBoard.this.getLayoutInflater();
+        final View v_iew=inflater.inflate(R.layout.filter_view, null);
+        builder.setView(v_iew)
+                .setPositiveButton(R.string.filter, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        EditText stext = (EditText) v_iew.findViewById(R.id.searchText);
+                        EditText smood = (EditText) v_iew.findViewById(R.id.searchMood);
+                        searchText = stext.getText().toString();
+                        searchMood = smood.getText().toString();
+                    }
+                })
+                .setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int id) {
+                        dialog.cancel();
+                    }
+                });
+        builder.show();
+    }
+
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.dash_board_menu, menu);
@@ -138,9 +171,9 @@ public class DashBoard extends AppCompatActivity implements MView<MainModel>{
         SearchView searchView =
                 (SearchView) MenuItemCompat.getActionView(searchItem);
 
-        MenuItem sortItem = menu.findItem(R.id.action_sort);
+        MenuItem filterItem = menu.findItem(R.id.action_filter);
         MenuView menuView =
-                (MenuView) MenuItemCompat.getActionView(sortItem);
+                (MenuView) MenuItemCompat.getActionView(filterItem);
 
         return super.onCreateOptionsMenu(menu);
     }
@@ -161,8 +194,4 @@ public class DashBoard extends AppCompatActivity implements MView<MainModel>{
         adapter.notifyDataSetChanged();
 
     }
-
-
-
-
 }
