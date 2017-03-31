@@ -15,8 +15,8 @@
         android:icon="@drawable/ic_add_black_24dp"
         app:showAsAction="always"/>
 
-    <item android:id="@+id/action_sort"
-        android:title="@string/action_sort"
+    <item android:id="@+id/action_filter"
+        android:title="Filter"
         android:icon="@drawable/ic_sort_black_24dp"
         app:showAsAction="never"
         app:actionViewClass="android.support.v7.widget.ActionMenuView" />
