@@ -74,6 +74,10 @@ public class MainController implements MController {
         }
     }
 
+    public void generateRequested(){
+        mm.generateRequested();
+    }
+
     public boolean checkForUser(User user){
         return mm.checkForUser(user);
     }

@@ -53,6 +53,10 @@ public class MainModel extends MModel<MView> {
         try {
             users = getUsersTask.get();
             setAllExceptMeUsers();
+            if(me != null){
+                me = users.getUserById(me.getId());
+            }
+
         } catch (Exception e){
             Log.i("Error", "Failed to get the users from the async object");
         }

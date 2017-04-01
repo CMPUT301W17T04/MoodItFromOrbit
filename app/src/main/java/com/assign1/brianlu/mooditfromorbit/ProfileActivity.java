@@ -92,6 +92,7 @@ public class ProfileActivity extends CustomAppCompatActivity implements MView<Ma
         super.onStart();
         getAllSelfMoods();
         adapter = new MoodListAdapter(this, selfMoods);
+
         moodListView.setAdapter(adapter);
         checkOnlineStatus();
 
@@ -208,7 +209,9 @@ public class ProfileActivity extends CustomAppCompatActivity implements MView<Ma
 
     private void getAllSelfMoods(){
         Log.i("getcalled","called once");
+
         MainController mc = MainApplication.getMainController();
+        mc.generateRequested();
         selfMoods = mc.getMe().getMoods().getMoods();
     }
 
