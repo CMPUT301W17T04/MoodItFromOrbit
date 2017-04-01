@@ -27,6 +27,7 @@
     <string name="cancel">Cancel</string>
     <string name="server">Unable to Reach Server</string>
     <string name="all_users">All Users</string>
+    <string name="recentWeek">Filter by most recent week</string>
 
     <string-array name="Emotions_List">
         <item>Angry</item>
@@ -39,17 +40,7 @@
         <item>Surprise</item>
     </string-array>
 
-    <string-array name="chrono_sort">
-        <item>Most recent</item>
-        <item>Least recent</item>
-    </string-array>
 
-
-    <string-array name="time_filter">
-        <item>In a week</item>
-        <item>In a month</item>
-        <item>All</item>
-    </string-array>
 
     <string-array name="group_status">
         <item>Alone</item>

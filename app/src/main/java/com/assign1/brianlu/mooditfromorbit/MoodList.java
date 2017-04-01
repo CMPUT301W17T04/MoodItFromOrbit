@@ -23,8 +23,8 @@ public class MoodList{
     public MoodList(){
         moods = new ArrayList<>();
     }
-    public MoodList(ArrayList<Mood> newMoods){
-        moods = newMoods;
+    public MoodList(ArrayList<Mood> moodsList){
+        moods = moodsList;
     }
 
     public void add(Mood mood){
@@ -97,7 +97,8 @@ public class MoodList{
      */
     public void sortByEmotion(Emotion emotion){
         for(int i = 0; i < this.getCount(); i++){
-            if (this.getMood(i).getEmotion() == emotion){
+            if (this.getMood(i).getEmotion().getEmotion().equals(emotion.getEmotion()) ){
+                Log.i("get match","this is a match message");
             }
             else{
                 this.delete(this.getMood(i));

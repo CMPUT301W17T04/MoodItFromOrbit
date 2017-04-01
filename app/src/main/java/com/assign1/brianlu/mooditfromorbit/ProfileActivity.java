@@ -32,6 +32,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.Spinner;
@@ -89,8 +90,7 @@ public class ProfileActivity extends CustomAppCompatActivity implements MView<Ma
     protected void onStart() {
         // TODO Auto-generated method stub
         super.onStart();
-        MainController mc = MainApplication.getMainController();
-        selfMoods = mc.getMe().getMoods().getMoods();
+        getAllSelfMoods();
         adapter = new MoodListAdapter(this, selfMoods);
         moodListView.setAdapter(adapter);
         checkOnlineStatus();
@@ -154,31 +154,42 @@ public class ProfileActivity extends CustomAppCompatActivity implements MView<Ma
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         LayoutInflater inflater = ProfileActivity.this.getLayoutInflater();
         final View view=inflater.inflate(R.layout.filter_view, null);
+        final EditText stext = (EditText) view.findViewById(R.id.searchText);
+        if(searchText != null){stext.setText(searchText);}
+        final EditText smood = (EditText) view.findViewById(R.id.searchMood);
+        if(searchMood != null){smood.setText(searchMood);}
         builder.setView(view)
                 .setPositiveButton(R.string.filter, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int id) {
-                        EditText stext = (EditText) view.findViewById(R.id.searchText);
-                        EditText smood = (EditText) view.findViewById(R.id.searchMood);
+
                         searchText = stext.getText().toString();
                         searchMood = smood.getText().toString();
-                        Spinner s_timefilter = (Spinner) view.findViewById(R.id.s_time);
-                        Spinner s_sort = (Spinner) view.findViewById(R.id.s_chrono);
-                        String searchTime = s_timefilter.getSelectedItem().toString();
-                        String sort = s_sort.getSelectedItem().toString();
 
-                        ArrayList<Mood> newSelfMoods = filterByMood(selfMoods,searchMood);
-                        selfMoods = newSelfMoods;
+                        CheckBox s_sort = (CheckBox) view.findViewById(R.id.recentWeek);
+//                        String searchTime = s_timefilter.getSelectedItem().toString();
+//                        String sort = s_sort.getSelectedItem().toString();
+                        getAllSelfMoods();
+//                        ArrayList<Mood> newSelfMoods = new ArrayList<>();
+                        if(!searchMood.equals("")){
+//                            newSelfMoods.addAll(filterByMood(selfMoods, searchMood));
+                            selfMoods = filterByMood(selfMoods, searchMood);
+                        }
+                        if(!searchText.equals("")){
+//                            newSelfMoods.addAll(filterByText(selfMoods,searchText));
+                            selfMoods = filterByText(selfMoods,searchText);
+                        }
 
 
 
-//                        Log.i("the text is ",searchText);
-//                        Log.i("the text is ",searchMood);
-//                        Log.i("the text is ",searchTime);
-//                        Log.i("the text is ",sort);
-//                        if(searchText == null){
-//                            Log.i("no search text","hah");
-//                        }
+
+
+                        Log.i("first mood is",selfMoods.get(0).getEmotion().getEmotion());
+                        adapter = new MoodListAdapter(ProfileActivity.this, selfMoods);
+                        moodListView.setAdapter(adapter);
+                        checkOnlineStatus();
+
+
 
 
 
@@ -194,13 +205,29 @@ public class ProfileActivity extends CustomAppCompatActivity implements MView<Ma
     }
 
 
-
+    private void getAllSelfMoods(){
+        Log.i("getcalled","called once");
+        MainController mc = MainApplication.getMainController();
+        selfMoods = mc.getMe().getMoods().getMoods();
+    }
 
     private ArrayList<Mood> filterByMood(ArrayList<Mood> moods, String emotion){
-        MoodList sortedMoods = new MoodList(moods);
+        MoodList sortedMoods = new MoodList();
         MainController mc = MainApplication.getMainController();
-        Emotion e = mc.getEmotion(emotion);
-        sortedMoods.sortByEmotion(e);
+        sortedMoods.merge(new MoodList(moods));
+        if(mc.getEmotion(emotion) != null){
+            sortedMoods.sortByEmotion(mc.getEmotion(emotion));
+            return sortedMoods.getMoods();
+        }else {
+            return selfMoods;
+        }
+    }
+
+
+    private ArrayList<Mood> filterByText(ArrayList<Mood> moods, String text){
+        MoodList sortedMoods = new MoodList();
+        sortedMoods.merge(new MoodList(moods));
+        sortedMoods.sortByWord(text);
         return sortedMoods.getMoods();
     }
 
