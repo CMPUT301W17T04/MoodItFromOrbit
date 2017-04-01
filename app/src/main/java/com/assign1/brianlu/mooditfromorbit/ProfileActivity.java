@@ -83,6 +83,7 @@ public class ProfileActivity extends CustomAppCompatActivity implements MView<Ma
         // TODO Auto-generated method stub
         super.onStart();
         MainController mc = MainApplication.getMainController();
+        mc.generateRequested();
         adapter = new MoodListAdapter(this, mc.getMe().getMoods().getMoods());
         moodListView.setAdapter(adapter);
         checkOnlineStatus();
