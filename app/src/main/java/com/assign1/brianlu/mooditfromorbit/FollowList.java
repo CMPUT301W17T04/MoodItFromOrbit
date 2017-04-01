@@ -1,7 +1,5 @@
 package com.assign1.brianlu.mooditfromorbit;
 
-import android.app.DownloadManager;
-
 import java.util.ArrayList;
 
 /**
@@ -14,8 +12,7 @@ public class FollowList {
      */
     private ArrayList<String> followingList = new ArrayList<String>();
     private ArrayList<String> followerList = new ArrayList<String>();
-
-    private ArrayList<String> RequestList =  new ArrayList<String>();
+    private ArrayList<String> pendingList =  new ArrayList<String>();
 
     /**
      * add to Following/Follower list
@@ -25,11 +22,40 @@ public class FollowList {
         followingList.add(userName);
     }
 
-     public void addFollower (String userName){
+    public void addFollower (String userName){
          followerList.add(userName);
     }
 
-     public void addRequest (String userName)  {RequestList.add(userName);}
+    public void addPending (String userName)  {
+         pendingList.add(userName);
+     }
+
+    public Boolean containsPending(String username){
+         if(pendingList.contains(username)){
+             return true;
+         }
+         else{
+             return false;
+         }
+     }
+
+    public Boolean containsFollowing(String username){
+        if(followingList.contains(username)){
+            return true;
+        }
+        else{
+            return false;
+        }
+    }
+
+    public Boolean containsFollower(String username){
+        if(followerList.contains(username)){
+            return true;
+        }
+        else{
+            return false;
+        }
+    }
 
     /**
      * remove from Following.follower list
@@ -43,7 +69,7 @@ public class FollowList {
         followerList.remove(userName);
     }
 
-    public void removeRequest (String userName) { RequestList.remove(userName);}
+    public void removePending (String userName) { pendingList.remove(userName);}
 
     /**
      * return following/follower list
@@ -55,5 +81,5 @@ public class FollowList {
     public ArrayList<String> getFollower (){
         return followerList;
     }
-    public ArrayList<String> getRequest ()  {return RequestList;}
+    public ArrayList<String> getPending ()  {return pendingList;}
 }

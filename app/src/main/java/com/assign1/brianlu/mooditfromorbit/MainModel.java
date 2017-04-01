@@ -105,6 +105,18 @@ public class MainModel extends MModel<MView> {
     }
 
     /**
+     * return all users that aren't the current user
+     * @return users that aren't me
+     */
+    public UserList getAllExceptMeUsers(){
+        UserList tempUsers = new UserList();
+        tempUsers.merge(users);
+        User tempUser = tempUsers.getUserByName(me.getUserName());
+        tempUsers.deleteUser(tempUser);
+        return tempUsers;
+    }
+
+    /**
      * adds new mood to current users mood history
      * @param mood new mood
      */

@@ -29,6 +29,7 @@ public class User{
         this.userName = userName;
         this.moods = new MoodList();
         this.followList = new FollowList();
+
     }
 
     public String getUserName(){
@@ -111,6 +112,10 @@ public class User{
 
     public ArrayList<String> getFollowers() {
         return followList.getFollower();
+    }
+
+    public ArrayList<String> getPending(){
+        return followList.getPending();
     }
 
     public String getGsonFollowList(){

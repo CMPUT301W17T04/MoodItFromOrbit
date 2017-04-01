@@ -32,6 +32,10 @@ public class MainController implements MController {
         return mm.getUsers();
     }
 
+    public UserList getAllExceptMeUsers(){
+        return mm.getAllExceptMeUsers();
+    }
+
     public void pullUsers(){
         mm.pullUsersFromServer();
     }
