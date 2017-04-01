@@ -3,6 +3,9 @@ package com.assign1.brianlu.mooditfromorbit;
 import android.util.Log;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -69,6 +72,10 @@ public class UserList{
         }
     }
 
+    public void removeAll(){
+        users.clear();
+    }
+
     public User getUser(int index){
         return this.users.get(index);
     }
@@ -88,12 +95,42 @@ public class UserList{
         return null;
     }
 
+    /**
+     * returns user that matches id
+     * @param id id to check for
+     * @return user
+     */
+    public User getUserById(String id){
+        for(User user : users){
+
+            if(user.getId().equals(id)){
+                return user;
+            }
+        }
+        return null;
+    }
+
     public ArrayList<User> getUsers(){
         return users;
     }
 
     public int getCount(){
         return this.users.size();
+    }
+
+
+    public void sortByAlphabetical(){
+        Comparator<User> compareByName = new Comparator<User>() {
+            @Override
+            public int compare(User o1, User o2) {
+                String name1 = o1.getUserName();
+                String name2 = o2.getUserName();
+
+                return name1.compareTo(name2);
+            }
+        };
+
+        Collections.sort(this.users, compareByName);
     }
 
 }

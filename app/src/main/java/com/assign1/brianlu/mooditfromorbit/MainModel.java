@@ -108,17 +108,26 @@ public class MainModel extends MModel<MView> {
     }
 
     /**
+     * creates a userList of all users that are not the current user
+     */
+    private void setAllExceptMeUsers(){
+        if(allExceptMe == null){
+            allExceptMe = users;
+        }
+        else{
+            allExceptMe.removeAll();
+            allExceptMe.merge(users);
+        }
+        User tempUser = allExceptMe.getUserByName(me.getUserName());
+        allExceptMe.deleteUser(tempUser);
+        allExceptMe.sortByAlphabetical();
+
+    }
+
+    /**
      * return all users that aren't the current user
      * @return users that aren't me
      */
-    private void setAllExceptMeUsers(){
-        UserList tempUsers = new UserList();
-        tempUsers.merge(users);
-        User tempUser = tempUsers.getUserByName(me.getUserName());
-        tempUsers.deleteUser(tempUser);
-        allExceptMe = tempUsers;
-    }
-
     public UserList getAllExceptMeUsers(){
         return allExceptMe;
     }
@@ -132,6 +141,10 @@ public class MainModel extends MModel<MView> {
         updateMoodList(context);
     }
 
+    /**
+     * updates moodList on the server
+     * @param context current activity context
+     */
     public void updateMoodList(Context context){
         ServerUploader serverUploader = new ServerUploader();
         UpdateMoods updateMoods = new UpdateMoods(me);
@@ -139,6 +152,10 @@ public class MainModel extends MModel<MView> {
         serverUploader.execute(context);
     }
 
+    /**
+     * attempts to upload to server
+     * @param context current activity context
+     */
     public void communicateToServer(Context context){
         ServerUploader serverUploader = new ServerUploader();
         serverUploader.execute(context);
@@ -177,17 +194,21 @@ public class MainModel extends MModel<MView> {
 
         ElasticSearchController.UpdateUsersFollowListTask updateUsersFollowListTask = new ElasticSearchController.UpdateUsersFollowListTask();
         updateUsersFollowListTask.execute(me);
+
+        removePending(user);
+        addFollowing(user);
     }
 
     /**
      * adds user to following
      * @param user user that current user is following
      */
-    public void addFollowing(User user){
-        me.addFollowing(user);
+    private void addFollowing(User user){
+        user.addFollowing(me);
 
         ElasticSearchController.UpdateUsersFollowListTask updateUsersFollowListTask = new ElasticSearchController.UpdateUsersFollowListTask();
-        updateUsersFollowListTask.execute(me);
+        updateUsersFollowListTask.execute(user);
+
     }
 
     /**
@@ -195,18 +216,61 @@ public class MainModel extends MModel<MView> {
      * @param user user that current user is trying to follow
      */
     public void addPending(User user){
-        me.addPending(user);
+        if(!me.getFollowing().contains(user.getId()) && !me.getPending().contains(user.getId())){
+            me.addPending(user);
+
+            ElasticSearchController.UpdateUsersFollowListTask updateUsersFollowListTask = new ElasticSearchController.UpdateUsersFollowListTask();
+            updateUsersFollowListTask.execute(me);
+
+            addRequest(user);
+        }
+        else{
+            Log.d("it es", "exists");
+        }
+
+    }
+
+    private void removePending(User user){
+        user.deletePending(me);
 
         ElasticSearchController.UpdateUsersFollowListTask updateUsersFollowListTask = new ElasticSearchController.UpdateUsersFollowListTask();
         updateUsersFollowListTask.execute(me);
+
+        removeRequest(user);
+    }
+
+    /**
+     * generates a UserList of all users that are requesting to follow current user
+     */
+    public void generateRequested(){
+        if(me.getRequested() != null){
+            me.removeRequested();
+        }
+        else{
+            me.createRequested();
+        }
+
+        for(String id : me.getPendingRequests()){
+            User user = users.getUserById(id);
+            Log.d("uesr id naeme", user.getUserName());
+            me.addRequestedUser(user);
+        }
     }
 
     /**
      * adds me to user I'm trying to follow's requestList
      * @param user user I'm trying to follow
      */
-    public void addRequest(User user){
+    private void addRequest(User user){
         user.addRequest(me);
+
+        ElasticSearchController.UpdateUsersFollowListTask updateUsersFollowListTask = new ElasticSearchController.UpdateUsersFollowListTask();
+        updateUsersFollowListTask.execute(user);
+    }
+
+    private void removeRequest(User user){
+        me.deleteRequest(user);
+        me.removeOneRequested(user);
 
         ElasticSearchController.UpdateUsersFollowListTask updateUsersFollowListTask = new ElasticSearchController.UpdateUsersFollowListTask();
         updateUsersFollowListTask.execute(user);

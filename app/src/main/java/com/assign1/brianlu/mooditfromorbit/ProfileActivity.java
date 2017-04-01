@@ -112,7 +112,6 @@ public class ProfileActivity extends CustomAppCompatActivity implements MView<Ma
                 //switch to add mood activity
                 Intent intent1 = new Intent(ProfileActivity.this, AddMood.class);
                 startActivity(intent1);
-                adapter.notifyDataSetChanged();
                 checkOnlineStatus();
                 return true;
 
@@ -130,10 +129,7 @@ public class ProfileActivity extends CustomAppCompatActivity implements MView<Ma
 
             case R.id.action_filter:
                 showFilterDialog();
-
                 return true;
-
-
 
             case R.id.action_all_users:
                 // temporary because the main following function is not implemented
@@ -141,6 +137,11 @@ public class ProfileActivity extends CustomAppCompatActivity implements MView<Ma
                 startActivity(intent3);
                 return true;
 
+            case R.id.action_accept_requests:
+                // temporary because the main following function is not implemented
+                Intent intent4 = new Intent(ProfileActivity.this, AcceptFollowerActivity.class);
+                startActivity(intent4);
+                return true;
 
             default:
                 // If we got here, the user's action was not recognized.

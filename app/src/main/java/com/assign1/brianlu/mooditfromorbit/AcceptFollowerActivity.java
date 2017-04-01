@@ -21,7 +21,7 @@ import android.widget.AdapterView;
 import android.widget.EditText;
 import android.widget.ListView;
 
-public class FollowSomeoneActivity extends CustomAppCompatActivity implements MView<MainModel>{
+public class AcceptFollowerActivity extends CustomAppCompatActivity implements MView<MainModel>{
 
     private ListView usersListView;
     private UsersAdapter adapter;
@@ -30,7 +30,7 @@ public class FollowSomeoneActivity extends CustomAppCompatActivity implements MV
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_follow_someone);
+        setContentView(R.layout.activity_accept_follower);
 
         usersListView = (ListView) findViewById(R.id.userListView);
 
@@ -42,7 +42,7 @@ public class FollowSomeoneActivity extends CustomAppCompatActivity implements MV
         // Get a support ActionBar corresponding to this toolbar
         ActionBar ab = getSupportActionBar();
 
-        ab.setTitle("Users");
+        ab.setTitle("Requests");
         checkOnlineStatus();
 
 
@@ -52,8 +52,8 @@ public class FollowSomeoneActivity extends CustomAppCompatActivity implements MV
         usersListView.setOnItemClickListener(new AdapterView.OnItemClickListener(){
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 MainController mc = MainApplication.getMainController();
-                User clickedUser = mc.getAllExceptMeUsers().getUser(position);
-                mc.addPending(clickedUser);
+                User clickedUser = mc.getMe().getRequested().getUser(position);
+                mc.addFollower(clickedUser);
                 updateList();
             }
         });
@@ -84,7 +84,7 @@ public class FollowSomeoneActivity extends CustomAppCompatActivity implements MV
         // TODO Auto-generated method stub
         super.onStart();
         MainController mc = MainApplication.getMainController();
-        adapter = new UsersAdapter(this, mc.getAllExceptMeUsers().getUsers());
+        adapter = new UsersAdapter(this, mc.getMe().getRequested().getUsers());
         usersListView.setAdapter(adapter);
         checkOnlineStatus();
     }
@@ -102,14 +102,14 @@ public class FollowSomeoneActivity extends CustomAppCompatActivity implements MV
         switch (item.getItemId()) {
             case R.id.action_add_mood:
                 //switch to add mood activity
-                Intent intent1 = new Intent(FollowSomeoneActivity.this, AddMood.class);
+                Intent intent1 = new Intent(AcceptFollowerActivity.this, AddMood.class);
                 startActivity(intent1);
                 adapter.notifyDataSetChanged();
                 checkOnlineStatus();
                 return true;
 
             case R.id.action_dashboard:
-                Intent intent = new Intent(FollowSomeoneActivity.this,DashBoard.class);
+                Intent intent = new Intent(AcceptFollowerActivity.this,DashBoard.class);
                 startActivity(intent);
                 return true;
 
@@ -125,7 +125,7 @@ public class FollowSomeoneActivity extends CustomAppCompatActivity implements MV
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.follow_menu, menu);
+        getMenuInflater().inflate(R.menu.accept_menu, menu);
 
         // Configure the search info and add any event listeners...
 

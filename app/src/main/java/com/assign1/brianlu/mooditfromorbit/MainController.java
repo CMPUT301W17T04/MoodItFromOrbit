@@ -51,16 +51,8 @@ public class MainController implements MController {
         mm.addFollower(user);
     }
 
-    public void addFollowing(User user){
-        mm.addFollowing(user);
-    }
-
     public void addPending(User user){
         mm.addPending(user);
-    }
-
-    public void addRequest(User user){
-        mm.addRequest(user);
     }
 
     public void communicateToServer(Context context){
@@ -74,6 +66,7 @@ public class MainController implements MController {
 
         if(me != null){
             mm.setMe(me);
+            mm.generateRequested();
             return true;
         }
         else{
