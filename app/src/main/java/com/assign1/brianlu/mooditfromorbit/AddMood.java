@@ -95,10 +95,6 @@ public class AddMood extends AppCompatActivity implements MView<MainModel> {
                 Mood mood = new Mood(mc.getEmotion(t_emotions), mc.getMe());
                 mood.setSocialSituation(groupstring);
                 mood.setMessage(commentstring);
-                mood.setImage(imageBitmap);
-
-
-
 
 
                 // Remove the listener you previously added
@@ -109,6 +105,18 @@ public class AddMood extends AppCompatActivity implements MView<MainModel> {
                 //only if share location is toggled
               //  mood.setLocation(moodLocation);
 
+                // if a picture exists in imageview
+                ImageView picture = (ImageView) findViewById(R.id.pic);
+                Log.d("Tetestestst", "is this drawable or na" + picture.getDrawable()  );
+                if (picture.getDrawable() != null) {
+                    // (128 * 128) * 4 = 65536 bytes which is the maximum allowed
+                    // limits every bitmap image to 65536 bytes.
+                    Bitmap convertedImage = getResizedBitmap(imageBitmap, 128, 128);
+                    convertedImage.getByteCount();
+                    Log.d("Test", "This is convertedImage byte count!" +convertedImage.getByteCount() );
+
+                    mood.setImage(convertedImage);
+                }
 
 
 
@@ -126,6 +134,11 @@ public class AddMood extends AppCompatActivity implements MView<MainModel> {
                 }
                 Log.d("location", moodLocation.toString());
                 mc.addNewMood(mood, context);
+
+
+                Toast.makeText(getBaseContext(), "This is my Toast message!",
+                        Toast.LENGTH_LONG).show();
+
 
                 finish();
             }
@@ -151,8 +164,10 @@ public class AddMood extends AppCompatActivity implements MView<MainModel> {
             if(resultCode == RESULT_OK){
                 Bundle extras = data.getExtras();
                 imageBitmap = (Bitmap) extras.get("data");
-                // 256 * 256 = 65536 bytes which is the maximum allowed
-                Bitmap convertedImage = getResizedBitmap(imageBitmap, 256, 256);
+                // (128 * 128) * 4 = 65536 bytes which is the maximum allowed
+                Bitmap convertedImage = getResizedBitmap(imageBitmap, 128, 128);
+                convertedImage.getByteCount();
+                Log.d("Test", "This is convertedImage byte count!" +convertedImage.getByteCount() );
                 IMG.setImageBitmap(convertedImage);
 
             }
@@ -172,18 +187,10 @@ public class AddMood extends AppCompatActivity implements MView<MainModel> {
     // Taken from http://stackoverflow.com/questions/16954109/reduce-the-size-of-a-bitmap-to-a-specified-size-in-android
     // but modified a bit to fit usecase.
     public Bitmap getResizedBitmap(Bitmap image, int maxWidth, int maxHeight) {
-        int width = image.getWidth();
-        int height = image.getHeight();
 
-        float bitmapRatio = (float)width / (float) height;
-        if (bitmapRatio > 1) {
-            width = maxWidth;
-            height = (int) (width / bitmapRatio);
+        int width = maxWidth;
+        int height = maxHeight;
 
-        } else {
-            height = maxHeight;
-            width = (int) (height * bitmapRatio);
-        }
         return Bitmap.createScaledBitmap(image, width, height, true);
     }
 
