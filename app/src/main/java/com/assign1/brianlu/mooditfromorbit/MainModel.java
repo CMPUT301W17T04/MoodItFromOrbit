@@ -112,11 +112,22 @@ public class MainModel extends MModel<MView> {
      * @return users that aren't me
      */
     private void setAllExceptMeUsers(){
-        UserList tempUsers = new UserList();
+        /*UserList tempUsers = new UserList();
         tempUsers.merge(users);
-        User tempUser = tempUsers.getUserByName(me.getUserName());
-        tempUsers.deleteUser(tempUser);
-        allExceptMe = tempUsers;
+
+        tempUsers.deleteUser(tempUser);*/
+
+        if(allExceptMe == null){
+            allExceptMe = users;
+        }
+        else{
+            allExceptMe.removeAll();
+            allExceptMe.merge(users);
+        }
+        User tempUser = allExceptMe.getUserByName(me.getUserName());
+        allExceptMe.deleteUser(tempUser);
+        allExceptMe.sortByAlphabetical();
+
     }
 
     public UserList getAllExceptMeUsers(){
