@@ -43,8 +43,6 @@ public class FollowSomeoneActivity extends CustomAppCompatActivity implements MV
         // Get a support ActionBar corresponding to this toolbar
         ActionBar ab = getSupportActionBar();
 
-        // Enable the Up button
-        ab.setDisplayHomeAsUpEnabled(true);
         ab.setTitle("Users");
 
 
@@ -53,7 +51,11 @@ public class FollowSomeoneActivity extends CustomAppCompatActivity implements MV
 
         usersListView.setOnItemClickListener(new AdapterView.OnItemClickListener(){
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-            //TODO follow them
+                MainController mc = MainApplication.getMainController();
+                User clickedUser = mc.getAllExceptMeUsers().getUser(position);
+                mc.addPending(clickedUser);
+                mc.addRequest(clickedUser);
+                updateList();
             }
         });
 
@@ -74,7 +76,6 @@ public class FollowSomeoneActivity extends CustomAppCompatActivity implements MV
 
                         updateList();
                         refreshLayout.setRefreshing(false);
-
                     }
                 }
         );
@@ -87,7 +88,6 @@ public class FollowSomeoneActivity extends CustomAppCompatActivity implements MV
         adapter = new UsersAdapter(this, mc.getAllExceptMeUsers().getUsers());
         usersListView.setAdapter(adapter);
         checkOnlineStatus();
-
     }
 
     @Override

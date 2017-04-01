@@ -13,25 +13,30 @@ public class FollowList {
     private ArrayList<String> followingList = new ArrayList<String>();
     private ArrayList<String> followerList = new ArrayList<String>();
     private ArrayList<String> pendingList =  new ArrayList<String>();
+    private ArrayList<String> requestList = new ArrayList<>();
 
     /**
      * add to Following/Follower list
-     * @param userName
+     * @param id
      */
-    public void addFollowing (String userName){
-        followingList.add(userName);
+    public void addFollowing (String id){
+        followingList.add(id);
     }
 
-    public void addFollower (String userName){
-         followerList.add(userName);
+    public void addFollower (String id){
+         followerList.add(id);
     }
 
-    public void addPending (String userName)  {
-         pendingList.add(userName);
+    public void addPending (String id)  {
+         pendingList.add(id);
      }
 
-    public Boolean containsPending(String username){
-         if(pendingList.contains(username)){
+     public void addRequest(String id){
+         requestList.add(id);
+     }
+
+    public Boolean containsPending(String id){
+         if(pendingList.contains(id)){
              return true;
          }
          else{
@@ -39,8 +44,8 @@ public class FollowList {
          }
      }
 
-    public Boolean containsFollowing(String username){
-        if(followingList.contains(username)){
+    public Boolean containsFollowing(String id){
+        if(followingList.contains(id)){
             return true;
         }
         else{
@@ -48,8 +53,8 @@ public class FollowList {
         }
     }
 
-    public Boolean containsFollower(String username){
-        if(followerList.contains(username)){
+    public Boolean containsFollower(String id){
+        if(followerList.contains(id)){
             return true;
         }
         else{
@@ -59,17 +64,21 @@ public class FollowList {
 
     /**
      * remove from Following.follower list
-     * @param userName
+     * @param id
      */
-    public void removeFollowing(String userName){
-        followingList.remove(userName);
+    public void removeFollowing(String id){
+        followingList.remove(id);
     }
 
-    public void removeFollower(String userName){
-        followerList.remove(userName);
+    public void removeFollower(String id){
+        followerList.remove(id);
     }
 
-    public void removePending (String userName) { pendingList.remove(userName);}
+    public void removePending (String id) { pendingList.remove(id);}
+
+    public void removeRequest(String id){
+        requestList.remove(id);
+    }
 
     /**
      * return following/follower list
@@ -82,4 +91,7 @@ public class FollowList {
         return followerList;
     }
     public ArrayList<String> getPending ()  {return pendingList;}
+    public ArrayList<String> getRequest(){
+        return requestList;
+    }
 }

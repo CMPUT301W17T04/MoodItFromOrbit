@@ -88,6 +88,14 @@ public class User{
         followList.addFollower(user.getId());
     }
 
+    public void addPending(User user){
+        followList.addPending(user.getId());
+    }
+
+    public void addRequest(User user){
+        followList.addRequest(user.getId());
+    }
+
     /*public Boolean hasFollowing(User user){
         if(followList.contains(user.getId())){
             return true;
