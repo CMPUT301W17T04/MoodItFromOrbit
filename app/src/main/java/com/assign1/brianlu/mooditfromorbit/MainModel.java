@@ -116,8 +116,8 @@ public class MainModel extends MModel<MView> {
     }
 
     public void updateMoodList(){
-        ElasticSearchController.UpdateUsersMoodTask updateUsersMoodTask = new ElasticSearchController.UpdateUsersMoodTask();
-        serverUploader.addCommunication(updateUsersMoodTask);
+        UpdateMoods updateMoods = new UpdateMoods(me);
+        serverUploader.addCommunication(updateMoods);
         serverUploader.sendCommunications();
     }
     /**

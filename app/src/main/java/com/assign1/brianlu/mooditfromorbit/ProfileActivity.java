@@ -38,7 +38,7 @@ import android.widget.ListView;
 /**
  * this activity class displays the current users mood history
  */
-public class ProfileActivity extends AppCompatActivity implements MView<MainModel>{
+public class ProfileActivity extends CustomAppCompatActivity implements MView<MainModel>{
 
     private ListView moodListView;
     private MoodListAdapter adapter;
@@ -58,7 +58,6 @@ public class ProfileActivity extends AppCompatActivity implements MView<MainMode
 
         MainController mc = MainApplication.getMainController();
 
-
         //back button
         // Get a support ActionBar corresponding to this toolbar
         ActionBar ab = getSupportActionBar();
@@ -68,14 +67,8 @@ public class ProfileActivity extends AppCompatActivity implements MView<MainMode
         ab.setTitle(mc.getMe().getUserName());
 
 
-
-
         MainModel mm = MainApplication.getMainModel();
         mm.addView(this);
-
-
-
-
 
         moodListView.setOnItemClickListener(new AdapterView.OnItemClickListener(){
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -90,9 +83,9 @@ public class ProfileActivity extends AppCompatActivity implements MView<MainMode
         // TODO Auto-generated method stub
         super.onStart();
         MainController mc = MainApplication.getMainController();
-        Log.d("hello", mc.getMe().getId());
         adapter = new MoodListAdapter(this, mc.getMe().getMoods().getMoods());
         moodListView.setAdapter(adapter);
+        checkOnlineStatus();
 
     }
 
@@ -110,7 +103,10 @@ public class ProfileActivity extends AppCompatActivity implements MView<MainMode
                 //switch to add mood activity
                 Intent intent1 = new Intent(ProfileActivity.this, AddMood.class);
                 startActivity(intent1);
+                adapter.notifyDataSetChanged();
+                checkOnlineStatus();
                 return true;
+
             case R.id.action_map:
 
                 Intent intent2 = new Intent(ProfileActivity.this, MapActivity.class);
@@ -194,5 +190,6 @@ public class ProfileActivity extends AppCompatActivity implements MView<MainMode
     public void update(MainModel m ){
         //TODO code to redisplay the data
         adapter.notifyDataSetChanged();
+        checkOnlineStatus();
     }
 }

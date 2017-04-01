@@ -14,6 +14,17 @@
         android:theme="@style/ThemeOverlay.AppCompat.ActionBar"
         app:popupTheme="@style/ThemeOverlay.AppCompat.Light"/>
 
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/colorError"
+        android:text="@string/server"
+        android:textSize="30sp"
+        android:gravity="center"
+        android:textStyle="bold"
+        android:id="@+id/error"
+        android:visibility="gone"/>
+
     <android.support.v4.widget.SwipeRefreshLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -26,5 +37,7 @@
             android:scrollbars="vertical"/>
 
     </android.support.v4.widget.SwipeRefreshLayout>
+
+
 
 </LinearLayout>

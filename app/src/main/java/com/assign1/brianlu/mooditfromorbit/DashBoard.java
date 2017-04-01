@@ -32,7 +32,7 @@ import com.google.gson.GsonBuilder;
  */
 
 
-public class DashBoard extends AppCompatActivity implements MView<MainModel>{
+public class DashBoard extends CustomAppCompatActivity implements MView<MainModel>{
 
 
     private ListView moodListView;
@@ -90,6 +90,7 @@ public class DashBoard extends AppCompatActivity implements MView<MainModel>{
         // TODO Auto-generated method stub
         super.onStart();
         MainController mc = MainApplication.getMainController();
+        checkOnlineStatus();
 
         adapter = new MoodListAdapter(this, mc.getFollowingMoods().getMoods());
         moodListView.setAdapter(adapter);
@@ -192,6 +193,7 @@ public class DashBoard extends AppCompatActivity implements MView<MainModel>{
         MainController mc = MainApplication.getMainController();
         mc.generateFollowingMoods();
         adapter.notifyDataSetChanged();
+        checkOnlineStatus();
 
     }
 }

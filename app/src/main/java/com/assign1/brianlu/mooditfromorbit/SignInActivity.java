@@ -17,7 +17,7 @@ import android.widget.Toast;
  *
  */
 
-public class SignInActivity extends AppCompatActivity implements MView<MainModel> {
+public class SignInActivity extends CustomAppCompatActivity implements MView<MainModel> {
 
     private EditText userName;
 
@@ -38,6 +38,7 @@ public class SignInActivity extends AppCompatActivity implements MView<MainModel
 
                 updateFromServer();
 
+                checkOnlineStatus();
                 String input = userName.getText().toString();
 
                 Boolean exists = mc.checkSignIn(input);
@@ -69,6 +70,7 @@ public class SignInActivity extends AppCompatActivity implements MView<MainModel
     @Override
     protected void onStart(){
         super.onStart();
+        checkOnlineStatus();
 
     }
 

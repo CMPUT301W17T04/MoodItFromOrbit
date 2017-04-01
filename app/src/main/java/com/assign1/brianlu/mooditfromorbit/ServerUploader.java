@@ -1,6 +1,7 @@
 package com.assign1.brianlu.mooditfromorbit;
 
 import android.os.AsyncTask;
+import android.util.Log;
 
 import java.util.ArrayList;
 
@@ -11,21 +12,24 @@ import java.util.ArrayList;
  */
 
 public class ServerUploader {
-    private ArrayList<AsyncTask<User, Void, Void>> communicationsList = new ArrayList<>();
-    private static User me = null;
+    private ArrayList<UpdateServer> communicationsList = new ArrayList<>();
 
-    void addCommunication(AsyncTask<User, Void, Void> communication){
-        communicationsList.add(communication);
+    void addCommunication(UpdateServer updateServer){
+        communicationsList.add(updateServer);
     }
 
     void sendCommunications(){
-        if(me == null){
-            me = MainApplication.getMainController().getMe();
-        }
 
-        for(AsyncTask<User, Void, Void> communication : communicationsList){
-            communication.execute(me);
+        ArrayList<UpdateServer> remove = new ArrayList<>();
+
+        for(UpdateServer updateServer : communicationsList){
+            updateServer.execute();
+
+            if(MainApplication.getConnectedToServer()){
+                remove.add(updateServer);
+            }
         }
-        communicationsList.clear();
+        communicationsList.removeAll(remove);
+        remove.clear();
     }
 }

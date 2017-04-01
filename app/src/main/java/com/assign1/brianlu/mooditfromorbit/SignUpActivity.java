@@ -19,14 +19,10 @@ import com.google.gson.Gson;
  *
  */
 
-public class SignUpActivity extends AppCompatActivity implements MView<MainModel> {
-
-
+public class SignUpActivity extends CustomAppCompatActivity implements MView<MainModel> {
 
     private EditText userName;
     private EditText confirm;
-
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState){
@@ -43,6 +39,7 @@ public class SignUpActivity extends AppCompatActivity implements MView<MainModel
                 setResult(RESULT_OK);
 
                 updateFromServer();
+                checkOnlineStatus();
                 MainController mc = MainApplication.getMainController();
 
                 String input = userName.getText().toString();
@@ -82,6 +79,7 @@ public class SignUpActivity extends AppCompatActivity implements MView<MainModel
     protected void onStart() {
         // TODO Auto-generated method stub
         super.onStart();
+        checkOnlineStatus();
 
 
     }

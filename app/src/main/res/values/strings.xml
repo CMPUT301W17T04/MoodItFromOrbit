@@ -25,6 +25,7 @@
     <string name="searchMood">Search Mood</string>
     <string name="filter">Filter</string>
     <string name="cancel">Cancel</string>
+    <string name="server">Unable to Reach Server</string>
 
     <string-array name="Emotions_List">
         <item>Angry</item>
