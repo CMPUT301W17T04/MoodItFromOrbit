@@ -1,7 +1,11 @@
 package com.assign1.brianlu.mooditfromorbit;
 
+import android.content.Context;
 import android.os.AsyncTask;
 import android.util.Log;
+
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 
 import java.util.ArrayList;
 
@@ -11,25 +15,45 @@ import java.util.ArrayList;
  * Created by Gregory on 2017-03-29.
  */
 
-public class ServerUploader {
-    private ArrayList<UpdateServer> communicationsList = new ArrayList<>();
+public class ServerUploader extends AccessFile {
+    //TODO: still need to add call to upload in more places
+    void addMoodsCommunication(UpdateMoods updateMoods, Context context){
 
-    void addCommunication(UpdateServer updateServer){
-        communicationsList.add(updateServer);
+        ArrayList<UpdateMoods> communicationsList = loadFromFile(context);
+
+        communicationsList.add(updateMoods);
+
+        saveInFile(context, communicationsList);
+
     }
 
-    void sendCommunications(){
+    @Override
+    protected Void doInBackground(Context... contexts){
+        for(Context context : contexts){
+            ArrayList<UpdateMoods> communicationsList = loadFromFile(context);
+            ArrayList<UpdateMoods> remove = new ArrayList<>();
 
-        ArrayList<UpdateServer> remove = new ArrayList<>();
+            for(UpdateMoods updateMood : communicationsList){
+                updateMood.execute();
 
-        for(UpdateServer updateServer : communicationsList){
-            updateServer.execute();
-
-            if(MainApplication.getConnectedToServer()){
-                remove.add(updateServer);
+                /*while(true){
+                    if(MainApplication.getDone()){
+                        if(MainApplication.getConnectedToServer()){
+                            remove.add(updateMood);
+                        }
+                        Log.d("checks", MainApplication.getDone().toString());
+                        MainApplication.setDone(false);
+                        break;
+                    }
+                }*/
+                if(MainApplication.getConnectedToServer()){
+                    remove.add(updateMood);
+                }
             }
+            communicationsList.removeAll(remove);
+            remove.clear();
+            saveInFile(context, communicationsList);
         }
-        communicationsList.removeAll(remove);
-        remove.clear();
+        return null;
     }
 }

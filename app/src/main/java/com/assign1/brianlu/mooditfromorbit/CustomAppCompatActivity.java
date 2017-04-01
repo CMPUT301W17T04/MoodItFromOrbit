@@ -1,5 +1,6 @@
 package com.assign1.brianlu.mooditfromorbit;
 
+import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
@@ -21,4 +22,6 @@ public abstract class CustomAppCompatActivity extends AppCompatActivity {
             errorBox.setVisibility(View.GONE);
         }
     }
+
+
 }

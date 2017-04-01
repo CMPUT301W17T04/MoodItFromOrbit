@@ -94,6 +94,7 @@ public class ProfileActivity extends CustomAppCompatActivity implements MView<Ma
         super.onDestroy();
         MainModel mm = MainApplication.getMainModel();
         mm.deleteView(this);
+        Log.d("this is dead", "destroyed");
     }
 
     @Override

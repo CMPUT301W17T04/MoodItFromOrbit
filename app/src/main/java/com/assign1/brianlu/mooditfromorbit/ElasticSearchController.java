@@ -178,8 +178,10 @@ public class ElasticSearchController {
 
 
                 }
-
+                MainApplication.setDone(true);
+                Log.d("premain", MainApplication.getDone().toString());
             }
+
             return null;
         }
     }

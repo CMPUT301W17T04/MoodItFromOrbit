@@ -1,5 +1,6 @@
 package com.assign1.brianlu.mooditfromorbit;
 
+import android.icu.util.TimeUnit;
 import android.util.Log;
 
 /**
@@ -16,6 +17,7 @@ public class UpdateMoods implements UpdateServer {
     public void execute(){
         ElasticSearchController.UpdateUsersMoodTask updateUsersMoodTask = new ElasticSearchController.UpdateUsersMoodTask();
         updateUsersMoodTask.execute(user);
+
         Log.d("update mood user", user.getUserName());
     }
 }

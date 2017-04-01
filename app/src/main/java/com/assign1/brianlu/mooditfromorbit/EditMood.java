@@ -1,5 +1,6 @@
 package com.assign1.brianlu.mooditfromorbit;
 
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.location.Location;
@@ -28,6 +29,7 @@ public class EditMood extends AppCompatActivity implements MView<MainModel> {
     ImageView IMG;
     Bitmap imageBitmap;
     Mood mood;
+    Context context;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,6 +40,7 @@ public class EditMood extends AppCompatActivity implements MView<MainModel> {
 
         int moodId = getIntent().getExtras().getInt("moodId");
         mood = mc.getMe().getMoods().getMood(moodId);
+        context = this.getApplicationContext();
 
 
         String moodEmotion = mood.getEmotion().getEmotion();
@@ -139,7 +142,7 @@ public class EditMood extends AppCompatActivity implements MView<MainModel> {
                     mood.setLongitude(null);
                 }
                 Log.d("location", moodLocation.toString());
-                mc.updateMoodList();
+                mc.updateMoodList(context);
 
                 finish();
             }
@@ -151,7 +154,7 @@ public class EditMood extends AppCompatActivity implements MView<MainModel> {
             @Override
             public void onClick(View view) {
                 mc.getMe().getMoods().delete(mood);
-                mc.updateMoodList();
+                mc.updateMoodList(context);
                 finish();
             }
 

@@ -102,6 +102,7 @@ public class DashBoard extends CustomAppCompatActivity implements MView<MainMode
         super.onDestroy();
         MainModel mm = MainApplication.getMainModel();
         mm.deleteView(this);
+        Log.d("this is dead", "destroyed");
     }
 
     @Override

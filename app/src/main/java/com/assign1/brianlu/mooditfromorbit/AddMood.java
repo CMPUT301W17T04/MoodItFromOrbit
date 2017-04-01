@@ -37,12 +37,14 @@ import static android.app.Activity.RESULT_OK;
 public class AddMood extends AppCompatActivity implements MView<MainModel> {
     ImageView IMG;
     Bitmap imageBitmap;
+    Context context;
 
     public static final int REQUEST_CODE = 1;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_mood);
+        context = this.getApplicationContext();
 
         IMG = (ImageView) findViewById(R.id.pic);
 
@@ -123,7 +125,7 @@ public class AddMood extends AppCompatActivity implements MView<MainModel> {
                     // if off locations disabled
                 }
                 Log.d("location", moodLocation.toString());
-                mc.addNewMood(mood);
+                mc.addNewMood(mood, context);
 
                 finish();
             }

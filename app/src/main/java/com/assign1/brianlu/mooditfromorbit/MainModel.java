@@ -34,14 +34,12 @@ public class MainModel extends MModel<MView> {
     static private Location moodLocation;
     private LocationManager locationManager;
     private LocationListener locationListener;
-    private ServerUploader serverUploader;
 
     MainModel(){
         super();
         pullUsersFromServer();
         fillEmotions();
         followingMoods = new MoodList();
-        serverUploader = new ServerUploader();
     }
 
     /**
@@ -110,15 +108,21 @@ public class MainModel extends MModel<MView> {
      * adds new mood to current users mood history
      * @param mood new mood
      */
-    public void addNewMood(Mood mood){
+    public void addNewMood(Mood mood, Context context){
         me.addMood(mood);
-        updateMoodList();
+        updateMoodList(context);
     }
 
-    public void updateMoodList(){
+    public void updateMoodList(Context context){
+        ServerUploader serverUploader = new ServerUploader();
         UpdateMoods updateMoods = new UpdateMoods(me);
-        serverUploader.addCommunication(updateMoods);
-        serverUploader.sendCommunications();
+        serverUploader.addMoodsCommunication(updateMoods, context);
+        serverUploader.execute(context);
+    }
+
+    public void communicateToServer(Context context){
+        ServerUploader serverUploader = new ServerUploader();
+        serverUploader.execute(context);
     }
     /**
      * puts the moods of all people that the current user follows into followingMoods
