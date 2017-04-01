@@ -55,7 +55,6 @@ public class FollowSomeoneActivity extends CustomAppCompatActivity implements MV
                 MainController mc = MainApplication.getMainController();
                 User clickedUser = mc.getAllExceptMeUsers().getUser(position);
                 mc.addPending(clickedUser);
-                mc.addRequest(clickedUser);
                 updateList();
             }
         });

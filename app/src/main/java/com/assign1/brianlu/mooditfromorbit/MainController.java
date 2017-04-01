@@ -59,10 +59,6 @@ public class MainController implements MController {
         mm.addPending(user);
     }
 
-    public void addRequest(User user){
-        mm.addRequest(user);
-    }
-
     public void communicateToServer(Context context){
         mm.communicateToServer(context);
     }

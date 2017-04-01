@@ -111,7 +111,7 @@ public class UserList{
                 String name1 = o1.getUserName();
                 String name2 = o2.getUserName();
 
-                return name2.compareTo(name1);
+                return name1.compareTo(name2);
             }
         };
 

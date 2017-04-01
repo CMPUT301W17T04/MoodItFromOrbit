@@ -206,17 +206,25 @@ public class MainModel extends MModel<MView> {
      * @param user user that current user is trying to follow
      */
     public void addPending(User user){
-        me.addPending(user);
+        if(!me.getFollowers().contains(user.getId()) && !me.getPending().contains(user.getId())){
+            me.addPending(user);
 
-        ElasticSearchController.UpdateUsersFollowListTask updateUsersFollowListTask = new ElasticSearchController.UpdateUsersFollowListTask();
-        updateUsersFollowListTask.execute(me);
+            ElasticSearchController.UpdateUsersFollowListTask updateUsersFollowListTask = new ElasticSearchController.UpdateUsersFollowListTask();
+            updateUsersFollowListTask.execute(me);
+
+            addRequest(user);
+        }
+        else{
+            Log.d("it es", "exists");
+        }
+
     }
 
     /**
      * adds me to user I'm trying to follow's requestList
      * @param user user I'm trying to follow
      */
-    public void addRequest(User user){
+    private void addRequest(User user){
         user.addRequest(me);
 
         ElasticSearchController.UpdateUsersFollowListTask updateUsersFollowListTask = new ElasticSearchController.UpdateUsersFollowListTask();
