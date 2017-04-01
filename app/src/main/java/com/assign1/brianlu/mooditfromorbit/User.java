@@ -24,6 +24,7 @@ public class User{
     private MoodList moods;
     private FollowList followList;
     private String id;
+    private transient UserList requested;
 
     public User(String userName){
         this.userName = userName;
@@ -91,28 +92,17 @@ public class User{
     public void addPending(User user){
         followList.addPending(user.getId());
     }
+    public void deletePending(User user){
+        followList.removePending(user.getId());
+    }
 
     public void addRequest(User user){
         followList.addRequest(user.getId());
     }
 
-    /*public Boolean hasFollowing(User user){
-        if(followList.contains(user.getId())){
-            return true;
-        }
-        else{
-            return false;
-        }
+    public void deleteRequest(User user){
+        followList.removeRequest(user.getId());
     }
-
-    public Boolean hasFollower(User user){
-        if(this.followers.contains(user.getId())){
-            return true;
-        }
-        else{
-            return false;
-        }
-    }*/
 
     public ArrayList<String> getFollowing() {
         return followList.getFollowing();
@@ -120,6 +110,37 @@ public class User{
 
     public ArrayList<String> getFollowers() {
         return followList.getFollower();
+    }
+
+    public UserList getRequested(){
+        if(requested == null){
+            requested = new UserList();
+        }
+        return requested;
+    }
+
+    public void removeOneRequested(User user){
+        requested.deleteUser(user);
+    }
+    public void removeRequested(){
+        requested.removeAll();
+    }
+
+    public void createRequested(){
+        if(requested == null){
+            requested = new UserList();
+        }
+    }
+    public void addRequestedUser(User user){
+        if(requested == null){
+            requested = new UserList();
+        }
+        requested.add(user);
+        requested.sortByAlphabetical();
+    }
+
+    public ArrayList<String> getPendingRequests(){
+        return followList.getRequest();
     }
 
     public ArrayList<String> getPending(){

@@ -95,6 +95,21 @@ public class UserList{
         return null;
     }
 
+    /**
+     * returns user that matches id
+     * @param id id to check for
+     * @return user
+     */
+    public User getUserById(String id){
+        for(User user : users){
+
+            if(user.getId().equals(id)){
+                return user;
+            }
+        }
+        return null;
+    }
+
     public ArrayList<User> getUsers(){
         return users;
     }
