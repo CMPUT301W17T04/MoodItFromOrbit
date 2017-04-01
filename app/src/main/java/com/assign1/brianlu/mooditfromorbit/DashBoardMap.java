@@ -151,9 +151,9 @@ public class DashBoardMap extends AppCompatActivity implements MView<MainModel> 
         SearchView searchView =
                 (SearchView) MenuItemCompat.getActionView(searchItem);
 
-        MenuItem sortItem = menu.findItem(R.id.action_sort);
+        MenuItem filterItem = menu.findItem(R.id.action_filter);
         MenuView menuView =
-                (MenuView) MenuItemCompat.getActionView(sortItem);
+                (MenuView) MenuItemCompat.getActionView(filterItem);
 
         return super.onCreateOptionsMenu(menu);
     }

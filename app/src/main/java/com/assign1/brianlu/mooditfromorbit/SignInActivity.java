@@ -17,7 +17,7 @@ import android.widget.Toast;
  *
  */
 
-public class SignInActivity extends AppCompatActivity implements MView<MainModel> {
+public class SignInActivity extends CustomAppCompatActivity implements MView<MainModel> {
 
     private EditText userName;
 
@@ -34,16 +34,14 @@ public class SignInActivity extends AppCompatActivity implements MView<MainModel
             public void onClick(View v) {
 
                 MainController mc = MainApplication.getMainController();
-
                 setResult(RESULT_OK);
 
+                updateFromServer();
+
+                checkOnlineStatus();
                 String input = userName.getText().toString();
 
-                Log.d("username", input);
-
                 Boolean exists = mc.checkSignIn(input);
-
-                Log.d("boolean Value", exists.toString());
 
                 if(!exists){
                     Toast.makeText(getBaseContext(),"Invalid User name, Please sign up!",Toast.LENGTH_SHORT).show();
@@ -72,6 +70,7 @@ public class SignInActivity extends AppCompatActivity implements MView<MainModel
     @Override
     protected void onStart(){
         super.onStart();
+        checkOnlineStatus();
 
     }
 
@@ -83,7 +82,12 @@ public class SignInActivity extends AppCompatActivity implements MView<MainModel
     }
 
     public void update(MainModel mm){
-        //TODO code to resync data
+        updateFromServer();
+    }
+
+    private void updateFromServer(){
+        MainController mc = MainApplication.getMainController();
+        mc.pullUsers();
     }
 
 

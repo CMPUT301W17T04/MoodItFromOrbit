@@ -45,12 +45,12 @@ public class MainModel extends MModel<MView> {
     /**
      * grabs all users from the server
      */
-    private void pullUsersFromServer(){
+    public void pullUsersFromServer(){
         ElasticSearchController.GetUsersTask getUsersTask = new ElasticSearchController.GetUsersTask();
         getUsersTask.execute("");
 
         try {
-            this.users = getUsersTask.get();
+            users = getUsersTask.get();
         } catch (Exception e){
             Log.i("Error", "Failed to get the users from the async object");
         }
@@ -108,14 +108,21 @@ public class MainModel extends MModel<MView> {
      * adds new mood to current users mood history
      * @param mood new mood
      */
-    public void addNewMood(Mood mood){
+    public void addNewMood(Mood mood, Context context){
         me.addMood(mood);
-        updateMoodList();
+        updateMoodList(context);
     }
 
-    public void updateMoodList(){
-        ElasticSearchController.UpdateUsersMoodTask updateUsersMoodTask = new ElasticSearchController.UpdateUsersMoodTask();
-        updateUsersMoodTask.execute(me);
+    public void updateMoodList(Context context){
+        ServerUploader serverUploader = new ServerUploader();
+        UpdateMoods updateMoods = new UpdateMoods(me);
+        serverUploader.addMoodsCommunication(updateMoods, context);
+        serverUploader.execute(context);
+    }
+
+    public void communicateToServer(Context context){
+        ServerUploader serverUploader = new ServerUploader();
+        serverUploader.execute(context);
     }
     /**
      * puts the moods of all people that the current user follows into followingMoods
@@ -125,7 +132,10 @@ public class MainModel extends MModel<MView> {
         followingMoods.clear();
         for(User user: users.getUsers()){
             if(me.getFollowing().contains(user.getId())){
-                followingMoods.add(user.getMostRecentMood());
+                Mood mood = user.getMostRecentMood();
+                if(mood != null) {
+                    followingMoods.add(mood);
+                }
             }
         }
         followingMoods.sortByNewest();
@@ -276,4 +286,6 @@ public class MainModel extends MModel<MView> {
     public Location getLocation(){
         return moodLocation;
     }
+
+
 }

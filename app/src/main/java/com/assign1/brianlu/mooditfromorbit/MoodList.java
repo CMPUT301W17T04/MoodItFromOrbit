@@ -23,6 +23,9 @@ public class MoodList{
     public MoodList(){
         moods = new ArrayList<>();
     }
+    public MoodList(ArrayList<Mood> newMoods){
+        moods = newMoods;
+    }
 
     public void add(Mood mood){
         moods.add(mood);
@@ -48,7 +51,12 @@ public class MoodList{
     }
 
     public Mood getMood(int index){
-        return moods.get(index);
+        try {
+            return moods.get(index);
+        }
+        catch (Exception e){
+            return null;
+        }
 
     }
 

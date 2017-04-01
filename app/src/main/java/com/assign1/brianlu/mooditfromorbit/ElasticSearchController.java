@@ -55,6 +55,7 @@ public class ElasticSearchController {
                 try {
                     // where is the client?
                     DocumentResult result = client.execute(index);
+                    MainApplication.setConnectedToServer(true);
                     if (result.isSucceeded()) {
 
                         user.setId(result.getId());
@@ -66,6 +67,7 @@ public class ElasticSearchController {
                 }
                 catch (Exception e) {
                     Log.i("Error", "The application failed to build and send the users");
+                    MainApplication.setConnectedToServer(false);
                 }
 
             }
@@ -97,6 +99,7 @@ public class ElasticSearchController {
                 // TODO get the results of the query
 
                 SearchResult result = client.execute(search);
+                MainApplication.setConnectedToServer(true);
 
                 if (result.isSucceeded()){
 
@@ -114,21 +117,22 @@ public class ElasticSearchController {
                         String id = (String)source.get(JestResult.ES_METADATA_ID);
                         foundUsers.getUser(i).setId(id);
                         i++;
-                        Log.d("testing", source.toString());
 
                     }
 
 
                     users.merge(foundUsers);
 
+
                 }
                 else {
-                    Log.i("Error", "The search query failed to find any tweets that matched");
+                    Log.i("Error", "The search query failed to find any users that matched");
                 }
             }
             catch (Exception e) {
                 Log.i("Error", "Something went wrong when we tried to communicate with the elasticsearch server!");
                 Log.d("Error", e.toString());
+                MainApplication.setConnectedToServer(false);
             }
 
             return users;
@@ -152,8 +156,6 @@ public class ElasticSearchController {
 
                 query = "{\"doc\" : { \"type\" : \"nested\", \"moods\" : " + user.getGsonMoods() + "}}";
 
-                Log.d("userid update", user.getId());
-                Log.d("gson string", query);
                 Update update = new Update.Builder(query)
                         .index("cmput301w17t4")
                         .type("user")
@@ -165,15 +167,21 @@ public class ElasticSearchController {
                     // TODO get the results of the query
 
                     client.execute(update);
+                    MainApplication.setConnectedToServer(true);
 
 
                 }
                 catch (Exception e) {
-                    Log.i("Error", "Something went wrong when we tried to communicate with the elasticsearch server!");
+                    Log.i("Error", "Something went wrong when we tried to upload to the elasticsearch server!");
                     Log.d("Error", e.toString());
-                }
+                    MainApplication.setConnectedToServer(false);
 
+
+                }
+                MainApplication.setDone(true);
+                Log.d("premain", MainApplication.getDone().toString());
             }
+
             return null;
         }
     }
@@ -193,9 +201,7 @@ public class ElasticSearchController {
 
 
                 query = "{\"doc\" : { \"type\" : \"nested\", \"followList\" : " + user.getGsonFollowList() + "}}";
-                //query = "{\"doc\" : { \"followers\" : " + user.getGsonFollowList() + "}}";
 
-                Log.d("gson string", query);
                 Update update = new Update.Builder(query)
                         .index("cmput301w17t4")
                         .type("user")
@@ -206,11 +212,13 @@ public class ElasticSearchController {
                     // TODO get the results of the query
 
                     client.execute(update);
+                    MainApplication.setConnectedToServer(true);
 
                 }
                 catch (Exception e) {
                     Log.i("Error", "Something went wrong when we tried to communicate with the elasticsearch server!");
                     Log.d("Error", e.toString());
+                    MainApplication.setConnectedToServer(false);
                 }
 
             }
@@ -222,6 +230,7 @@ public class ElasticSearchController {
 
     public static void verifySettings() {
         if (client == null) {
+
             DroidClientConfig.Builder builder = new DroidClientConfig.Builder("http://cmput301.softwareprocess.es:8080");
             DroidClientConfig config = builder.build();
 

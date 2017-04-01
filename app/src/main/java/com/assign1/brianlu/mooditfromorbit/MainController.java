@@ -32,6 +32,9 @@ public class MainController implements MController {
         return mm.getUsers();
     }
 
+    public void pullUsers(){
+        mm.pullUsersFromServer();
+    }
     /**
      * calls addUser() and setMe()
      * @param user
@@ -48,8 +51,11 @@ public class MainController implements MController {
         mm.addFollowing(user);
     }
 
-    public void updateMoodList(){
-        mm.updateMoodList();
+    public void communicateToServer(Context context){
+        mm.communicateToServer(context);
+    }
+    public void updateMoodList(Context context){
+        mm.updateMoodList(context);
     }
     public boolean checkSignIn(String userName){
         User me = mm.getUserByName(userName);
@@ -88,8 +94,8 @@ public class MainController implements MController {
         mm.generateFollowingMoods();
     }
 
-    public void addNewMood(Mood mood){
-        mm.addNewMood(mood);
+    public void addNewMood(Mood mood, Context context){
+        mm.addNewMood(mood, context);
     }
 
     public void startLocationListen(Context context){

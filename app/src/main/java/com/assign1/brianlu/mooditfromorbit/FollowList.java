@@ -1,5 +1,7 @@
 package com.assign1.brianlu.mooditfromorbit;
 
+import android.app.DownloadManager;
+
 import java.util.ArrayList;
 
 /**
@@ -13,6 +15,8 @@ public class FollowList {
     private ArrayList<String> followingList = new ArrayList<String>();
     private ArrayList<String> followerList = new ArrayList<String>();
 
+    private ArrayList<String> RequestList =  new ArrayList<String>();
+
     /**
      * add to Following/Follower list
      * @param userName
@@ -24,6 +28,8 @@ public class FollowList {
      public void addFollower (String userName){
          followerList.add(userName);
     }
+
+     public void addRequest (String userName)  {RequestList.add(userName);}
 
     /**
      * remove from Following.follower list
@@ -37,6 +43,8 @@ public class FollowList {
         followerList.remove(userName);
     }
 
+    public void removeRequest (String userName) { RequestList.remove(userName);}
+
     /**
      * return following/follower list
      * @return
@@ -47,4 +55,5 @@ public class FollowList {
     public ArrayList<String> getFollower (){
         return followerList;
     }
+    public ArrayList<String> getRequest ()  {return RequestList;}
 }

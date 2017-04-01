@@ -15,6 +15,17 @@
         android:theme="@style/ThemeOverlay.AppCompat.ActionBar"
         app:popupTheme="@style/ThemeOverlay.AppCompat.Light"/>
 
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/colorError"
+        android:text="@string/server"
+        android:textSize="30sp"
+        android:gravity="center"
+        android:textStyle="bold"
+        android:id="@+id/error"
+        android:visibility="gone"/>
+
     <ListView
         android:id="@+id/profileListView"
         android:layout_width="match_parent"
@@ -26,7 +37,7 @@
 
     <Button
         android:text="Following"
-        android:layout_width="140dp"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/following"
         android:layout_alignParentBottom="true"
@@ -34,13 +45,13 @@
         android:layout_alignParentEnd="true" />
 
     <CheckBox
-        android:text="Follow"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
         android:id="@+id/FollowCheck"
+        android:layout_width="229dp"
+        android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_toLeftOf="@+id/following"
-        android:layout_toStartOf="@+id/following" />
+        android:layout_toStartOf="@+id/following"
+        android:text="Follow" />
 
 
 </LinearLayout>

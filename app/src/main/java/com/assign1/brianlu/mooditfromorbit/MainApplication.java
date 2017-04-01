@@ -9,6 +9,7 @@
 package com.assign1.brianlu.mooditfromorbit;
 
 import android.app.Application;
+import android.content.Context;
 
 /**
  * this is where we store all of our local data
@@ -20,8 +21,26 @@ import android.app.Application;
 
 
 public class MainApplication extends Application {
-
+    transient private static Boolean connectedToServer = true;
     transient private static MainModel model = null;
+    transient private static MainController controller = null;
+    transient private static Boolean done = false;
+
+    public static Boolean getDone() {
+        return done;
+    }
+
+    public static void setDone(Boolean done) {
+        MainApplication.done = done;
+    }
+
+    public static Boolean getConnectedToServer() {
+        return connectedToServer;
+    }
+
+    public static void setConnectedToServer(Boolean connectedToServer) {
+        MainApplication.connectedToServer = connectedToServer;
+    }
 
     public static MainModel getMainModel(){
         if(model == null){
@@ -29,8 +48,6 @@ public class MainApplication extends Application {
         }
         return model;
     }
-
-    transient private static MainController controller = null;
 
     public static MainController getMainController(){
         if(controller == null){
