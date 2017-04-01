@@ -124,9 +124,6 @@ public class ProfileActivity extends AppCompatActivity implements MView<MainMode
 
             case R.id.action_sort:
                 showFilterDialog();
-
-
-
                 return true;
 
 
@@ -166,6 +163,7 @@ public class ProfileActivity extends AppCompatActivity implements MView<MainMode
                         EditText smood = (EditText) v_iew.findViewById(R.id.searchMood);
                         searchText = stext.getText().toString();
                         searchMood = smood.getText().toString();
+                        generateFilter();
                     }
                 })
                 .setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
@@ -176,6 +174,12 @@ public class ProfileActivity extends AppCompatActivity implements MView<MainMode
                 });
         builder.show();
     }
+
+
+    private void generateFilter(){
+
+    }
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.profile_menu, menu);
