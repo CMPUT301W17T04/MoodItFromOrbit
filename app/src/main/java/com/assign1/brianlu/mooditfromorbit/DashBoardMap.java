@@ -147,10 +147,6 @@ public class DashBoardMap extends AppCompatActivity implements MView<MainModel> 
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.dash_board_menu, menu);
 
-        MenuItem searchItem = menu.findItem(R.id.action_search);
-        SearchView searchView =
-                (SearchView) MenuItemCompat.getActionView(searchItem);
-
         MenuItem filterItem = menu.findItem(R.id.action_filter);
         MenuView menuView =
                 (MenuView) MenuItemCompat.getActionView(filterItem);

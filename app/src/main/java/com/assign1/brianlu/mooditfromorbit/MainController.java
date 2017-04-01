@@ -32,6 +32,10 @@ public class MainController implements MController {
         return mm.getUsers();
     }
 
+    public UserList getAllExceptMeUsers(){
+        return mm.getAllExceptMeUsers();
+    }
+
     public void pullUsers(){
         mm.pullUsersFromServer();
     }
@@ -49,6 +53,14 @@ public class MainController implements MController {
 
     public void addFollowing(User user){
         mm.addFollowing(user);
+    }
+
+    public void addPending(User user){
+        mm.addPending(user);
+    }
+
+    public void addRequest(User user){
+        mm.addRequest(user);
     }
 
     public void communicateToServer(Context context){

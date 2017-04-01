@@ -29,6 +29,7 @@ public class User{
         this.userName = userName;
         this.moods = new MoodList();
         this.followList = new FollowList();
+
     }
 
     public String getUserName(){
@@ -87,6 +88,14 @@ public class User{
         followList.addFollower(user.getId());
     }
 
+    public void addPending(User user){
+        followList.addPending(user.getId());
+    }
+
+    public void addRequest(User user){
+        followList.addRequest(user.getId());
+    }
+
     /*public Boolean hasFollowing(User user){
         if(followList.contains(user.getId())){
             return true;
@@ -111,6 +120,10 @@ public class User{
 
     public ArrayList<String> getFollowers() {
         return followList.getFollower();
+    }
+
+    public ArrayList<String> getPending(){
+        return followList.getPending();
     }
 
     public String getGsonFollowList(){

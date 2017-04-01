@@ -135,19 +135,11 @@ public class ProfileActivity extends CustomAppCompatActivity implements MView<Ma
 
 
 
-            case R.id.action_follow:
+            case R.id.action_all_users:
                 // temporary because the main following function is not implemented
-                MainController mc = MainApplication.getMainController();
-
-                for(User user : mc.getUsers().getUsers()){
-                    if(mc.getMe().getId().equals(user.getId())){
-                        continue;
-                    }
-                    else{
-                        mc.addFollowing(user);
-                    }
-
-                }
+                Intent intent3 = new Intent(ProfileActivity.this, FollowSomeoneActivity.class);
+                startActivity(intent3);
+                return true;
 
 
             default:
@@ -216,9 +208,6 @@ public class ProfileActivity extends CustomAppCompatActivity implements MView<Ma
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.profile_menu, menu);
 
-        MenuItem searchItem = menu.findItem(R.id.action_search);
-        SearchView searchView =
-                (SearchView) MenuItemCompat.getActionView(searchItem);
 
         MenuItem filterItem = menu.findItem(R.id.action_filter);
         MenuView menuView =

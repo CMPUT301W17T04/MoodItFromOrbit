@@ -34,6 +34,7 @@ public class MainModel extends MModel<MView> {
     static private Location moodLocation;
     private LocationManager locationManager;
     private LocationListener locationListener;
+    static private UserList allExceptMe = null;
 
     MainModel(){
         super();
@@ -51,9 +52,11 @@ public class MainModel extends MModel<MView> {
 
         try {
             users = getUsersTask.get();
+            setAllExceptMeUsers();
         } catch (Exception e){
             Log.i("Error", "Failed to get the users from the async object");
         }
+
 
     }
 
@@ -102,6 +105,22 @@ public class MainModel extends MModel<MView> {
      */
     public UserList getUsers() {
         return users;
+    }
+
+    /**
+     * return all users that aren't the current user
+     * @return users that aren't me
+     */
+    private void setAllExceptMeUsers(){
+        UserList tempUsers = new UserList();
+        tempUsers.merge(users);
+        User tempUser = tempUsers.getUserByName(me.getUserName());
+        tempUsers.deleteUser(tempUser);
+        allExceptMe = tempUsers;
+    }
+
+    public UserList getAllExceptMeUsers(){
+        return allExceptMe;
     }
 
     /**
@@ -169,6 +188,28 @@ public class MainModel extends MModel<MView> {
 
         ElasticSearchController.UpdateUsersFollowListTask updateUsersFollowListTask = new ElasticSearchController.UpdateUsersFollowListTask();
         updateUsersFollowListTask.execute(me);
+    }
+
+    /**
+     * adds user to pending
+     * @param user user that current user is trying to follow
+     */
+    public void addPending(User user){
+        me.addPending(user);
+
+        ElasticSearchController.UpdateUsersFollowListTask updateUsersFollowListTask = new ElasticSearchController.UpdateUsersFollowListTask();
+        updateUsersFollowListTask.execute(me);
+    }
+
+    /**
+     * adds me to user I'm trying to follow's requestList
+     * @param user user I'm trying to follow
+     */
+    public void addRequest(User user){
+        user.addRequest(me);
+
+        ElasticSearchController.UpdateUsersFollowListTask updateUsersFollowListTask = new ElasticSearchController.UpdateUsersFollowListTask();
+        updateUsersFollowListTask.execute(user);
     }
 
     /**
