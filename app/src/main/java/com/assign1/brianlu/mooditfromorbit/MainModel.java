@@ -216,7 +216,7 @@ public class MainModel extends MModel<MView> {
      * @param user user that current user is trying to follow
      */
     public void addPending(User user){
-        if(!me.getFollowers().contains(user.getId()) && !me.getPending().contains(user.getId())){
+        if(!me.getFollowing().contains(user.getId()) && !me.getPending().contains(user.getId())){
             me.addPending(user);
 
             ElasticSearchController.UpdateUsersFollowListTask updateUsersFollowListTask = new ElasticSearchController.UpdateUsersFollowListTask();

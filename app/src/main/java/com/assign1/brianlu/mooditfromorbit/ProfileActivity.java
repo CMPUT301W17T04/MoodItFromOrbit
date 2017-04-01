@@ -104,7 +104,6 @@ public class ProfileActivity extends CustomAppCompatActivity implements MView<Ma
                 //switch to add mood activity
                 Intent intent1 = new Intent(ProfileActivity.this, AddMood.class);
                 startActivity(intent1);
-                adapter.notifyDataSetChanged();
                 checkOnlineStatus();
                 return true;
 
