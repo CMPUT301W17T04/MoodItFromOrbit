@@ -1,14 +1,13 @@
 package com.assign1.brianlu.mooditfromorbit;
 
-import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.os.Bundle;
 import android.support.v4.view.MenuItemCompat;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
+import android.os.Bundle;
 import android.support.v7.view.menu.MenuView;
 import android.support.v7.widget.SearchView;
 import android.support.v7.widget.Toolbar;
@@ -17,47 +16,46 @@ import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.EditText;
 import android.widget.ListView;
-import android.widget.TextView;
 
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
+public class FollowSomeoneActivity extends CustomAppCompatActivity implements MView<MainModel>{
 
-/**
- * this is the main view which will show the moods of people that the user is following
- * Created by brianlu on 2017-02-24.
- *
- *
- */
-
-
-public class DashBoard extends CustomAppCompatActivity implements MView<MainModel>{
-
-
-    private ListView moodListView;
-    private MoodListAdapter adapter;
+    private ListView usersListView;
+    private UsersAdapter adapter;
     private SwipeRefreshLayout refreshLayout;
-    private String searchMood;
-    private String searchText;
-
 
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.dash_board);
+        setContentView(R.layout.activity_follow_someone);
 
-        moodListView = (ListView) findViewById(R.id.dashboardListView);
+        usersListView = (ListView) findViewById(R.id.userListView);
 
         //used https://developer.android.com/training/appbar/setting-up.html#utility
         Toolbar myToolbar = (Toolbar) findViewById(R.id.my_toolbar);
         setSupportActionBar(myToolbar);
 
+        MainController mc = MainApplication.getMainController();
 
+        //back button
+        // Get a support ActionBar corresponding to this toolbar
         ActionBar ab = getSupportActionBar();
 
-        ab.setTitle("Dashboard");
+        // Enable the Up button
+        ab.setDisplayHomeAsUpEnabled(true);
+        ab.setTitle("Users");
 
+
+        MainModel mm = MainApplication.getMainModel();
+        mm.addView(this);
+
+        usersListView.setOnItemClickListener(new AdapterView.OnItemClickListener(){
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+            //TODO follow them
+            }
+        });
 
         // taken from https://developer.android.com/training/swipe/respond-refresh-request.html
         //March 10, 2017 4:45pm
@@ -80,20 +78,15 @@ public class DashBoard extends CustomAppCompatActivity implements MView<MainMode
                     }
                 }
         );
-
-
-        MainModel mm = MainApplication.getMainModel();
-        mm.addView(this);
     }
     @Override
     protected void onStart() {
         // TODO Auto-generated method stub
         super.onStart();
         MainController mc = MainApplication.getMainController();
+        adapter = new UsersAdapter(this, mc.getUsers().getUsers());
+        usersListView.setAdapter(adapter);
         checkOnlineStatus();
-
-        adapter = new MoodListAdapter(this, mc.getFollowingMoods().getMoods());
-        moodListView.setAdapter(adapter);
 
     }
 
@@ -110,28 +103,18 @@ public class DashBoard extends CustomAppCompatActivity implements MView<MainMode
         switch (item.getItemId()) {
             case R.id.action_add_mood:
                 //switch to add mood activity
-                Intent intent1 = new Intent(DashBoard.this, AddMood.class);
+                Intent intent1 = new Intent(FollowSomeoneActivity.this, AddMood.class);
                 startActivity(intent1);
+                adapter.notifyDataSetChanged();
+                checkOnlineStatus();
                 return true;
 
-            case R.id.action_map:
-                Intent intent2 = new Intent(DashBoard.this, DashBoardMap.class);
-                startActivity(intent2);
-                return true;
-
-            case R.id.action_profile:
-                Intent intent = new Intent(DashBoard.this, ProfileActivity.class);
+            case R.id.action_dashboard:
+                Intent intent = new Intent(FollowSomeoneActivity.this,DashBoard.class);
                 startActivity(intent);
                 return true;
 
-            case R.id.action_filter:
-                showFilterDialog();
-                return true;
 
-            case R.id.menu_refresh:
-                refreshLayout.setRefreshing(true);
-                updateList();
-                refreshLayout.setRefreshing(false);
 
             default:
                 // If we got here, the user's action was not recognized.
@@ -141,47 +124,20 @@ public class DashBoard extends CustomAppCompatActivity implements MView<MainMode
         }
     }
 
-    private void showFilterDialog(){
-        AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        LayoutInflater inflater = DashBoard.this.getLayoutInflater();
-        final View v_iew=inflater.inflate(R.layout.filter_view, null);
-        builder.setView(v_iew)
-                .setPositiveButton(R.string.filter, new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        EditText stext = (EditText) v_iew.findViewById(R.id.searchText);
-                        EditText smood = (EditText) v_iew.findViewById(R.id.searchMood);
-                        searchText = stext.getText().toString();
-                        searchMood = smood.getText().toString();
-                    }
-                })
-                .setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int id) {
-                        dialog.cancel();
-                    }
-                });
-        builder.show();
-    }
-
-
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.dash_board_menu, menu);
+        getMenuInflater().inflate(R.menu.follow_menu, menu);
 
-
-        MenuItem filterItem = menu.findItem(R.id.action_filter);
-        MenuView menuView =
-                (MenuView) MenuItemCompat.getActionView(filterItem);
+        // Configure the search info and add any event listeners...
 
         return super.onCreateOptionsMenu(menu);
     }
 
 
-
-    public void update(MainModel mm){
-        updateList();
-
+    public void update(MainModel m ){
+        //TODO code to redisplay the data
+        adapter.notifyDataSetChanged();
+        checkOnlineStatus();
     }
 
     /**
@@ -189,7 +145,7 @@ public class DashBoard extends CustomAppCompatActivity implements MView<MainMode
      */
     public void updateList(){
         MainController mc = MainApplication.getMainController();
-        mc.generateFollowingMoods();
+        mc.pullUsers();
         adapter.notifyDataSetChanged();
         checkOnlineStatus();
 
