@@ -93,16 +93,6 @@ public class AddMood extends AppCompatActivity implements MView<MainModel> {
                 Mood mood = new Mood(mc.getEmotion(t_emotions), mc.getMe());
                 mood.setSocialSituation(groupstring);
                 mood.setMessage(commentstring);
-                // (128 * 128) * 4 = 65536 bytes which is the maximum allowed
-                // limits every bitmap image to 65536 bytes.
-                Bitmap convertedImage = getResizedBitmap(imageBitmap, 128, 128);
-                convertedImage.getByteCount();
-                Log.d("Test", "This is convertedImage byte count!" +convertedImage.getByteCount() );
-
-                mood.setImage(convertedImage);
-
-
-
 
 
                 // Remove the listener you previously added
@@ -113,6 +103,18 @@ public class AddMood extends AppCompatActivity implements MView<MainModel> {
                 //only if share location is toggled
               //  mood.setLocation(moodLocation);
 
+                // if a picture exists in imageview
+                ImageView picture = (ImageView) findViewById(R.id.pic);
+                Log.d("Tetestestst", "is this drawable or na" + picture.getDrawable()  );
+                if (picture.getDrawable() != null) {
+                    // (128 * 128) * 4 = 65536 bytes which is the maximum allowed
+                    // limits every bitmap image to 65536 bytes.
+                    Bitmap convertedImage = getResizedBitmap(imageBitmap, 128, 128);
+                    convertedImage.getByteCount();
+                    Log.d("Test", "This is convertedImage byte count!" +convertedImage.getByteCount() );
+
+                    mood.setImage(convertedImage);
+                }
 
 
 
@@ -130,6 +132,11 @@ public class AddMood extends AppCompatActivity implements MView<MainModel> {
                 }
                 Log.d("location", moodLocation.toString());
                 mc.addNewMood(mood);
+
+
+                Toast.makeText(getBaseContext(), "This is my Toast message!",
+                        Toast.LENGTH_LONG).show();
+
 
                 finish();
             }
@@ -179,11 +186,8 @@ public class AddMood extends AppCompatActivity implements MView<MainModel> {
     // but modified a bit to fit usecase.
     public Bitmap getResizedBitmap(Bitmap image, int maxWidth, int maxHeight) {
 
-        int width = image.getWidth();
-        int height = image.getHeight();
-
-        width = maxWidth;
-        height = maxHeight;
+        int width = maxWidth;
+        int height = maxHeight;
 
         return Bitmap.createScaledBitmap(image, width, height, true);
     }
