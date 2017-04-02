@@ -139,6 +139,7 @@ public class AddMood extends AppCompatActivity implements MView<MainModel> {
 
 
 
+
                 Switch locationswitch = (Switch) findViewById(R.id.locations);
                 locationswitch.setTextOn("On"); // displayed text of the Switch whenever it is in checked or on state
                 locationswitch.setTextOff("Off"); // displayed text of the Switch whenever it is in unchecked i.e. off state
@@ -153,7 +154,6 @@ public class AddMood extends AppCompatActivity implements MView<MainModel> {
                 }
                 Log.d("location", moodLocation.toString());
                 mc.addNewMood(mood, context);
-
                 placeholder = 1;
                 Log.d("This is placeholder", "placeholder value : " + placeholder );
                 Log.d("This is t_emotions", "t_emotions value : " + t_emotions );
@@ -195,7 +195,7 @@ public class AddMood extends AppCompatActivity implements MView<MainModel> {
                 dialog.show();
 
 
-               // finish();
+//                finish();
             }
         });
 
@@ -214,12 +214,10 @@ public class AddMood extends AppCompatActivity implements MView<MainModel> {
                 Bundle extras = data.getExtras();
                 imageBitmap = (Bitmap) extras.get("data");
                 // (128 * 128) * 4 = 65536 bytes which is the maximum allowed
-                if(imageBitmap != null) {
-                    Bitmap convertedImage = getResizedBitmap(imageBitmap, 128, 128);
-                    convertedImage.getByteCount();
-                    Log.d("Test", "This is convertedImage byte count!" + convertedImage.getByteCount());
-                    IMG.setImageBitmap(convertedImage);
-                }
+                Bitmap convertedImage = getResizedBitmap(imageBitmap, 128, 128);
+                convertedImage.getByteCount();
+                Log.d("Test", "This is convertedImage byte count!" + convertedImage.getByteCount());
+                IMG.setImageBitmap(convertedImage);
 
             }
         }

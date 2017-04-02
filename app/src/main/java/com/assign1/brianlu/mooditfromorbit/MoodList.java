@@ -77,14 +77,10 @@ public class MoodList{
     }
 
     public Integer getIndex(Mood mood){
-        Log.d("mood name is",mood.getEmotion().getEmotion());
         int index=-1;
         for(int i=0;i<moods.size();i++){
             if (moods.get(i).getStringDate().equals(mood.getStringDate())){
                 index = i;
-            }else{
-                Log.i("listed mood is ",moods.get(i).getStringDate());
-                Log.i("current mood is",mood.getStringDate());
             }
         }
         return index;

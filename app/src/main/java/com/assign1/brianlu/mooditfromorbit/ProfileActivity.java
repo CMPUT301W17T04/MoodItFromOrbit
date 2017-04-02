@@ -9,24 +9,14 @@
 package com.assign1.brianlu.mooditfromorbit;
 
 import android.app.AlertDialog;
-import android.app.Dialog;
-import android.app.DialogFragment;
-import android.app.FragmentManager;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.location.Location;
-import android.provider.ContactsContract;
-import android.provider.MediaStore;
-import android.support.v4.app.Fragment;
 import android.support.v4.view.MenuItemCompat;
-import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.ActionBar;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.view.menu.ActionMenuItemView;
 import android.support.v7.view.menu.MenuView;
 import android.support.v7.widget.ActionMenuView;
-import android.support.v7.widget.SearchView;
 import android.support.v7.widget.Toolbar;
 import android.util.DisplayMetrics;
 import android.util.Log;
@@ -37,11 +27,9 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
-import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ListView;
-import android.widget.Spinner;
 import android.widget.Toast;
 
 import java.util.ArrayList;
@@ -83,8 +71,7 @@ public class ProfileActivity extends CustomAppCompatActivity implements MView<Ma
         ab.setTitle("Profile");
 
 
-        MainModel mm = MainApplication.getMainModel();
-        mm.addView(this);
+
 
         myToolbarLow.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {
 
@@ -119,13 +106,14 @@ public class ProfileActivity extends CustomAppCompatActivity implements MView<Ma
                 Intent intent3 = new Intent(ProfileActivity.this, EditMood.class);
                 adapter = new MoodListAdapter(ProfileActivity.this, selfMoods);
                 MainController mc = MainApplication.getMainController();
-                mc.generateRequested();
                 int theP = mc.getMe().getMoods().getIndex(adapter.getItem(position));
                 intent3.putExtra("moodId",theP);
                 startActivity(intent3);
             }
         });
 
+        MainModel mm = MainApplication.getMainModel();
+        mm.addView(this);
 
 
     }
@@ -134,11 +122,12 @@ public class ProfileActivity extends CustomAppCompatActivity implements MView<Ma
         // TODO Auto-generated method stub
         super.onStart();
         MainController mc = MainApplication.getMainController();
-        mc.generateRequested();
+//        mc.generateRequested();
+        checkOnlineStatus();
         selfMoods = mc.getMe().getMoods().getMoods();
         adapter = new MoodListAdapter(this, selfMoods);
         moodListView.setAdapter(adapter);
-        checkOnlineStatus();
+
 
     }
 
@@ -157,11 +146,9 @@ public class ProfileActivity extends CustomAppCompatActivity implements MView<Ma
                 //switch to add mood activity
                 Intent intent1 = new Intent(ProfileActivity.this, AddMood.class);
                 startActivity(intent1);
-
                 return true;
 
             case R.id.action_map:
-
                 Intent intent2 = new Intent(ProfileActivity.this, MapActivity.class);
                 startActivity(intent2);
                 return true;
@@ -226,28 +213,15 @@ public class ProfileActivity extends CustomAppCompatActivity implements MView<Ma
                         }else{
                             checked = false;
                         }
-
-//                        ArrayList<Mood> newSelfMoods = new ArrayList<>();
                         if(!searchMood.equals("")){
-//                            newSelfMoods.addAll(filterByMood(selfMoods, searchMood));
                             selfMoods = filterByMood(selfMoods, searchMood);
                         }
                         if(!searchText.equals("")){
-//                            newSelfMoods.addAll(filterByText(selfMoods,searchText));
                             selfMoods = filterByText(selfMoods,searchText);
                         }
-
-
-
-
-
-
                         adapter = new MoodListAdapter(ProfileActivity.this, selfMoods);
                         moodListView.setAdapter(adapter);
                         checkOnlineStatus();
-
-
-
 
 
                     }
@@ -264,7 +238,6 @@ public class ProfileActivity extends CustomAppCompatActivity implements MView<Ma
 
     private void getAllSelfMoods(){
         Log.i("getcalled","called once");
-
         MainController mc = MainApplication.getMainController();
         mc.generateRequested();
         selfMoods = mc.getMe().getMoods().getMoods();

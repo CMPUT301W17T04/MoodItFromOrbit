@@ -9,6 +9,7 @@
 package com.assign1.brianlu.mooditfromorbit;
 
 import android.content.Context;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -30,7 +31,7 @@ import java.util.ArrayList;
 public class MoodListAdapter extends ArrayAdapter<Mood>{
 
     public MoodListAdapter(Context context, ArrayList<Mood> moods){
-        super(context, 0, moods);
+        super(context,0, moods);
     }
 
     @Override
@@ -41,6 +42,7 @@ public class MoodListAdapter extends ArrayAdapter<Mood>{
         if (convertView == null) {
             convertView = LayoutInflater.from(getContext()).inflate(R.layout.mood_list, parent, false);
         }
+
         // Lookup view for data population
         TextView userName = (TextView) convertView.findViewById(R.id.moodUserName);
         TextView emoticon = (TextView) convertView.findViewById(R.id.moodEmoticon);
@@ -59,20 +61,18 @@ public class MoodListAdapter extends ArrayAdapter<Mood>{
         emotion.setText(mood.getEmotion().getEmotion());
         details.setText(mood.getMessage());
         date.setText(mood.getDateForView());
-
-        if(mood.getImage() != null){
-            image.setImageBitmap(mood.getImage());
-            Log.i("this is mood",mood.getEmotion().getEmotion());
-            Log.i("mood position",Integer.toString(position));
-            Log.i("has image","has image");
+        image.setImageBitmap(mood.getImage());
+        if(mood.getImage() == null){
+//            Log.i("no image",Integer.toString(position));
+            image.setMaxHeight(0);
+        }else{
+//            Log.i("has image",Integer.toString(position));
+            image.setMaxHeight(720);
+//            Log.i("image height",Integer.toString(mood.getImage().getHeight()));
         }
-//        else{
-//            Log.i("this is mood",mood.getEmotion().getEmotion());
-//            Log.i("mood position",Integer.toString(position));
-//            Log.i("no image","no image");
-//        }
-
+//        Log.i("view height",Integer.toString(image.getHeight()));
         item.setBackgroundColor(mood.getEmotion().getColour());
+
 
 
 
