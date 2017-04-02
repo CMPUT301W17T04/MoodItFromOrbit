@@ -10,24 +10,21 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <item android:id="@+id/action_add_mood"
-        android:title="@string/action_add_mood"
-        android:icon="@drawable/ic_add_black_24dp"
-        app:showAsAction="always"/>
-
     <item android:id="@+id/action_dashboard"
         android:title="@string/dashboard"
-        app:showAsAction="never"/>
-
+        android:icon="@drawable/ic_home_black_24px"
+        app:showAsAction="always"/>
     <item android:id="@+id/action_profile"
-        android:title="@string/action_profile"
-        app:showAsAction="never"/>
-
-    <item android:id="@+id/action_logout"
-        android:title="@string/logout"
-        app:showAsAction="never"/>
-
-
-
+        android:title="@string/profile"
+        android:icon="@drawable/ic_person_black_24px"
+        app:showAsAction="always"/>
+    <item android:id="@+id/action_requests"
+        android:title="@string/follow_requests"
+        android:icon="@drawable/ic_person_add_white_24px"
+        app:showAsAction="always"/>
+    <item android:id="@+id/action_all"
+        android:title="@string/all_users"
+        android:icon="@drawable/ic_people_black_24px"
+        app:showAsAction="always"/>
 
 </menu>

@@ -9,14 +9,19 @@ import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.view.menu.ActionMenuItemView;
 import android.support.v7.view.menu.MenuView;
+import android.support.v7.widget.ActionMenuView;
 import android.support.v7.widget.SearchView;
 import android.support.v7.widget.Toolbar;
+import android.util.DisplayMetrics;
 import android.util.Log;
+import android.view.Display;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.EditText;
 import android.widget.ListView;
@@ -26,6 +31,7 @@ public class FollowSomeoneActivity extends CustomAppCompatActivity implements MV
     private ListView usersListView;
     private UsersAdapter adapter;
     private SwipeRefreshLayout refreshLayout;
+    private Toolbar myToolbarLow;
 
 
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,14 +47,42 @@ public class FollowSomeoneActivity extends CustomAppCompatActivity implements MV
         //back button
         // Get a support ActionBar corresponding to this toolbar
         ActionBar ab = getSupportActionBar();
-
         ab.setTitle("Users");
+
+        setupEvenlyDistributedToolbar();
         checkOnlineStatus();
 
 
         MainModel mm = MainApplication.getMainModel();
         mm.addView(this);
 
+        myToolbarLow.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {
+
+            @Override
+            public boolean onMenuItemClick(MenuItem item) {
+                switch (item.getItemId()) {
+                    case R.id.action_dashboard:
+                        Intent intent = new Intent(FollowSomeoneActivity.this,DashBoard.class);
+                        startActivity(intent);
+                        return true;
+
+                    case R.id.action_profile:
+                        // temporary because the main following function is not implemented
+                        Intent intent3 = new Intent(FollowSomeoneActivity.this, ProfileActivity.class);
+                        startActivity(intent3);
+                        return true;
+
+                    case R.id.action_requests:
+                        // temporary because the main following function is not implemented
+                        Intent intent4 = new Intent(FollowSomeoneActivity.this, AcceptFollowerActivity.class);
+                        startActivity(intent4);
+                        return true;
+
+                    default:
+                        return false;
+                }
+            }
+        });
         usersListView.setOnItemClickListener(new AdapterView.OnItemClickListener(){
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 MainController mc = MainApplication.getMainController();
@@ -114,7 +148,10 @@ public class FollowSomeoneActivity extends CustomAppCompatActivity implements MV
                 startActivity(intent);
                 return true;
 
-
+            case R.id.action_logout:
+                Intent intent5 = new Intent(FollowSomeoneActivity.this, MoodMainActivity.class);
+                startActivity(intent5);
+                return true;
 
             default:
                 // If we got here, the user's action was not recognized.
@@ -150,5 +187,62 @@ public class FollowSomeoneActivity extends CustomAppCompatActivity implements MV
         usersListView.setAdapter(adapter);
         checkOnlineStatus();
 
+    }
+
+    /**
+     * taken from http://stackoverflow.com/questions/26489079/evenly-spaced-menu-items-on-toolbar
+     * April 2, 2017 1:29 AM
+     *
+     * We use this in order to evenly distribute the buttons
+     *
+     * This method will take however many items you have in your
+     * menu/menu_main.xml and distribute them across your devices screen
+     * evenly using a Toolbar. Enjoy!!
+     */
+    public void setupEvenlyDistributedToolbar(){
+        // Use Display metrics to get Screen Dimensions
+        Display display = getWindowManager().getDefaultDisplay();
+        DisplayMetrics metrics = new DisplayMetrics();
+        display.getMetrics(metrics);
+
+        // Toolbar
+        myToolbarLow = (Toolbar) findViewById(R.id.my_toolbarLow);
+        // Inflate your menu
+        myToolbarLow.inflateMenu(R.menu.follow_menu_low);
+
+        // Add 10 spacing on either side of the toolbar
+        myToolbarLow.setContentInsetsAbsolute(10, 10);
+
+        // Get the ChildCount of your Toolbar, this should only be 1
+        int childCount = myToolbarLow.getChildCount();
+        // Get the Screen Width in pixels
+        int screenWidth = metrics.widthPixels;
+
+        // Create the Toolbar Params based on the screenWidth
+        Toolbar.LayoutParams toolbarParams = new Toolbar.LayoutParams(screenWidth, ActionBar.LayoutParams.WRAP_CONTENT);
+
+        // Loop through the child Items
+        for(int i = 0; i < childCount; i++){
+            // Get the item at the current index
+            View childView = myToolbarLow.getChildAt(i);
+            // If its a ViewGroup
+            if(childView instanceof ViewGroup){
+                // Set its layout params
+                childView.setLayoutParams(toolbarParams);
+                // Get the child count of this view group, and compute the item widths based on this count & screen size
+                int innerChildCount = ((ViewGroup) childView).getChildCount();
+                int itemWidth  = (screenWidth / innerChildCount);
+                // Create layout params for the ActionMenuView
+                ActionMenuView.LayoutParams params = new ActionMenuView.LayoutParams(itemWidth, ActionBar.LayoutParams.WRAP_CONTENT);
+                // Loop through the children
+                for(int j = 0; j < innerChildCount; j++){
+                    View grandChild = ((ViewGroup) childView).getChildAt(j);
+                    if(grandChild instanceof ActionMenuItemView){
+                        // set the layout parameters on each View
+                        grandChild.setLayoutParams(params);
+                    }
+                }
+            }
+        }
     }
 }

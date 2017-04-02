@@ -17,6 +17,7 @@ public class UpdateMoods implements UpdateServer {
     public void execute(){
         ElasticSearchController.UpdateUsersMoodTask updateUsersMoodTask = new ElasticSearchController.UpdateUsersMoodTask();
         updateUsersMoodTask.execute(user);
+
         Log.d("update mood user", user.getUserName());
     }
 }

@@ -59,6 +59,7 @@ public class MoodListAdapter extends ArrayAdapter<Mood>{
         emotion.setText(mood.getEmotion().getEmotion());
         details.setText(mood.getMessage());
         date.setText(mood.getDateForView());
+
         if(mood.getImage() != null){
             image.setImageBitmap(mood.getImage());
             Log.i("this is mood",mood.getEmotion().getEmotion());

@@ -9,12 +9,15 @@
 package com.assign1.brianlu.mooditfromorbit;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
+import android.net.Uri;
 import android.provider.MediaStore;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -38,6 +41,10 @@ public class AddMood extends AppCompatActivity implements MView<MainModel> {
     ImageView IMG;
     Bitmap imageBitmap;
     Context context;
+    private MoodListAdapter adapter;
+    private int placeholder;
+    String recommendation;
+    String r_url;
 
     public static final int REQUEST_CODE = 1;
     @Override
@@ -76,6 +83,8 @@ public class AddMood extends AppCompatActivity implements MView<MainModel> {
         // when done button is pressed
         Button button = (Button) findViewById(R.id.button);
         button.setOnClickListener(new View.OnClickListener() {
+
+
             @Override
             public void onClick(View view) {
                 //TODO get info from input
@@ -145,20 +154,50 @@ public class AddMood extends AppCompatActivity implements MView<MainModel> {
                 Log.d("location", moodLocation.toString());
                 mc.addNewMood(mood, context);
 
+                placeholder = 1;
+                Log.d("This is placeholder", "placeholder value : " + placeholder );
+                Log.d("This is t_emotions", "t_emotions value : " + t_emotions );
 
-                Toast.makeText(getBaseContext(), "This is my Toast message!",
-                        Toast.LENGTH_LONG).show();
 
 
-                finish();
+                if (t_emotions.equals("Happy")){
+                    recommendation = "Pharrell Williams - Happy";
+                    r_url = "https://www.youtube.com/watch?v=y6Sxv-sUYtM";
+                    Log.d("we made it", "we got it" );
+
+                }
+
+                AlertDialog.Builder builder = new AlertDialog.Builder(AddMood.this);
+                builder.setMessage("Because you are feeling " + t_emotions +
+                        " our recommendation is that you check out " + recommendation)
+                        .setTitle("Recommendation!");
+                Log.d("This is t_emotions", "t_emotions value2222 : " + t_emotions );
+
+                builder.setPositiveButton("Yes take me there!", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(r_url));
+                        startActivity(browserIntent);
+                        // User clicked OK button
+                        finish();
+                    }
+                });
+                builder.setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        // User cancelled the dialog
+                        finish();
+                    }
+                });
+                // Set other dialog properties
+
+
+                // Create the AlertDialog
+                AlertDialog dialog = builder.create();
+                dialog.show();
+
+
+               // finish();
             }
         });
-
-
-
-
-
-
 
         MainModel mm = MainApplication.getMainModel();
         mm.addView(this);
@@ -216,11 +255,15 @@ public class AddMood extends AppCompatActivity implements MView<MainModel> {
 
     @Override
     public void onDestroy() {
+        Log.d("Shalom", "big shalom" );
+
         super.onDestroy();
         MainModel mm = MainApplication.getMainModel();
         mm.deleteView(this);
     }
-    public void update(MainModel mc){}
+    public void update(MainModel mc){
+
+    }
 
     // Resizes the bitmap image
     // Taken from http://stackoverflow.com/questions/16954109/reduce-the-size-of-a-bitmap-to-a-specified-size-in-android
