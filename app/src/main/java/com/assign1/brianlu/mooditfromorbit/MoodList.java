@@ -76,16 +76,32 @@ public class MoodList{
         moods.clear();
     }
 
+    public Integer getIndex(Mood mood){
+        Log.d("mood name is",mood.getEmotion().getEmotion());
+        int index=-1;
+        for(int i=0;i<moods.size();i++){
+            if (moods.get(i).getStringDate().equals(mood.getStringDate())){
+                index = i;
+            }else{
+                Log.i("listed mood is ",moods.get(i).getStringDate());
+                Log.i("current mood is",mood.getStringDate());
+            }
+        }
+        return index;
+    }
+
+
     /**
      * removes all moods that do not contain the keyword
      * @param keyword word to search for
      */
-    public void sortByWord(CharSequence keyword){
+    public void sortByWord(String keyword){
         for(int i = 0; i < this.getCount(); i++){
             if (this.getMood(i).getMessage().contains(keyword)){
             }
             else{
                 this.delete(this.getMood(i));
+                i--;
             }
         }
     }
@@ -123,6 +139,7 @@ public class MoodList{
             }
             else{
                 this.delete(this.getMood(i));
+                i--;
             }
         }
     }
@@ -144,4 +161,5 @@ public class MoodList{
 
         Collections.sort(this.moods, compareByDate);
     }
+
 }

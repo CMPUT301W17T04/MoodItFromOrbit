@@ -38,7 +38,6 @@ public class AddMood extends AppCompatActivity implements MView<MainModel> {
     ImageView IMG;
     Bitmap imageBitmap;
     Context context;
-    private MoodListAdapter adapter;
 
     public static final int REQUEST_CODE = 1;
     @Override
@@ -120,11 +119,13 @@ public class AddMood extends AppCompatActivity implements MView<MainModel> {
                 if (picture.getDrawable() != null) {
                     // (128 * 128) * 4 = 65536 bytes which is the maximum allowed
                     // limits every bitmap image to 65536 bytes.
-                    Bitmap convertedImage = getResizedBitmap(imageBitmap, 128, 128);
-                    convertedImage.getByteCount();
-                    Log.d("Test", "This is convertedImage byte count!" +convertedImage.getByteCount() );
+                    if(imageBitmap != null) {
+                        Bitmap convertedImage = getResizedBitmap(imageBitmap, 128, 128);
+                        convertedImage.getByteCount();
+                        Log.d("Test", "This is convertedImage byte count!" + convertedImage.getByteCount());
 
-                    mood.setImage(convertedImage);
+                        mood.setImage(convertedImage);
+                    }
                 }
 
 
@@ -174,10 +175,12 @@ public class AddMood extends AppCompatActivity implements MView<MainModel> {
                 Bundle extras = data.getExtras();
                 imageBitmap = (Bitmap) extras.get("data");
                 // (128 * 128) * 4 = 65536 bytes which is the maximum allowed
-                Bitmap convertedImage = getResizedBitmap(imageBitmap, 128, 128);
-                convertedImage.getByteCount();
-                Log.d("Test", "This is convertedImage byte count!" +convertedImage.getByteCount() );
-                IMG.setImageBitmap(convertedImage);
+                if(imageBitmap != null) {
+                    Bitmap convertedImage = getResizedBitmap(imageBitmap, 128, 128);
+                    convertedImage.getByteCount();
+                    Log.d("Test", "This is convertedImage byte count!" + convertedImage.getByteCount());
+                    IMG.setImageBitmap(convertedImage);
+                }
 
             }
         }

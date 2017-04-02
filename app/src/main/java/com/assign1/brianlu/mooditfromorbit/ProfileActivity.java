@@ -37,6 +37,7 @@ import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.Spinner;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 
@@ -51,9 +52,7 @@ public class ProfileActivity extends CustomAppCompatActivity implements MView<Ma
     private String searchText;
 
     private ArrayList<Mood> selfMoods;
-    private SwipeRefreshLayout refreshLayout;
-    int chronOder;
-    int filterRange;
+    private boolean checked = false;
 
 
     protected void onCreate(Bundle savedInstanceState) {
@@ -81,7 +80,11 @@ public class ProfileActivity extends CustomAppCompatActivity implements MView<Ma
         moodListView.setOnItemClickListener(new AdapterView.OnItemClickListener(){
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Intent intent3 = new Intent(ProfileActivity.this, EditMood.class);
-                intent3.putExtra("moodId",position);
+                adapter = new MoodListAdapter(ProfileActivity.this, selfMoods);
+                MainController mc = MainApplication.getMainController();
+                mc.generateRequested();
+                int theP = mc.getMe().getMoods().getIndex(adapter.getItem(position));
+                intent3.putExtra("moodId",theP);
                 startActivity(intent3);
             }
         });
@@ -93,7 +96,6 @@ public class ProfileActivity extends CustomAppCompatActivity implements MView<Ma
     protected void onStart() {
         // TODO Auto-generated method stub
         super.onStart();
-        updateList();
         MainController mc = MainApplication.getMainController();
         mc.generateRequested();
         selfMoods = mc.getMe().getMoods().getMoods();
@@ -118,10 +120,6 @@ public class ProfileActivity extends CustomAppCompatActivity implements MView<Ma
                 //switch to add mood activity
                 Intent intent1 = new Intent(ProfileActivity.this, AddMood.class);
                 startActivity(intent1);
-                MainController mc = MainApplication.getMainController();
-                Log.i("how many mood?",Integer.toString(mc.getMe().getMoods().getCount()));
-                updateList();
-                Log.i("after add mood","come back");
 
                 return true;
 
@@ -164,11 +162,13 @@ public class ProfileActivity extends CustomAppCompatActivity implements MView<Ma
     private void showFilterDialog(){
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         LayoutInflater inflater = ProfileActivity.this.getLayoutInflater();
-        final View view=inflater.inflate(R.layout.filter_view, null);
+        View view=inflater.inflate(R.layout.filter_view, null);
         final EditText stext = (EditText) view.findViewById(R.id.searchText);
         if(searchText != null){stext.setText(searchText);}
         final EditText smood = (EditText) view.findViewById(R.id.searchMood);
         if(searchMood != null){smood.setText(searchMood);}
+        final CheckBox s_sort = (CheckBox) view.findViewById(R.id.recentWeek);
+        s_sort.setChecked(checked);
         builder.setView(view)
                 .setPositiveButton(R.string.filter, new DialogInterface.OnClickListener() {
                     @Override
@@ -177,10 +177,14 @@ public class ProfileActivity extends CustomAppCompatActivity implements MView<Ma
                         searchText = stext.getText().toString();
                         searchMood = smood.getText().toString();
 
-                        CheckBox s_sort = (CheckBox) view.findViewById(R.id.recentWeek);
-//                        String searchTime = s_timefilter.getSelectedItem().toString();
-//                        String sort = s_sort.getSelectedItem().toString();
                         getAllSelfMoods();
+                        if(s_sort.isChecked()){
+                            checked = true;
+                            selfMoods = filterByWeek(selfMoods);
+                        }else{
+                            checked = false;
+                        }
+
 //                        ArrayList<Mood> newSelfMoods = new ArrayList<>();
                         if(!searchMood.equals("")){
 //                            newSelfMoods.addAll(filterByMood(selfMoods, searchMood));
@@ -230,10 +234,23 @@ public class ProfileActivity extends CustomAppCompatActivity implements MView<Ma
         sortedMoods.merge(new MoodList(moods));
         if(mc.getEmotion(emotion) != null){
             sortedMoods.sortByEmotion(mc.getEmotion(emotion));
+            if(sortedMoods.getCount() == 0){
+                Toast.makeText(getBaseContext(), "There are now such moods!",
+                        Toast.LENGTH_LONG).show();
+            }
             return sortedMoods.getMoods();
         }else {
-            return selfMoods;
+            Toast.makeText(getBaseContext(), "Invalid mood type!",
+                    Toast.LENGTH_LONG).show();
+            return new ArrayList<Mood>();
         }
+    }
+
+    private ArrayList<Mood> filterByWeek(ArrayList<Mood> moods){
+        MoodList sortedMoods = new MoodList();
+        sortedMoods.merge(new MoodList(moods));
+        sortedMoods.sortByRecentWeek();
+        return sortedMoods.getMoods();
     }
 
 
@@ -260,15 +277,10 @@ public class ProfileActivity extends CustomAppCompatActivity implements MView<Ma
 
     public void update(MainModel m ){
         //TODO code to redisplay the data
-        updateList();
-    }
-
-    public void updateList(){
         MainController mc = MainApplication.getMainController();
         mc.generateRequested();
-        adapter = new MoodListAdapter(this, mc.getMe().getMoods().getMoods());
-        moodListView.setAdapter(adapter);
+        adapter.notifyDataSetChanged();
         checkOnlineStatus();
-
     }
+
 }

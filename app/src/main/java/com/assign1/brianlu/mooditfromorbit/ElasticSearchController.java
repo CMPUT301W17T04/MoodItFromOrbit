@@ -158,6 +158,7 @@ public class ElasticSearchController {
 
                 Update update = new Update.Builder(query)
                         .index("cmput301w17t4")
+                        .refresh(true)
                         .type("user")
                         .id(user.getId())
                         .build();

@@ -41,14 +41,14 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:id="@+id/searchText"
-                android:hint="@string/searchText"/>
+                android:id="@+id/searchMood"
+                android:hint="@string/searchMood"/>
             <EditText
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:id="@+id/searchMood"
-                android:hint="@string/searchMood"/>
+                android:id="@+id/searchText"
+                android:hint="@string/searchText"/>
 
         </LinearLayout>
 </LinearLayout>
