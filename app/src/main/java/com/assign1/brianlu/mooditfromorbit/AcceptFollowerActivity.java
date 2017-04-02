@@ -149,8 +149,6 @@ public class AcceptFollowerActivity extends CustomAppCompatActivity implements M
         mc.generateRequested();
         adapter.notifyDataSetChanged();
         checkOnlineStatus();
-
-
         
     }
 }
