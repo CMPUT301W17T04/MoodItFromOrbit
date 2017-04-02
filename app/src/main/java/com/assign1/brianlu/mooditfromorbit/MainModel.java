@@ -148,6 +148,7 @@ public class MainModel extends MModel<MView> {
     public void addNewMood(Mood mood, Context context){
         me.addMood(mood);
         updateMoodList(context);
+
     }
 
     /**
