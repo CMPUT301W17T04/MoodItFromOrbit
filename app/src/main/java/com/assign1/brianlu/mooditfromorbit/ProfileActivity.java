@@ -90,10 +90,13 @@ public class ProfileActivity extends CustomAppCompatActivity implements MView<Ma
     protected void onStart() {
         // TODO Auto-generated method stub
         super.onStart();
-        getAllSelfMoods();
-        adapter = new MoodListAdapter(this, selfMoods);
-        moodListView.setAdapter(adapter);
+        MainController mc = MainApplication.getMainController();
         checkOnlineStatus();
+        mc.generateRequested();
+        selfMoods = mc.getMe().getMoods().getMoods();
+        adapter = new MoodListAdapter(this, mc.getMe().getMoods().getMoods());
+        moodListView.setAdapter(adapter);
+
 
     }
 
@@ -185,7 +188,7 @@ public class ProfileActivity extends CustomAppCompatActivity implements MView<Ma
 
 
 
-                        Log.i("first mood is",selfMoods.get(0).getEmotion().getEmotion());
+//                        Log.i("first mood is",selfMoods.get(0).getEmotion().getEmotion());
                         adapter = new MoodListAdapter(ProfileActivity.this, selfMoods);
                         moodListView.setAdapter(adapter);
                         checkOnlineStatus();
