@@ -127,8 +127,6 @@ public class ProfileActivity extends CustomAppCompatActivity implements MView<Ma
         selfMoods = mc.getMe().getMoods().getMoods();
         adapter = new MoodListAdapter(this, selfMoods);
         moodListView.setAdapter(adapter);
-
-
     }
 
     @Override
