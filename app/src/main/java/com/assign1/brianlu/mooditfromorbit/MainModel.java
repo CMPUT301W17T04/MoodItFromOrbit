@@ -52,7 +52,7 @@ public class MainModel extends MModel<MView> {
         getUsersTask.execute("");
 
         try {
-            users = getUsersTask.get(3000, TimeUnit.MILLISECONDS);
+            users = getUsersTask.get();
 
 
         } catch (Exception e){
@@ -205,7 +205,7 @@ public class MainModel extends MModel<MView> {
         updateUsersFollowListTask.execute(me);
 
         try {
-            updateUsersFollowListTask.get(3000, TimeUnit.MILLISECONDS);
+            updateUsersFollowListTask.get();
         }
         catch(Exception e){
             Log.d("Time failed", e.toString());
@@ -226,7 +226,7 @@ public class MainModel extends MModel<MView> {
         updateUsersFollowListTask.execute(user);
 
         try {
-            updateUsersFollowListTask.get(3000, TimeUnit.MILLISECONDS);
+            updateUsersFollowListTask.get();
         }
         catch(Exception e){
             Log.d("Time failed", e.toString());
@@ -245,7 +245,7 @@ public class MainModel extends MModel<MView> {
             updateUsersFollowListTask.execute(me);
 
             try {
-                updateUsersFollowListTask.get(3000, TimeUnit.MILLISECONDS);
+                updateUsersFollowListTask.get();
             }
             catch(Exception e){
                 Log.d("Time failed", e.toString());
@@ -298,7 +298,7 @@ public class MainModel extends MModel<MView> {
         updateUsersFollowListTask.execute(user);
 
         try {
-            updateUsersFollowListTask.get(3000, TimeUnit.MILLISECONDS);
+            updateUsersFollowListTask.get();
         }
         catch(Exception e){
             Log.d("Time failed", e.toString());
@@ -312,7 +312,7 @@ public class MainModel extends MModel<MView> {
         ElasticSearchController.UpdateUsersFollowListTask updateUsersFollowListTask = new ElasticSearchController.UpdateUsersFollowListTask();
         updateUsersFollowListTask.execute(user);
         try {
-            updateUsersFollowListTask.get(3000, TimeUnit.MILLISECONDS);
+            updateUsersFollowListTask.get();
         }
         catch(Exception e){
             Log.d("Time failed", e.toString());
@@ -329,7 +329,7 @@ public class MainModel extends MModel<MView> {
         ElasticSearchController.AddUsersTask addUsersTask = new ElasticSearchController.AddUsersTask();
         addUsersTask.execute(user);
         try {
-            addUsersTask.get(3000, TimeUnit.MILLISECONDS);
+            addUsersTask.get();
         }
         catch(Exception e){
             Log.d("Time failed", e.toString());

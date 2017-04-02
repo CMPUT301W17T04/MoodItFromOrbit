@@ -50,7 +50,9 @@ public class ElasticSearchController {
 
             for (User user : users) {
 
-                Index index = new Index.Builder(user).index("cmput301w17t4").type("user").build();
+                Index index = new Index.Builder(user).index("cmput301w17t4").type("user")
+                        .refresh(true)
+                        .build();
 
                 try {
                     // where is the client?
@@ -93,6 +95,7 @@ public class ElasticSearchController {
             Search search = new Search.Builder(query)
                     .addIndex("cmput301w17t4")
                     .addType("user")
+                    .refresh(true)
                     .build();
 
             try {
@@ -159,6 +162,7 @@ public class ElasticSearchController {
                 Update update = new Update.Builder(query)
                         .index("cmput301w17t4")
                         .type("user")
+                        .refresh(true)
                         .id(user.getId())
                         .build();
 
@@ -205,6 +209,7 @@ public class ElasticSearchController {
                 Update update = new Update.Builder(query)
                         .index("cmput301w17t4")
                         .type("user")
+                        .refresh(true)
                         .id(user.getId())
                         .build();
 
