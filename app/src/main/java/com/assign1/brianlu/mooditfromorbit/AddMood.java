@@ -38,6 +38,7 @@ public class AddMood extends AppCompatActivity implements MView<MainModel> {
     ImageView IMG;
     Bitmap imageBitmap;
     Context context;
+    private MoodListAdapter adapter;
 
     public static final int REQUEST_CODE = 1;
     @Override

@@ -19,6 +19,7 @@ import android.provider.ContactsContract;
 import android.provider.MediaStore;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.MenuItemCompat;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -50,6 +51,7 @@ public class ProfileActivity extends CustomAppCompatActivity implements MView<Ma
     private String searchText;
 
     private ArrayList<Mood> selfMoods;
+    private SwipeRefreshLayout refreshLayout;
     int chronOder;
     int filterRange;
 
@@ -59,7 +61,7 @@ public class ProfileActivity extends CustomAppCompatActivity implements MView<Ma
         setContentView(R.layout.activity_profile);
 
         moodListView = (ListView) findViewById(R.id.profileListView);
-
+        onStart();
         //used https://developer.android.com/training/appbar/setting-up.html#utility
         Toolbar myToolbar = (Toolbar) findViewById(R.id.my_toolbar);
         setSupportActionBar(myToolbar);
@@ -83,17 +85,21 @@ public class ProfileActivity extends CustomAppCompatActivity implements MView<Ma
                 startActivity(intent3);
             }
         });
+
+
+
     }
     @Override
     protected void onStart() {
         // TODO Auto-generated method stub
         super.onStart();
+        updateList();
         MainController mc = MainApplication.getMainController();
-        checkOnlineStatus();
         mc.generateRequested();
         selfMoods = mc.getMe().getMoods().getMoods();
-        adapter = new MoodListAdapter(this, mc.getMe().getMoods().getMoods());
+        adapter = new MoodListAdapter(this, selfMoods);
         moodListView.setAdapter(adapter);
+        checkOnlineStatus();
 
     }
 
@@ -112,7 +118,11 @@ public class ProfileActivity extends CustomAppCompatActivity implements MView<Ma
                 //switch to add mood activity
                 Intent intent1 = new Intent(ProfileActivity.this, AddMood.class);
                 startActivity(intent1);
-                checkOnlineStatus();
+                MainController mc = MainApplication.getMainController();
+                Log.i("how many mood?",Integer.toString(mc.getMe().getMoods().getCount()));
+                updateList();
+                Log.i("after add mood","come back");
+
                 return true;
 
             case R.id.action_map:
@@ -250,8 +260,15 @@ public class ProfileActivity extends CustomAppCompatActivity implements MView<Ma
 
     public void update(MainModel m ){
         //TODO code to redisplay the data
-        adapter = new MoodListAdapter(this, selfMoods);
+        updateList();
+    }
+
+    public void updateList(){
+        MainController mc = MainApplication.getMainController();
+        mc.generateRequested();
+        adapter = new MoodListAdapter(this, mc.getMe().getMoods().getMoods());
         moodListView.setAdapter(adapter);
         checkOnlineStatus();
+
     }
 }

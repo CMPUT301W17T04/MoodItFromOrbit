@@ -17,7 +17,12 @@ public class UpdateMoods implements UpdateServer {
     public void execute(){
         ElasticSearchController.UpdateUsersMoodTask updateUsersMoodTask = new ElasticSearchController.UpdateUsersMoodTask();
         updateUsersMoodTask.execute(user);
-
+        try {
+            updateUsersMoodTask.get(3000, java.util.concurrent.TimeUnit.MILLISECONDS);
+        }
+        catch(Exception e){
+            Log.d("Time failed", e.toString());
+        }
         Log.d("update mood user", user.getUserName());
     }
 }
