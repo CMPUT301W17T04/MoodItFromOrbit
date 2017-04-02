@@ -91,6 +91,14 @@ public class AddMood extends AppCompatActivity implements MView<MainModel> {
                 EditText get_comment = (EditText) findViewById(R.id.comment);
                 String commentstring = get_comment.getText().toString();
 
+                // check if the input comment is larger than 3 words
+                Boolean Check = WordsCheck(commentstring);
+
+                if (!Check){
+                    Log.i("length","The comment is more than 3 words!");
+                }
+
+
                 MainController mc = MainApplication.getMainController();
                 Mood mood = new Mood(mc.getEmotion(t_emotions), mc.getMe());
                 mood.setSocialSituation(groupstring);
@@ -173,6 +181,33 @@ public class AddMood extends AppCompatActivity implements MView<MainModel> {
             }
         }
     }
+
+// check if the input word is more than 3 words or more than 20 characters
+// ,if so, return false, if less than 3 words, return ture
+
+    public boolean WordsCheck(String comment){
+        Boolean Lengthcheck = true;
+        String userinput = comment.trim();
+        if (userinput == null) {
+            Lengthcheck = true;
+        }else if (userinput.split("\\s+").length >3 ) {
+            Lengthcheck = false;
+
+        }else if (userinput.length()>20){
+            Lengthcheck = false;
+        }
+        else {
+                Lengthcheck = true;
+            }
+        return Lengthcheck;
+
+        }
+
+
+
+
+
+
 
 
     @Override

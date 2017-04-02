@@ -97,7 +97,6 @@ public class ProfileActivity extends CustomAppCompatActivity implements MView<Ma
         adapter = new MoodListAdapter(this, mc.getMe().getMoods().getMoods());
         moodListView.setAdapter(adapter);
 
-
     }
 
     @Override
@@ -188,7 +187,7 @@ public class ProfileActivity extends CustomAppCompatActivity implements MView<Ma
 
 
 
-//                        Log.i("first mood is",selfMoods.get(0).getEmotion().getEmotion());
+
                         adapter = new MoodListAdapter(ProfileActivity.this, selfMoods);
                         moodListView.setAdapter(adapter);
                         checkOnlineStatus();

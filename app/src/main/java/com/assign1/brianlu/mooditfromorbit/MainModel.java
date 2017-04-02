@@ -59,6 +59,7 @@ public class MainModel extends MModel<MView> {
 
         } catch (Exception e){
             Log.i("Error", "Failed to get the users from the async object");
+            Log.i("error", e.toString());
         }
 
 
