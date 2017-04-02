@@ -162,6 +162,11 @@ public class DashBoard extends CustomAppCompatActivity implements MView<MainMode
                 showFilterDialog();
                 return true;
 
+            case R.id.action_logout:
+                Intent intent5 = new Intent(DashBoard.this, MoodMainActivity.class);
+                startActivity(intent5);
+                return true;
+
             case R.id.menu_refresh:
                 refreshLayout.setRefreshing(true);
                 updateList();

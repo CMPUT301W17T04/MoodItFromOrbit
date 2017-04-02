@@ -152,7 +152,10 @@ public class AcceptFollowerActivity extends CustomAppCompatActivity implements M
                 startActivity(intent);
                 return true;
 
-
+            case R.id.action_logout:
+                Intent intent5 = new Intent(AcceptFollowerActivity.this, MoodMainActivity.class);
+                startActivity(intent5);
+                return true;
 
             default:
                 // If we got here, the user's action was not recognized.

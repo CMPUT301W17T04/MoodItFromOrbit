@@ -13,21 +13,34 @@
     <item android:id="@+id/action_add_mood"
         android:title="@string/action_add_mood"
         android:icon="@drawable/ic_add_black_24dp"
-        app:showAsAction="always"/>
+        app:showAsAction="always" />
+
+    <item android:id="@+id/action_filter"
+        android:title="@string/filter"
+        android:icon="@drawable/ic_sort_black_24dp"
+        app:actionViewClass="android.support.v7.widget.ActionMenuView" />
 
     <item android:id="@+id/action_dashboard"
-        android:title="@string/dashboard"
+        android:title="Dashboard"
         app:showAsAction="never"/>
 
-    <item android:id="@+id/action_profile"
-        android:title="@string/action_profile"
-        app:showAsAction="never"/>
+    <item android:id="@+id/action_map"
+        android:title="@string/action_map"
+        android:icon="@drawable/ic_map_white_24px"
+        app:showAsAction="always" />
+
+
+    <item android:id="@+id/action_all_users"
+        android:title="@string/all_users"
+        app:showAsAction="never" />
+
+    <item android:id="@+id/action_accept_requests"
+        android:title="@string/follow_requests"
+        app:showAsAction="never" />
 
     <item android:id="@+id/action_logout"
         android:title="@string/logout"
         app:showAsAction="never"/>
-
-
 
 
 </menu>

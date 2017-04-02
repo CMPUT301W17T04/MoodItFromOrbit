@@ -29,6 +29,7 @@
     <string name="all_users">All Users</string>
     <string name="recentWeek">Filter by most recent week</string>
     <string name="follow_requests">Follower Requests</string>
+    <string name="logout">Logout</string>
 
     <string-array name="Emotions_List">
         <item>Angry</item>

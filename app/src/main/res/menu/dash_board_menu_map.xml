@@ -15,19 +15,28 @@
         android:icon="@drawable/ic_add_black_24dp"
         app:showAsAction="always"/>
 
-    <item android:id="@+id/action_dashboard"
-        android:title="@string/dashboard"
-        app:showAsAction="never"/>
+    <item android:id="@+id/action_filter"
+        android:title="@string/filter"
+        android:icon="@drawable/ic_sort_black_24dp"
+        app:actionViewClass="android.support.v7.widget.ActionMenuView" />
+
 
     <item android:id="@+id/action_profile"
         android:title="@string/action_profile"
         app:showAsAction="never"/>
 
+    <item android:id="@+id/action_map"
+        android:title="@string/action_map"
+        android:icon="@drawable/ic_map_white_24px"
+        app:showAsAction="always" />
+
+    <item
+        android:id="@+id/menu_refresh"
+        app:showAsAction="never"
+        android:title="@string/menu_refresh"/>
+
     <item android:id="@+id/action_logout"
         android:title="@string/logout"
         app:showAsAction="never"/>
-
-
-
 
 </menu>
