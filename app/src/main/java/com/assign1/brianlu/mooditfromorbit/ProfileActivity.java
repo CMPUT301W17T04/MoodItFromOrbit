@@ -252,7 +252,8 @@ public class ProfileActivity extends CustomAppCompatActivity implements MView<Ma
 
     public void update(MainModel m ){
         //TODO code to redisplay the data
-        adapter.notifyDataSetChanged();
+        adapter = new MoodListAdapter(this, selfMoods);
+        moodListView.setAdapter(adapter);
         checkOnlineStatus();
     }
 }

@@ -84,10 +84,11 @@ public class AcceptFollowerActivity extends CustomAppCompatActivity implements M
         // TODO Auto-generated method stub
         super.onStart();
         MainController mc = MainApplication.getMainController();
+        mc.generateRequested();
         adapter = new UsersAdapter(this, mc.getMe().getRequested().getUsers());
         usersListView.setAdapter(adapter);
         checkOnlineStatus();
-        mc.generateRequested();
+
     }
 
     @Override
@@ -147,7 +148,8 @@ public class AcceptFollowerActivity extends CustomAppCompatActivity implements M
         MainController mc = MainApplication.getMainController();
         mc.pullUsers();
         mc.generateRequested();
-        adapter.notifyDataSetChanged();
+        adapter = new UsersAdapter(this, mc.getMe().getRequested().getUsers());
+        usersListView.setAdapter(adapter);
         checkOnlineStatus();
         
     }

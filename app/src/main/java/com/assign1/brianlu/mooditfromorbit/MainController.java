@@ -77,6 +77,8 @@ public class MainController implements MController {
     }
 
     public void generateRequested(){
+        pullUsers();
+        mm.setMe(mm.getUsers().getUserByName(mm.getMe().getUserName()));
         mm.generateRequested();
     }
 

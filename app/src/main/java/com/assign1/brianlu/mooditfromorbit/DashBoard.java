@@ -91,7 +91,6 @@ public class DashBoard extends CustomAppCompatActivity implements MView<MainMode
         super.onStart();
         MainController mc = MainApplication.getMainController();
         checkOnlineStatus();
-        mc.generateRequested();
 
         adapter = new MoodListAdapter(this, mc.getFollowingMoods().getMoods());
         moodListView.setAdapter(adapter);
