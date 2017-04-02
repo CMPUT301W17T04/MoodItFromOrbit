@@ -59,11 +59,6 @@ public class MainModel extends MModel<MView> {
             Log.i("Error", "Failed to get the users from the async object");
             Log.i("error", e.toString());
         }
-        setAllExceptMeUsers();
-        if(me != null){
-            User user = users.getUserByName(me.getUserName());
-            Log.d("user id me", user.getUserName());
-        }
 
     }
 
@@ -117,9 +112,10 @@ public class MainModel extends MModel<MView> {
     /**
      * creates a userList of all users that are not the current user
      */
-    private void setAllExceptMeUsers(){
+    public void setAllExceptMeUsers(){
         if(allExceptMe == null){
-            allExceptMe = users;
+            allExceptMe = new UserList();
+            allExceptMe.merge(users);
         }
         else{
             allExceptMe.removeAll();
@@ -127,6 +123,9 @@ public class MainModel extends MModel<MView> {
         }
         if(me != null){
             User tempUser = allExceptMe.getUserByName(me.getUserName());
+            for(User user : users.getUsers()){
+                Log.d("user names", user.getUserName());
+            }
             allExceptMe.deleteUser(tempUser);
         }
 
@@ -205,6 +204,13 @@ public class MainModel extends MModel<MView> {
         ElasticSearchController.UpdateUsersFollowListTask updateUsersFollowListTask = new ElasticSearchController.UpdateUsersFollowListTask();
         updateUsersFollowListTask.execute(me);
 
+        try {
+            updateUsersFollowListTask.get(3000, TimeUnit.MILLISECONDS);
+        }
+        catch(Exception e){
+            Log.d("Time failed", e.toString());
+        }
+
         removePending(user);
         addFollowing(user);
     }
@@ -219,6 +225,12 @@ public class MainModel extends MModel<MView> {
         ElasticSearchController.UpdateUsersFollowListTask updateUsersFollowListTask = new ElasticSearchController.UpdateUsersFollowListTask();
         updateUsersFollowListTask.execute(user);
 
+        try {
+            updateUsersFollowListTask.get(3000, TimeUnit.MILLISECONDS);
+        }
+        catch(Exception e){
+            Log.d("Time failed", e.toString());
+        }
     }
 
     /**
@@ -231,6 +243,13 @@ public class MainModel extends MModel<MView> {
 
             ElasticSearchController.UpdateUsersFollowListTask updateUsersFollowListTask = new ElasticSearchController.UpdateUsersFollowListTask();
             updateUsersFollowListTask.execute(me);
+
+            try {
+                updateUsersFollowListTask.get(3000, TimeUnit.MILLISECONDS);
+            }
+            catch(Exception e){
+                Log.d("Time failed", e.toString());
+            }
 
             addRequest(user);
         }
@@ -277,6 +296,13 @@ public class MainModel extends MModel<MView> {
 
         ElasticSearchController.UpdateUsersFollowListTask updateUsersFollowListTask = new ElasticSearchController.UpdateUsersFollowListTask();
         updateUsersFollowListTask.execute(user);
+
+        try {
+            updateUsersFollowListTask.get(3000, TimeUnit.MILLISECONDS);
+        }
+        catch(Exception e){
+            Log.d("Time failed", e.toString());
+        }
     }
 
     private void removeRequest(User user){
@@ -285,6 +311,12 @@ public class MainModel extends MModel<MView> {
 
         ElasticSearchController.UpdateUsersFollowListTask updateUsersFollowListTask = new ElasticSearchController.UpdateUsersFollowListTask();
         updateUsersFollowListTask.execute(user);
+        try {
+            updateUsersFollowListTask.get(3000, TimeUnit.MILLISECONDS);
+        }
+        catch(Exception e){
+            Log.d("Time failed", e.toString());
+        }
     }
 
     /**
@@ -296,6 +328,12 @@ public class MainModel extends MModel<MView> {
 
         ElasticSearchController.AddUsersTask addUsersTask = new ElasticSearchController.AddUsersTask();
         addUsersTask.execute(user);
+        try {
+            addUsersTask.get(3000, TimeUnit.MILLISECONDS);
+        }
+        catch(Exception e){
+            Log.d("Time failed", e.toString());
+        }
     }
 
     /**
