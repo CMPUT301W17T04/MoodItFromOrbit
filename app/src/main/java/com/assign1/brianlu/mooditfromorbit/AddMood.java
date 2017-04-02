@@ -159,12 +159,43 @@ public class AddMood extends AppCompatActivity implements MView<MainModel> {
                 Log.d("This is t_emotions", "t_emotions value : " + t_emotions );
 
 
+                if (t_emotions.equals("Angry")){
+                    recommendation = "a movie that drives you deeper into rage, The Incredible Hulk";
+                    r_url = "http://www.imdb.com/title/tt0800080/?ref_=nv_sr_1";
 
-                if (t_emotions.equals("Happy")){
+                }else if (t_emotions.equals("Confusion")){
+                    recommendation = "a movie that puts you into an existential crisis, Inception";
+                    r_url = "http://www.imdb.com/title/tt1375666/?ref_=nv_sr_1";
+
+                }else if (t_emotions.equals("Disgust")){
+                    recommendation = "getting rid of your disgust by looking at pictures of dogs!";
+                    r_url = "https://www.google.ca/search?q=website+of+puppys&espv=2&source=lnms&tbm=isch&sa=X&ved=0ahUKEwjNhJGnxIXTAhVH4WMKHQsXAS8Q_AUIBigB&biw=1280&bih=726#tbm=isch&q=pictures+of+puppies&*";
+
+                }else if (t_emotions.equals("Fear")){
+                    recommendation = "a movie that will scare you even more, Saw";
+                    r_url = "http://www.imdb.com/title/tt0387564/?ref_=nv_sr_2";
+
+                }else if (t_emotions.equals("Happy")){
                     recommendation = "Pharrell Williams - Happy";
                     r_url = "https://www.youtube.com/watch?v=y6Sxv-sUYtM";
-                    Log.d("we made it", "we got it" );
 
+                }else if (t_emotions.equals("Sad")){
+                    recommendation = "Jay Chou 周杰倫【彩虹 Rainbow】 so sad qq";
+                    r_url = "https://www.youtube.com/watch?v=WxZvXPTBC0A";
+
+                }else if (t_emotions.equals("Shame")){
+                    recommendation = "https://novni.com/ where you can share what you are shamed about anonymously.";
+                    r_url = "https://novni.com/";
+
+                }else if (t_emotions.equals("Surprise")){
+                    recommendation = "this suprise website!";
+                    r_url = "https://chipotle.com/";
+
+                }
+                else {
+                    recommendation = "";
+                    r_url = "";
+                    // should never reach here unless cancel
                 }
 
                 AlertDialog.Builder builder = new AlertDialog.Builder(AddMood.this);

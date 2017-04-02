@@ -153,26 +153,9 @@ public class ProfileActivity extends CustomAppCompatActivity implements MView<Ma
                 startActivity(intent2);
                 return true;
 
-            case R.id.action_dashboard:
-                Intent intent = new Intent(ProfileActivity.this,DashBoard.class);
-                startActivity(intent);
-                return true;
-
 
             case R.id.action_filter:
                 showFilterDialog();
-                return true;
-
-            case R.id.action_all_users:
-                // temporary because the main following function is not implemented
-                Intent intent3 = new Intent(ProfileActivity.this, FollowSomeoneActivity.class);
-                startActivity(intent3);
-                return true;
-
-            case R.id.action_accept_requests:
-                // temporary because the main following function is not implemented
-                Intent intent4 = new Intent(ProfileActivity.this, AcceptFollowerActivity.class);
-                startActivity(intent4);
                 return true;
 
             case R.id.action_logout:

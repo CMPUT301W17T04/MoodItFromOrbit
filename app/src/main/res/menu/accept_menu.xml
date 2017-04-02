@@ -15,10 +15,6 @@
         android:icon="@drawable/ic_add_black_24dp"
         app:showAsAction="always"/>
 
-    <item android:id="@+id/action_dashboard"
-        android:title="@string/dashboard"
-        app:showAsAction="never"/>
-
     <item android:id="@+id/action_logout"
         android:title="@string/logout"
         app:showAsAction="never"/>

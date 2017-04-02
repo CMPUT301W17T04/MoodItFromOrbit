@@ -190,11 +190,6 @@ public class MapActivity extends AppCompatActivity implements MView<MainModel> {
                 startActivity(intent1);
                 return true;
 
-            case R.id.action_profile:
-                Intent intent = new Intent(MapActivity.this, ProfileActivity.class);
-                startActivity(intent);
-                return true;
-
             case R.id.action_map:
                 Intent intent2 = new Intent(MapActivity.this, ProfileActivity.class);
                 startActivity(intent2);
@@ -203,11 +198,6 @@ public class MapActivity extends AppCompatActivity implements MView<MainModel> {
             case R.id.action_logout:
                 Intent intent5 = new Intent(MapActivity.this, MoodMainActivity.class);
                 startActivity(intent5);
-                return true;
-
-            case R.id.menu_refresh:
-                finish();
-                startActivity(getIntent());
                 return true;
 
 

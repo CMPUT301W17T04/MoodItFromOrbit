@@ -143,11 +143,6 @@ public class FollowSomeoneActivity extends CustomAppCompatActivity implements MV
                 checkOnlineStatus();
                 return true;
 
-            case R.id.action_dashboard:
-                Intent intent = new Intent(FollowSomeoneActivity.this,DashBoard.class);
-                startActivity(intent);
-                return true;
-
             case R.id.action_logout:
                 Intent intent5 = new Intent(FollowSomeoneActivity.this, MoodMainActivity.class);
                 startActivity(intent5);
