@@ -146,9 +146,11 @@ public class AcceptFollowerActivity extends CustomAppCompatActivity implements M
     public void updateList(){
         MainController mc = MainApplication.getMainController();
         mc.pullUsers();
+        mc.generateRequested();
         adapter.notifyDataSetChanged();
         checkOnlineStatus();
-        mc.generateRequested();
-        usersListView.setAdapter(adapter);
+
+
+        
     }
 }

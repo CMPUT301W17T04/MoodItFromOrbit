@@ -18,6 +18,7 @@ import android.util.Log;
 import com.google.gson.Gson;
 
 import java.util.ArrayList;
+import java.util.concurrent.TimeUnit;
 
 /**
  * this is our model
@@ -51,17 +52,18 @@ public class MainModel extends MModel<MView> {
         getUsersTask.execute("");
 
         try {
-            users = getUsersTask.get();
-            setAllExceptMeUsers();
-            if(me != null){
-                me = users.getUserById(me.getId());
-            }
+            users = getUsersTask.get(3000, TimeUnit.MILLISECONDS);
+
 
         } catch (Exception e){
             Log.i("Error", "Failed to get the users from the async object");
             Log.i("error", e.toString());
         }
-
+        setAllExceptMeUsers();
+        if(me != null){
+            User user = users.getUserByName(me.getUserName());
+            Log.d("user id me", user.getUserName());
+        }
 
     }
 
@@ -123,8 +125,11 @@ public class MainModel extends MModel<MView> {
             allExceptMe.removeAll();
             allExceptMe.merge(users);
         }
-        User tempUser = allExceptMe.getUserByName(me.getUserName());
-        allExceptMe.deleteUser(tempUser);
+        if(me != null){
+            User tempUser = allExceptMe.getUserByName(me.getUserName());
+            allExceptMe.deleteUser(tempUser);
+        }
+
         allExceptMe.sortByAlphabetical();
 
     }
@@ -257,6 +262,7 @@ public class MainModel extends MModel<MView> {
 
         for(String id : me.getPendingRequests()){
             User user = users.getUserById(id);
+            Log.d("user id", id);
             Log.d("uesr id naeme", user.getUserName());
             me.addRequestedUser(user);
         }
