@@ -10,10 +10,28 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
+    <item android:id="@+id/action_all"
+        android:title="@string/action_add_mood"
+        android:icon="@drawable/ic_people_black_24px"
+        app:showAsAction="always"/>
+    <item android:id="@+id/action_requests"
+        android:title="@string/action_add_mood"
+        android:icon="@drawable/ic_person_add_black_24px"
+        app:showAsAction="always"/>
+    <item android:id="@+id/action_home"
+        android:title="@string/action_add_mood"
+        android:icon="@drawable/ic_home_white_24px"
+        app:showAsAction="always"/>
+    <item android:id="@+id/action_profile"
+        android:title="@string/action_add_mood"
+        android:icon="@drawable/ic_person_black_24px"
+        app:showAsAction="always"/>
+
     <item android:id="@+id/action_add_mood"
         android:title="@string/action_add_mood"
         android:icon="@drawable/ic_add_black_24dp"
-        app:showAsAction="always"/>
+        app:showAsAction="always" />
+
 
     <item android:id="@+id/action_filter"
         android:title="Filter"

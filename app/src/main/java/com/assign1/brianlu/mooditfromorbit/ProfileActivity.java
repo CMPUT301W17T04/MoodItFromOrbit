@@ -70,9 +70,7 @@ public class ProfileActivity extends CustomAppCompatActivity implements MView<Ma
         // Get a support ActionBar corresponding to this toolbar
         ActionBar ab = getSupportActionBar();
 
-        // Enable the Up button
-        ab.setDisplayHomeAsUpEnabled(true);
-        ab.setTitle(mc.getMe().getUserName());
+        ab.setTitle("Profile");
 
 
         MainModel mm = MainApplication.getMainModel();

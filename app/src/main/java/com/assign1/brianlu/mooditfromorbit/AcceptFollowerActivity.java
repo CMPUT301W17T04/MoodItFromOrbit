@@ -22,7 +22,7 @@ import android.widget.EditText;
 import android.widget.ListView;
 
 public class AcceptFollowerActivity extends CustomAppCompatActivity implements MView<MainModel>{
-
+    //TODO can accept an option twice
     private ListView usersListView;
     private UsersAdapter adapter;
     private SwipeRefreshLayout refreshLayout;
