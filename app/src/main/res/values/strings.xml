@@ -28,7 +28,7 @@
     <string name="server">Unable to Reach Server</string>
     <string name="all_users">All Users</string>
     <string name="recentWeek">Filter by most recent week</string>
-    <string name="follow_requests">Follow Requests</string>
+    <string name="follow_requests">Follower Requests</string>
 
     <string-array name="Emotions_List">
         <item>Angry</item>
