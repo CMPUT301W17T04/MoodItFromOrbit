@@ -147,11 +147,6 @@ public class AcceptFollowerActivity extends CustomAppCompatActivity implements M
                 checkOnlineStatus();
                 return true;
 
-            case R.id.action_dashboard:
-                Intent intent = new Intent(AcceptFollowerActivity.this,DashBoard.class);
-                startActivity(intent);
-                return true;
-
             case R.id.action_logout:
                 Intent intent5 = new Intent(AcceptFollowerActivity.this, MoodMainActivity.class);
                 startActivity(intent5);

@@ -34,6 +34,7 @@ public class UsersAdapter extends ArrayAdapter<User> {
 
         // Lookup view for data population
         TextView userName = (TextView) convertView.findViewById(R.id.userName);
+        TextView type = (TextView) convertView.findViewById(R.id.type) ;
         LinearLayout item = (LinearLayout) convertView.findViewById(R.id.userListItem);
 
 
@@ -44,17 +45,23 @@ public class UsersAdapter extends ArrayAdapter<User> {
 
         userName.setText(user.getUserName());
         int colour;
+        String text;
 
         if(me.getFollowing().contains(user.getId())){
             colour = Color.parseColor("#3ADF00");
+            text = "Following";
         }
         else if(me.getPending().contains(user.getId())){
             colour = Color.parseColor("#FFBF00");
+            text = "Sent Request";
         }
         else{
             colour = Color.parseColor("#FE2E2E");
+            text = "Not Following";
         }
         item.setBackgroundColor(colour);
+        type.setText(text);
+
 
         // Return the completed view to render on screen
         return convertView;

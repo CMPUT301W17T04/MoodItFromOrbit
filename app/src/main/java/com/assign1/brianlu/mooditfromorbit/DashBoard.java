@@ -153,11 +153,6 @@ public class DashBoard extends CustomAppCompatActivity implements MView<MainMode
                 startActivity(intent2);
                 return true;
 
-            case R.id.action_profile:
-                Intent intent = new Intent(DashBoard.this, ProfileActivity.class);
-                startActivity(intent);
-                return true;
-
             case R.id.action_filter:
                 showFilterDialog();
                 return true;
@@ -166,11 +161,6 @@ public class DashBoard extends CustomAppCompatActivity implements MView<MainMode
                 Intent intent5 = new Intent(DashBoard.this, MoodMainActivity.class);
                 startActivity(intent5);
                 return true;
-
-            case R.id.menu_refresh:
-                refreshLayout.setRefreshing(true);
-                updateList();
-                refreshLayout.setRefreshing(false);
 
             default:
                 // If we got here, the user's action was not recognized.
