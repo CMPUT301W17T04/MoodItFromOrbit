@@ -92,7 +92,6 @@ public class ProfileActivity extends CustomAppCompatActivity implements MView<Ma
         super.onStart();
         getAllSelfMoods();
         adapter = new MoodListAdapter(this, selfMoods);
-
         moodListView.setAdapter(adapter);
         checkOnlineStatus();
 
