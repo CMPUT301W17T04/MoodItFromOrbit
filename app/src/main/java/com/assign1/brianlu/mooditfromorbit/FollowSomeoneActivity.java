@@ -146,7 +146,8 @@ public class FollowSomeoneActivity extends CustomAppCompatActivity implements MV
     public void updateList(){
         MainController mc = MainApplication.getMainController();
         mc.pullUsers();
-        adapter.notifyDataSetChanged();
+        adapter = new UsersAdapter(this, mc.getAllExceptMeUsers().getUsers());
+        usersListView.setAdapter(adapter);
         checkOnlineStatus();
 
     }
