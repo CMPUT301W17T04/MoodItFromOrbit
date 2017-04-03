@@ -172,7 +172,7 @@ public class FollowListTest  extends ActivityInstrumentationTestCase2 {
 
         assertEquals(username1, returnRequest.get(0));
         assertEquals(username2, returnRequest.get(1));
-        assertEquals(username3, returnRequest.get(2));
+        assertEquals(username3, returnRequest.get(2)) ;
     }
 
 
