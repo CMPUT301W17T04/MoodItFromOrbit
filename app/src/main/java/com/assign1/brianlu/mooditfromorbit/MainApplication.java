@@ -24,15 +24,6 @@ public class MainApplication extends Application {
     transient private static Boolean connectedToServer = true;
     transient private static MainModel model = null;
     transient private static MainController controller = null;
-    transient private static Boolean done = false;
-
-    public static Boolean getDone() {
-        return done;
-    }
-
-    public static void setDone(Boolean done) {
-        MainApplication.done = done;
-    }
 
     public static Boolean getConnectedToServer() {
         return connectedToServer;

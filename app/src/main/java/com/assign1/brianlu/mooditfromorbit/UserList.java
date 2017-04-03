@@ -55,7 +55,6 @@ public class UserList{
     public boolean hasUser (User user){
         boolean has = false;
         for(int i = 0; i< users.size();i++){
-            Log.d("users", Integer.toString(i));
             if(this.users.get(i).getUserName().equals(user.getUserName())){
                 has = true;
             }

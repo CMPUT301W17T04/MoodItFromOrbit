@@ -138,7 +138,6 @@ public class FollowSomeoneActivity extends CustomAppCompatActivity implements MV
         super.onDestroy();
         MainModel mm = MainApplication.getMainModel();
         mm.deleteView(this);
-        Log.d("this is dead", "destroyed");
     }
 
     @Override
@@ -253,18 +252,18 @@ public class FollowSomeoneActivity extends CustomAppCompatActivity implements MV
     protected void verifyFollow(){
 
         android.support.v7.app.AlertDialog.Builder builder = new android.support.v7.app.AlertDialog.Builder(FollowSomeoneActivity.this);
-        builder.setMessage(check)
-                .setTitle("Following");
+        builder.setMessage("Would you like to " + check + "?")
+                .setTitle("Users");
 
         builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int id) {
                 MainController mc = MainApplication.getMainController();
                 Log.d("test", StringUtils.substring(check, 0, 4));
-                if(StringUtils.substring(check, 0, 4).equals("Send")){
+                if(StringUtils.substring(check, 0, 4).equals("send")){
                     mc.addPending(clickedUser);
                     updateList();
                 }
-                else if (StringUtils.substring(check, 0, 4).equals("Stop")){
+                else if (StringUtils.substring(check, 0, 4).equals("stop")){
                     mc.removeFollowing(clickedUser);
                     updateList();
                 }

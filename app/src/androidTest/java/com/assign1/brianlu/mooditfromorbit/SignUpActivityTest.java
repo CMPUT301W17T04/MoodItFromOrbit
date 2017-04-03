@@ -20,19 +20,38 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 
 /**
- * Created by Neil on 2017/4/2.
+ * Created by Noire on 2017/4/2.
  */
 
 public class SignUpActivityTest extends ActivityInstrumentationTestCase2<SignUpActivity> {
 
     private Solo solo;
-    private String testName;
+
+    private String testName = "TestUser" ;
+    private EditText userNameView;
+    private EditText ConfirmNameView;
+
+    private View SignupButtonView;
 
 
     public SignUpActivityTest(){ super(SignUpActivity.class);}
 
     public void setUp() throws Exception{
         solo = new Solo(getInstrumentation(), getActivity());
+
+        userNameView = (EditText) solo.getView(R.id.userInput);
+        ConfirmNameView = (EditText) solo.getView(R.id.inputConfirm);
+
+        SignupButtonView = solo.getView(R.id.logIn);
+
+
+
+    }
+
+    public void testStart() throws Exception {
+
+        Activity activity = getActivity();
+
     }
 
 

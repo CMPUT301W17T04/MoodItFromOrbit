@@ -15,7 +15,7 @@ public class ThreeSpaceInputFilter implements InputFilter {
     Pattern mPattern;
 
     public ThreeSpaceInputFilter() {
-        mPattern=Pattern.compile("(([\\S]*)\\s){0,3}?");
+        mPattern=Pattern.compile("(([\\S]*)\\s){0,3}");
     }
 
     @Override

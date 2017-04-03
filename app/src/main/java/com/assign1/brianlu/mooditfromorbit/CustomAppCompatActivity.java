@@ -24,7 +24,6 @@ public abstract class CustomAppCompatActivity extends AppCompatActivity {
     }
 
     protected void checkOnlineStatus(){
-        Log.d("checkstatus", MainApplication.getConnectedToServer().toString());
         TextView errorBox = (TextView) findViewById(R.id.error);
         if(!MainApplication.getConnectedToServer()){
             errorBox.setVisibility(View.VISIBLE);
