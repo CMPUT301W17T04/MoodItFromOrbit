@@ -95,7 +95,7 @@ public class SignInActivityTest extends ActivityInstrumentationTestCase2<SignInA
 
     }
 
-    
+
 
 
 }
