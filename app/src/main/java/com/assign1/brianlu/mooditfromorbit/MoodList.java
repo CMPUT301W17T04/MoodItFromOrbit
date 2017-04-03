@@ -23,6 +23,9 @@ public class MoodList{
     public MoodList(){
         moods = new ArrayList<>();
     }
+    public MoodList(ArrayList<Mood> moodsList){
+        moods = moodsList;
+    }
 
     public void add(Mood mood){
         moods.add(mood);
@@ -48,7 +51,12 @@ public class MoodList{
     }
 
     public Mood getMood(int index){
-        return moods.get(index);
+        try {
+            return moods.get(index);
+        }
+        catch (Exception e){
+            return null;
+        }
 
     }
 
@@ -68,16 +76,28 @@ public class MoodList{
         moods.clear();
     }
 
+    public Integer getIndex(Mood mood){
+        int index=-1;
+        for(int i=0;i<moods.size();i++){
+            if (moods.get(i).getStringDate().equals(mood.getStringDate())){
+                index = i;
+            }
+        }
+        return index;
+    }
+
+
     /**
      * removes all moods that do not contain the keyword
      * @param keyword word to search for
      */
-    public void sortByWord(CharSequence keyword){
+    public void sortByWord(String keyword){
         for(int i = 0; i < this.getCount(); i++){
             if (this.getMood(i).getMessage().contains(keyword)){
             }
             else{
                 this.delete(this.getMood(i));
+                i--;
             }
         }
     }
@@ -89,7 +109,8 @@ public class MoodList{
      */
     public void sortByEmotion(Emotion emotion){
         for(int i = 0; i < this.getCount(); i++){
-            if (this.getMood(i).getEmotion() == emotion){
+            if (this.getMood(i).getEmotion().getEmotion().equals(emotion.getEmotion()) ){
+                Log.i("get match","this is a match message");
             }
             else{
                 this.delete(this.getMood(i));
@@ -114,6 +135,7 @@ public class MoodList{
             }
             else{
                 this.delete(this.getMood(i));
+                i--;
             }
         }
     }
@@ -135,4 +157,5 @@ public class MoodList{
 
         Collections.sort(this.moods, compareByDate);
     }
+
 }

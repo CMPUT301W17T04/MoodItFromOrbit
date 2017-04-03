@@ -36,23 +36,13 @@ public class Emotion {
         return emotion;
     }
 
-    public void setEmotion(String emotion) {
-        this.emotion = emotion;
-    }
 
     public int getColour() {
         return colour;
-    }
-
-    public void setColour(int colour) {
-        this.colour = colour;
     }
 
     public String getEmoticon() {
         return emoticon;
     }
 
-    public void setEmoticon(String emoticon) {
-        this.emoticon = emoticon;
-    }
 }

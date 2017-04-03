@@ -21,6 +21,18 @@
     <string name="delete">Delete</string>
     <string name="update">Update</string>
     <string name="menu_follow">Follow</string>
+    <string name="searchText">Search Text</string>
+    <string name="searchMood">Search Mood</string>
+    <string name="filter">Filter</string>
+    <string name="cancel">Clear</string>
+    <string name="server">Unable to Reach Server</string>
+    <string name="all_users">All Users</string>
+    <string name="recentWeek">Filter by most recent week</string>
+    <string name="follow_requests">Follower Requests</string>
+    <string name="logout">Logout</string>
+    <string name="closeDist">Filter moods within 5 Km. </string>
+    <string name="refresh">Refresh</string>
+    <string name="close">No</string>
 
     <string-array name="Emotions_List">
         <item>Angry</item>
@@ -31,10 +43,21 @@
         <item>Sad</item>
         <item>Shame</item>
         <item>Surprise</item>
-
-
-
     </string-array>
+
+    <string-array name="Emotions_List_Filter">
+        <item>Search Mood</item>
+        <item>Angry</item>
+        <item>Confusion</item>
+        <item>Disgust</item>
+        <item>Fear</item>
+        <item>Happy</item>
+        <item>Sad</item>
+        <item>Shame</item>
+        <item>Surprise</item>
+    </string-array>
+
+
 
     <string-array name="group_status">
         <item>Alone</item>

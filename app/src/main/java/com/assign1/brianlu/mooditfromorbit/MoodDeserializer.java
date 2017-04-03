@@ -97,7 +97,6 @@ public class MoodDeserializer implements JsonDeserializer<Mood> {
         mood.setLatitude(latitude);
         mood.setLongitude(longitude);
         mood.setMessage(message);
-        Log.d("It did it", "hello");
         return mood;
 
     }

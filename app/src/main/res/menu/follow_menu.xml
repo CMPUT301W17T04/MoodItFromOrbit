@@ -7,9 +7,21 @@
   ~ Vestibulum commodo. Ut rhoncus gravida arcu.
   -->
 
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <item android:id="@+id/action_add_mood"
+        android:title="@string/action_add_mood"
+        android:icon="@drawable/ic_add_black_24dp"
+        app:showAsAction="always"/>
 
 
-</LinearLayout>
+
+    <item android:id="@+id/action_logout"
+        android:title="@string/logout"
+        app:showAsAction="never"/>
+
+
+
+
+</menu>

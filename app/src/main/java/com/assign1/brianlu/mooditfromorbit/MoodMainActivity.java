@@ -39,8 +39,9 @@ public class MoodMainActivity extends AppCompatActivity {
         Button signInButton = (Button) findViewById(R.id.signIn);
         Button signUpButton = (Button) findViewById(R.id.signUp);
 
-        MainController mc = MainApplication.getMainController();
 
+        MainController mc = MainApplication.getMainController();
+        mc.communicateToServer(this.getApplicationContext());
         // Here, thisActivity is the current activity
         if (ContextCompat.checkSelfPermission(this,
                 Manifest.permission.ACCESS_FINE_LOCATION)

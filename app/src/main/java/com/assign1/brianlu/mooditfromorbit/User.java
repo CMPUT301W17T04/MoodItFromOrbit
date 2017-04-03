@@ -24,11 +24,13 @@ public class User{
     private MoodList moods;
     private FollowList followList;
     private String id;
+    private transient UserList requested;
 
     public User(String userName){
         this.userName = userName;
         this.moods = new MoodList();
         this.followList = new FollowList();
+
     }
 
     public String getUserName(){
@@ -60,10 +62,11 @@ public class User{
         return this.moods;
     }
 
-
-    public void setMoods(MoodList moods){
-        this.moods = moods;
+    public Mood getMostRecentMood(){
+        moods.sortByNewest();
+        return moods.getMood(0);
     }
+
 
     public void addMood(Mood mood){
         if(moods == null){
@@ -73,8 +76,15 @@ public class User{
         moods.sortByNewest();
     }
 
-    public void addFollowing(User user){
+    public void deleteFollowing(User user){
+        followList.removeFollowing(user.getId());
+    }
 
+    public void deleteFollower(User user){
+        followList.removeFollower(user.getId());
+    }
+
+    public void addFollowing(User user){
         followList.addFollowing(user.getId());
 
     }
@@ -83,23 +93,20 @@ public class User{
         followList.addFollower(user.getId());
     }
 
-    /*public Boolean hasFollowing(User user){
-        if(followList.contains(user.getId())){
-            return true;
-        }
-        else{
-            return false;
-        }
+    public void addPending(User user){
+        followList.addPending(user.getId());
+    }
+    public void deletePending(User user){
+        followList.removePending(user.getId());
     }
 
-    public Boolean hasFollower(User user){
-        if(this.followers.contains(user.getId())){
-            return true;
-        }
-        else{
-            return false;
-        }
-    }*/
+    public void addRequest(User user){
+        followList.addRequest(user.getId());
+    }
+
+    public void deleteRequest(User user){
+        followList.removeRequest(user.getId());
+    }
 
     public ArrayList<String> getFollowing() {
         return followList.getFollowing();
@@ -107,6 +114,49 @@ public class User{
 
     public ArrayList<String> getFollowers() {
         return followList.getFollower();
+    }
+
+    public UserList getRequested(){
+        if(requested == null){
+            requested = new UserList();
+        }
+        return requested;
+    }
+
+    public void removeOneRequested(User user){
+        requested.deleteUser(user);
+    }
+    public void removeRequested(){
+        requested.removeAll();
+    }
+
+    /**
+     * create requested if null
+     */
+    public void createRequested(){
+        if(requested == null){
+            requested = new UserList();
+        }
+    }
+
+    /**
+     * add user to requested, if null create it
+     * @param user user to add
+     */
+    public void addRequestedUser(User user){
+        if(requested == null){
+            requested = new UserList();
+        }
+        requested.add(user);
+        requested.sortByAlphabetical();
+    }
+
+    public ArrayList<String> getPendingRequests(){
+        return followList.getRequest();
+    }
+
+    public ArrayList<String> getPending(){
+        return followList.getPending();
     }
 
     public String getGsonFollowList(){

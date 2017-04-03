@@ -183,6 +183,8 @@ public class Mood {
         return longitude;
     }
 
+
+
     /**
      * set the latitude and longitude
      * @param location current location
