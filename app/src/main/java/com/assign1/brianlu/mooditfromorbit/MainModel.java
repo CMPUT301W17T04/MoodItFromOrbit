@@ -124,9 +124,7 @@ public class MainModel extends MModel<MView> {
         }
         if(me != null){
             User tempUser = allExceptMe.getUserByName(me.getUserName());
-            for(User user : users.getUsers()){
-                Log.d("user names", user.getUserName());
-            }
+
             allExceptMe.deleteUser(tempUser);
         }
 
@@ -242,12 +240,12 @@ public class MainModel extends MModel<MView> {
     public String checkPending(User user){
         if(!me.getFollowing().contains(user.getId()) && !me.getPending().contains(user.getId())){
             //addPending(user);
-            return "Send follow request to " + user.getUserName();
+            return "send follow request to " + user.getUserName();
         }
         else if(me.getFollowing().contains(user.getId())){
             //removeFollowing(user);
 
-            return "Stop following " + user.getUserName();
+            return "stop following " + user.getUserName();
         }
 
         return null;
@@ -316,8 +314,6 @@ public class MainModel extends MModel<MView> {
 
         for(String id : me.getPendingRequests()){
             User user = users.getUserById(id);
-            Log.d("user id", id);
-            Log.d("uesr id naeme", user.getUserName());
             me.addRequestedUser(user);
         }
     }
