@@ -223,6 +223,8 @@ public class AddMood extends AppCompatActivity implements MView<MainModel> {
 
                 // Create the AlertDialog
                 AlertDialog dialog = builder.create();
+                dialog.setCancelable(false);
+                dialog.setCanceledOnTouchOutside(false);
                 dialog.show();
 
 
