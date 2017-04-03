@@ -239,26 +239,52 @@ public class MainModel extends MModel<MView> {
      * adds user to pending
      * @param user user that current user is trying to follow
      */
-    public void addPending(User user){
+    public String checkPending(User user){
         if(!me.getFollowing().contains(user.getId()) && !me.getPending().contains(user.getId())){
-            me.addPending(user);
+            //addPending(user);
+            return "Send follow request to " + user.getUserName();
+        }
+        else if(me.getFollowing().contains(user.getId())){
+            //removeFollowing(user);
+
+            return "Stop following " + user.getUserName();
+        }
+
+        return null;
+    }
+
+    public void addPending(User user){
+        me.addPending(user);
+
+        ElasticSearchController.UpdateUsersFollowListTask updateUsersFollowListTask = new ElasticSearchController.UpdateUsersFollowListTask();
+        updateUsersFollowListTask.execute(me);
+
+        try {
+            updateUsersFollowListTask.get();
+        }
+        catch(Exception e){
+            Log.d("Time failed", e.toString());
+        }
+
+        addRequest(user);
+    }
+
+    public void removeFollowing(User user){
+        if(me.getFollowing().contains(user.getId())){
+            me.deleteFollowing(user);
 
             ElasticSearchController.UpdateUsersFollowListTask updateUsersFollowListTask = new ElasticSearchController.UpdateUsersFollowListTask();
             updateUsersFollowListTask.execute(me);
 
-            try {
-                updateUsersFollowListTask.get();
-            }
-            catch(Exception e){
-                Log.d("Time failed", e.toString());
-            }
-
-            addRequest(user);
+            removeFollower(user);
         }
-        else{
-            Log.d("it es", "exists");
-        }
+    }
 
+    private void removeFollower(User user){
+        user.deleteFollower(me);
+
+        ElasticSearchController.UpdateUsersFollowListTask updateUsersFollowListTask = new ElasticSearchController.UpdateUsersFollowListTask();
+        updateUsersFollowListTask.execute(user);
     }
 
     private void removePending(User user){

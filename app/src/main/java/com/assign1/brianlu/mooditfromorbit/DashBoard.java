@@ -225,9 +225,7 @@ public class DashBoard extends CustomAppCompatActivity implements MView<MainMode
             stext.setText(searchText);
         }
         spinner = (Spinner) view.findViewById(R.id.emotions);
-        /*if(searchMood != null){
-            smood.setText(searchMood);
-        }*/
+
         final CheckBox s_sort = (CheckBox) view.findViewById(R.id.recentWeek);
         s_sort.setChecked(checked);
         builder.setView(view)

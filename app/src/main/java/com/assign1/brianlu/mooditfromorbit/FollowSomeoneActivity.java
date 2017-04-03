@@ -26,12 +26,16 @@ import android.widget.AdapterView;
 import android.widget.EditText;
 import android.widget.ListView;
 
+import org.apache.commons.lang3.StringUtils;
+
 public class FollowSomeoneActivity extends CustomAppCompatActivity implements MView<MainModel>{
 
     private ListView usersListView;
     private UsersAdapter adapter;
     private SwipeRefreshLayout refreshLayout;
     private Toolbar myToolbarLow;
+    private User clickedUser;
+    private String check;
 
 
     protected void onCreate(Bundle savedInstanceState) {
@@ -86,8 +90,13 @@ public class FollowSomeoneActivity extends CustomAppCompatActivity implements MV
         usersListView.setOnItemClickListener(new AdapterView.OnItemClickListener(){
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 MainController mc = MainApplication.getMainController();
-                User clickedUser = mc.getAllExceptMeUsers().getUser(position);
-                mc.addPending(clickedUser);
+                clickedUser = mc.getAllExceptMeUsers().getUser(position);
+                check = mc.checkPending(clickedUser);
+
+                if(check != null){
+                    verifyFollow();
+                }
+
                 updateList();
             }
         });
@@ -177,7 +186,7 @@ public class FollowSomeoneActivity extends CustomAppCompatActivity implements MV
      */
     public void updateList(){
         MainController mc = MainApplication.getMainController();
-        mc.pullUsers(context);
+        mc.generateRequested(context);
         adapter = new UsersAdapter(this, mc.getAllExceptMeUsers().getUsers());
         usersListView.setAdapter(adapter);
         checkOnlineStatus();
@@ -239,5 +248,46 @@ public class FollowSomeoneActivity extends CustomAppCompatActivity implements MV
                 }
             }
         }
+    }
+
+    protected void verifyFollow(){
+
+        android.support.v7.app.AlertDialog.Builder builder = new android.support.v7.app.AlertDialog.Builder(FollowSomeoneActivity.this);
+        builder.setMessage(check)
+                .setTitle("Following");
+
+        builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int id) {
+                MainController mc = MainApplication.getMainController();
+                Log.d("test", StringUtils.substring(check, 0, 4));
+                if(StringUtils.substring(check, 0, 4).equals("Send")){
+                    mc.addPending(clickedUser);
+                    updateList();
+                }
+                else if (StringUtils.substring(check, 0, 4).equals("Stop")){
+                    mc.removeFollowing(clickedUser);
+                    updateList();
+                }
+
+                check = null;
+                clickedUser = null;
+            }
+        });
+        builder.setNegativeButton("No", new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int id) {
+                clickedUser = null;
+                check = null;
+            }
+        });
+        // Set other dialog properties
+
+
+        // Create the AlertDialog
+        android.support.v7.app.AlertDialog dialog = builder.create();
+        dialog.setCancelable(false);
+        dialog.setCanceledOnTouchOutside(false);
+        dialog.show();
+
+
     }
 }

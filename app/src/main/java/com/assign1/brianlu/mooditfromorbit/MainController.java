@@ -54,8 +54,15 @@ public class MainController implements MController {
         mm.addFollower(user);
     }
 
+    public void removeFollowing(User user){
+        mm.removeFollowing(user);
+    }
+
     public void addPending(User user){
         mm.addPending(user);
+    }
+    public String checkPending(User user){
+        return mm.checkPending(user);
     }
 
     public void communicateToServer(Context context){
