@@ -1,5 +1,6 @@
 package com.assign1.brianlu.mooditfromorbit;
 
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
@@ -15,6 +16,12 @@ import android.widget.TextView;
  */
 
 public abstract class CustomAppCompatActivity extends AppCompatActivity {
+    protected Context context;
+
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        context = getApplicationContext();
+    }
 
     protected void checkOnlineStatus(){
         Log.d("checkstatus", MainApplication.getConnectedToServer().toString());

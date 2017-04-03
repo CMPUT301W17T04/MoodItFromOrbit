@@ -27,34 +27,22 @@ public class ServerUploader extends AccessFile {
 
     }
 
-    @Override
-    protected Void doInBackground(Context... contexts){
-        for(Context context : contexts){
-            ArrayList<UpdateMoods> communicationsList = loadFromFile(context);
-            ArrayList<UpdateMoods> remove = new ArrayList<>();
 
-            for(UpdateMoods updateMood : communicationsList){
-                updateMood.execute();
+    public void sendCommunication(Context context){
+        ArrayList<UpdateMoods> communicationsList = loadFromFile(context);
+        ArrayList<UpdateMoods> remove = new ArrayList<>();
 
-                /*while(true){
-                    if(MainApplication.getDone()){
-                        if(MainApplication.getConnectedToServer()){
-                            remove.add(updateMood);
-                        }
-                        Log.d("checks", MainApplication.getDone().toString());
-                        MainApplication.setDone(false);
-                        break;
-                    }
-                }*/
-                if(MainApplication.getConnectedToServer()){
-                    remove.add(updateMood);
-                }
+        for(UpdateMoods updateMood : communicationsList){
+            updateMood.execute();
+
+            if(MainApplication.getConnectedToServer()){
+                remove.add(updateMood);
+                Log.d("connected", "upload success");
             }
-            communicationsList.removeAll(remove);
-            remove.clear();
-            saveInFile(context, communicationsList);
         }
-        return null;
+        communicationsList.removeAll(remove);
+        remove.clear();
+        saveInFile(context, communicationsList);
     }
 
 }

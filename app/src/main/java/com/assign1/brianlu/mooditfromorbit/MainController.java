@@ -33,12 +33,13 @@ public class MainController implements MController {
     }
 
     public UserList getAllExceptMeUsers(){
-        //pullUsers();
+
         mm.setAllExceptMeUsers();
         return mm.getAllExceptMeUsers();
     }
 
-    public void pullUsers(){
+    public void pullUsers(Context context){
+        mm.communicateToServer(context);
         mm.pullUsersFromServer();
     }
     /**
@@ -76,10 +77,13 @@ public class MainController implements MController {
         }
     }
 
-    public void generateRequested(){
-        pullUsers();
-        mm.setMe(mm.getUsers().getUserByName(mm.getMe().getUserName()));
-        mm.generateRequested();
+    public void generateRequested(Context context){
+        pullUsers(context);
+        if(MainApplication.getConnectedToServer()){
+            mm.setMe(mm.getUsers().getUserByName(mm.getMe().getUserName()));
+            mm.generateRequested();
+        }
+
     }
 
     public boolean checkForUser(User user){

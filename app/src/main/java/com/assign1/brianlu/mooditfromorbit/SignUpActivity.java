@@ -102,7 +102,7 @@ public class SignUpActivity extends CustomAppCompatActivity implements MView<Mai
 
     private void updateFromServer(){
         MainController mc = MainApplication.getMainController();
-        mc.pullUsers();
+        mc.pullUsers(context);
     }
 
 }

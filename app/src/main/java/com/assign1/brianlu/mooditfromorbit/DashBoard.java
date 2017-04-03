@@ -204,7 +204,7 @@ public class DashBoard extends CustomAppCompatActivity implements MView<MainMode
     public void updateList(){
         MainController mc = MainApplication.getMainController();
         mc.generateFollowingMoods();
-        mc.generateRequested();
+        mc.generateRequested(context);
         checkForRequests();
         adapter.notifyDataSetChanged();
         checkOnlineStatus();

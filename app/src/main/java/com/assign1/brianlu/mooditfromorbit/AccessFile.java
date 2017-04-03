@@ -20,10 +20,11 @@ import java.lang.reflect.Type;
 import java.util.ArrayList;
 
 /**
+ * this class contains info to access a save file to save the moods offline
  * Created by Gregory on 2017-03-31.
  */
 
-abstract class AccessFile extends AsyncTask<Context, Void, Void>{
+abstract class AccessFile {
     private static final String FILENAME = "file.sav";
 
     /**

@@ -250,7 +250,7 @@ public class ProfileActivity extends CustomAppCompatActivity implements MView<Ma
     private void getAllSelfMoods(){
         Log.i("getcalled","called once");
         MainController mc = MainApplication.getMainController();
-        mc.generateRequested();
+        mc.generateRequested(context);
         selfMoods = mc.getMe().getMoods().getMoods();
     }
 
@@ -307,8 +307,10 @@ public class ProfileActivity extends CustomAppCompatActivity implements MView<Ma
 
     public void updateList(){
         MainController mc = MainApplication.getMainController();
-        mc.generateRequested();
-        adapter.notifyDataSetChanged();
+        mc.generateRequested(context);
+        selfMoods = mc.getMe().getMoods().getMoods();
+        adapter = new MoodListAdapter(this, selfMoods);
+        moodListView.setAdapter(adapter);
         checkOnlineStatus();
     };
 
