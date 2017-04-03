@@ -15,11 +15,11 @@ import org.junit.Test;
  * Created by brianlu on 2017-03-13. ff
  */
 
-public class ModifyMoodTest extends ActivityInstrumentationTestCase2 {
+public class MoodTest extends ActivityInstrumentationTestCase2 {
 
     private Solo solo;
 
-    public ModifyMoodTest() {
+    public MoodTest() {
         super(com.assign1.brianlu.mooditfromorbit.MoodMainActivity.class);
     }
 
@@ -40,6 +40,43 @@ public class ModifyMoodTest extends ActivityInstrumentationTestCase2 {
 
         assertEquals("com.assign1.brianlu.mooditfromorbit", appContext.getPackageName());
     }
+
+    // Intent test *****************
+    public void testdashBoardToProfile(){
+        solo.assertCurrentActivity("Wrong activity", MoodMainActivity.class);
+
+
+
+
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    // UI test *****************
 
 
     public void testClickMoodList(){
