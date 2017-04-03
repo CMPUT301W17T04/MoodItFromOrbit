@@ -211,15 +211,13 @@ public class AddMood extends AppCompatActivity implements MView<MainModel> {
                         Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(r_url));
                         startActivity(browserIntent);
                         // User clicked OK button
-                        Intent intent = new Intent(AddMood.this, ProfileActivity.class);
-                        startActivity(intent);
+                        finish();
                     }
                 });
                 builder.setNegativeButton(R.string.close, new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
                         // User cancelled the dialog
-                        Intent intent = new Intent(AddMood.this, ProfileActivity.class);
-                        startActivity(intent);
+                        finish();
                     }
                 });
                 // Set other dialog properties

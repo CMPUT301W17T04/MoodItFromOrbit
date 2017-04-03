@@ -132,6 +132,8 @@ public class MoodTest extends ActivityInstrumentationTestCase2 {
         solo.enterText((EditText) solo.getView(R.id.signInInput), "blu1");
         solo.clickOnButton("Log In");
         solo.assertCurrentActivity("Wrong activity", DashBoard.class);
+        solo.clickOnView(solo.getView(R.id.action_profile));
+        solo.assertCurrentActivity("Wrong activity", ProfileActivity.class);
         solo.clickOnView(solo.getView(R.id.action_add_mood));
         solo.assertCurrentActivity("Wrong activity", AddMood.class);
         String text = "this is test";
@@ -160,6 +162,8 @@ public class MoodTest extends ActivityInstrumentationTestCase2 {
         solo.enterText((EditText) solo.getView(R.id.signInInput), "blu1");
         solo.clickOnButton("Log In");
         solo.assertCurrentActivity("Wrong activity", DashBoard.class);
+        solo.clickOnView(solo.getView(R.id.action_profile));
+        solo.assertCurrentActivity("Wrong activity", ProfileActivity.class);
         solo.clickOnView(solo.getView(R.id.action_add_mood));
         solo.assertCurrentActivity("Wrong activity", AddMood.class);
         solo.clickOnView(solo.getView(R.id.emotions));
