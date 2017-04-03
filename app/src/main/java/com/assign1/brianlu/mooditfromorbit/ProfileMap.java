@@ -43,6 +43,7 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import java.io.IOException;
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
@@ -203,7 +204,7 @@ public class ProfileMap extends CustomAppCompatActivity implements MView<MainMod
         mMapView.setBuiltInZoomControls(true);
         mMapView.setTileSource(TileSourceFactory.MAPNIK);
         mMapController = (MapController) mMapView.getController();
-        mMapController.setZoom(17);
+        mMapController.setZoom(13);
 
         if(currentLocation != null){
             Double lat =  currentLocation.getLatitude();
@@ -239,7 +240,10 @@ public class ProfileMap extends CustomAppCompatActivity implements MView<MainMod
                 startMarker1.setAnchor(Marker.ANCHOR_CENTER, Marker.ANCHOR_BOTTOM);
                 startMarker1.setIcon(icon);
                 String address = getAddressFromGeo( mood.getLatitude(),mood.getLongitude());
-                String message = mood.getUserName() + ", " + mood.getEmotion().getEmotion() + "\n" + address + "\n" +mood.getMessage();
+                DecimalFormat df = new DecimalFormat("0.000");
+                String message = mood.getUserName() + ", " + mood.getEmotion().getEmotion() + ", ";
+                message = message + df.format(distance(mood.getLatitude(), currentLocation.getLatitude(), mood.getLongitude(), currentLocation.getLongitude(), 0.0, 0.0)) +" km ";
+                message = message  + "\n\"" +mood.getMessage()+"\"\n" + address;
                 startMarker1.setTitle(message);
                 mMapView.getOverlays().add(startMarker1);
             }
@@ -326,7 +330,8 @@ public class ProfileMap extends CustomAppCompatActivity implements MView<MainMod
         for(int i = 0;i< filteredM.getCount();i++){
             Mood mood = filteredM.getMood(i);
             if(mood.getLatitude() != null && mood.getLongitude() != null){
-                  if(distance(mood.getLatitude(),location.getLatitude(),mood.getLongitude(),location.getLongitude(),0.0,0.0) > 5){
+                Log.i("distance is in meter",Double.toString(distance(mood.getLatitude(),location.getLatitude(),mood.getLongitude(),location.getLongitude(),0.0,0.0)));
+                if(distance(mood.getLatitude(),location.getLatitude(),mood.getLongitude(),location.getLongitude(),0.0,0.0) > 5){
                     filteredM.delete(mood);
 
                     i--;
@@ -362,8 +367,8 @@ public class ProfileMap extends CustomAppCompatActivity implements MView<MainMod
         double height = el1 - el2;
 
         distance = Math.pow(distance, 2) + Math.pow(height, 2);
-
-        return Math.sqrt(distance);
+        DecimalFormat df = new DecimalFormat("0.000");
+        return Math.sqrt(distance)/1000;
     }
 
 
