@@ -32,6 +32,7 @@ import org.osmdroid.views.MapController;
 import org.osmdroid.views.MapView;
 import org.osmdroid.views.overlay.Marker;
 import java.io.IOException;
+import java.text.DecimalFormat;
 import java.util.List;
 import java.util.Locale;
 
@@ -185,7 +186,7 @@ public class DashBoardMap extends AppCompatActivity implements MView<MainModel> 
         mMapView.setBuiltInZoomControls(true);
         mMapView.setTileSource(TileSourceFactory.MAPNIK);
         mMapController = (MapController) mMapView.getController();
-        mMapController.setZoom(17);
+        mMapController.setZoom(13);
 
         if(currentLocation != null){
             Double lat =  currentLocation.getLatitude();
@@ -195,7 +196,7 @@ public class DashBoardMap extends AppCompatActivity implements MView<MainModel> 
             Marker startMarker = new Marker(mMapView);
             startMarker.setPosition(gPt);
             startMarker.setAnchor(Marker.ANCHOR_CENTER, Marker.ANCHOR_BOTTOM);
-            String address = "Current Location: " + getAddressFromGeo( lat,lng);
+            String address = "Current Location: " + getAddressFromGeo(lat,lng);
             startMarker.setTitle(address);
             startMarker.setIcon(icon);
 
@@ -223,7 +224,10 @@ public class DashBoardMap extends AppCompatActivity implements MView<MainModel> 
                 startMarker1.setAnchor(Marker.ANCHOR_CENTER, Marker.ANCHOR_BOTTOM);
                 startMarker1.setIcon(icon);
                 String address = getAddressFromGeo( mood.getLatitude(),mood.getLongitude());
-                String message = mood.getUserName() + ", " + mood.getEmotion().getEmotion() + "\n" + address + "\n" +mood.getMessage();
+                DecimalFormat df = new DecimalFormat("0.000");
+                String message = mood.getUserName() + ", " + mood.getEmotion().getEmotion() + ", ";
+                message = message + df.format(distance(mood.getLatitude(), currentLocation.getLatitude(), mood.getLongitude(), currentLocation.getLongitude(), 0.0, 0.0)) +" km ";
+                message = message  + "\n\"" +mood.getMessage()+"\"\n" + address;
                 startMarker1.setTitle(message);
                 mMapView.getOverlays().add(startMarker1);
             }
