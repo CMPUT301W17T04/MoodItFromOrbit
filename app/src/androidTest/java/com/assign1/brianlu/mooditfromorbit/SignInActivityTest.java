@@ -68,29 +68,15 @@ public class SignInActivityTest extends ActivityInstrumentationTestCase2<SignInA
 
     }
 
-    //test when there is no username input, whether the log in still work or not.
-    public void testUserInputOrNot() {
 
-        Activity activity = (SignInActivity) solo.getCurrentActivity();
-        solo.assertCurrentActivity("Wrong Activity", SignInActivity.class);
-
-        solo.clickOnButton("Log in");
-        solo.assertCurrentActivity("Wrong Activity", SignInActivity.class);
-
-        assertTrue(solo.waitForText("Wrong userName input"));
-
-    }
 
     //test when the input userName is exist in server.
     public void testExistUserName(){
-        Activity activity = (SignInActivity) solo.getCurrentActivity();
-        solo.assertCurrentActivity("Wrong Activity", SignInActivity.class);
 
         String existUser = "neil";
-        solo.enterText(userNameView,existUser);
+       solo.enterText(userNameView,existUser);
         solo.clickOnView(SigninButtonView);
         solo.assertCurrentActivity("Wrong Activity", SignInActivity.class);
-
 
 
     }
@@ -99,3 +85,4 @@ public class SignInActivityTest extends ActivityInstrumentationTestCase2<SignInA
 
 
 }
+
