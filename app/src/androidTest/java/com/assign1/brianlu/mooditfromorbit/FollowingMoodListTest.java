@@ -40,6 +40,12 @@ public class FollowingMoodListTest extends ActivityInstrumentationTestCase2 {
         assertEquals("com.assign1.brianlu.mooditfromorbit", appContext.getPackageName());
     }
 
+
+
+
+
+
+
     /** UI testing for Mood Following and Sharing 4-6*/
 
 
