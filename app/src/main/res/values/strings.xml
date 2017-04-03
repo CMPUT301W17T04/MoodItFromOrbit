@@ -24,7 +24,7 @@
     <string name="searchText">Search Text</string>
     <string name="searchMood">Search Mood</string>
     <string name="filter">Filter</string>
-    <string name="cancel">No</string>
+    <string name="cancel">Clear</string>
     <string name="server">Unable to Reach Server</string>
     <string name="all_users">All Users</string>
     <string name="recentWeek">Filter by most recent week</string>
@@ -32,6 +32,7 @@
     <string name="logout">Logout</string>
     <string name="closeDist">Filter moods within 5 Km. </string>
     <string name="refresh">Refresh</string>
+    <string name="close">No</string>
 
     <string-array name="Emotions_List">
         <item>Angry</item>

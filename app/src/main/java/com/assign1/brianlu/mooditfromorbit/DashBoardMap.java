@@ -135,6 +135,11 @@ public class DashBoardMap extends AppCompatActivity implements MView<MainModel> 
                 startActivity(intent5);
                 return true;
 
+            case R.id.action_filter:
+                showFilterDialog();
+                return true;
+
+
             case R.id.action_refresh:
                 mMapView.getOverlays().clear();
                 initiateMap();
@@ -160,7 +165,8 @@ public class DashBoardMap extends AppCompatActivity implements MView<MainModel> 
     }
 
 
-
+    // reference: "https://github.com/MKergall/osmbonuspack/wiki/Tutorial_3"
+    // 5 march, 2017
     private void initiateMap(){
 
         MapController mMapController;
@@ -202,7 +208,8 @@ public class DashBoardMap extends AppCompatActivity implements MView<MainModel> 
     }
 
 
-
+    // reference: "https://github.com/MKergall/osmbonuspack/wiki/Tutorial_3"
+    // 5 march, 2017
     private void mapPoints(){
         Log.i("moods1 length",Integer.toString(moods.getCount()));
         Drawable icon = ResourcesCompat.getDrawable(getResources(), R.drawable.marker_kml_point, null);
@@ -224,6 +231,14 @@ public class DashBoardMap extends AppCompatActivity implements MView<MainModel> 
         }
     }
 
+
+    // reference: "http://stackoverflow.com/questions/9409195/how-to-get-complete-address-from-latitude-and-longitude"
+    // 20 March, 2017
+    /**
+     * @param lat
+     * @param lng
+     * @return
+     */
     private String getAddressFromGeo(double lat, double lng){
         Geocoder geocoder;
         geocoder = new Geocoder(this, Locale.getDefault());
@@ -244,7 +259,8 @@ public class DashBoardMap extends AppCompatActivity implements MView<MainModel> 
         return theAddress;
     }
 
-
+    // reference: "http://stackoverflow.com/questions/2115758/how-do-i-display-an-alert-dialog-on-android"
+    // 24 March, 2017
     private void showFilterDialog(){
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         LayoutInflater inflater = DashBoardMap.this.getLayoutInflater();
@@ -274,6 +290,10 @@ public class DashBoardMap extends AppCompatActivity implements MView<MainModel> 
                 .setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int id) {
+                        getFollowingMoods();
+                        mMapView.getOverlays().clear();
+                        initiateMap();
+                        filterDist = false;
                         dialog.cancel();
                     }
                 });

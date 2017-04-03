@@ -46,6 +46,7 @@ public class ProfileActivity extends CustomAppCompatActivity implements MView<Ma
     private String searchText;
     private Toolbar myToolbarLow;
 
+    private SwipeRefreshLayout refreshLayout;
     private ArrayList<Mood> selfMoods;
     private boolean checked = false;
 
@@ -114,6 +115,28 @@ public class ProfileActivity extends CustomAppCompatActivity implements MView<Ma
         });
 
 
+        // taken from https://developer.android.com/training/swipe/respond-refresh-request.html
+        //March 10, 2017 4:45pm
+        /**
+         * Sets up a SwipeRefreshLayout.OnRefreshListener that is invoked when the user
+         * performs a swipe-to-refresh gesture.
+         */
+        refreshLayout = (SwipeRefreshLayout) findViewById(R.id.refreshLayout);
+        refreshLayout.setOnRefreshListener(
+                new SwipeRefreshLayout.OnRefreshListener() {
+                    @Override
+                    public void onRefresh() {
+
+                        // This method performs the actual data-refresh operation.
+                        // The method calls setRefreshing(false) when it's finished.
+
+                        updateList();
+                        refreshLayout.setRefreshing(false);
+
+                    }
+                }
+        );
+
 
         MainModel mm = MainApplication.getMainModel();
         mm.addView(this);
@@ -172,6 +195,9 @@ public class ProfileActivity extends CustomAppCompatActivity implements MView<Ma
         }
     }
 
+
+    // reference: "http://stackoverflow.com/questions/2115758/how-do-i-display-an-alert-dialog-on-android"
+    // 24 March, 2017
     private void showFilterDialog(){
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         LayoutInflater inflater = ProfileActivity.this.getLayoutInflater();
@@ -213,6 +239,7 @@ public class ProfileActivity extends CustomAppCompatActivity implements MView<Ma
                 .setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int id) {
+                        onStart();
                         dialog.cancel();
                     }
                 });
