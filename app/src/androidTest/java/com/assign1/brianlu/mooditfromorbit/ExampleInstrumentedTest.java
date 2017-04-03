@@ -155,6 +155,8 @@ public class ExampleInstrumentedTest extends ActivityInstrumentationTestCase2<Mo
         solo.goBack();
     }
 
+    // wow factor test
+    // solo.goback() wont work for apps external to this app so i ended it there.
     public void testWowFactor(){
         solo.assertCurrentActivity("Wrong activity", MoodMainActivity.class);
         solo.clickOnButton("Sign In");
