@@ -1,6 +1,7 @@
 package com.assign1.brianlu.mooditfromorbit;
 
 import android.app.AlertDialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.icu.util.TimeUnit;
@@ -33,6 +34,7 @@ public class AcceptFollowerActivity extends CustomAppCompatActivity implements M
     private UsersAdapter adapter;
     private SwipeRefreshLayout refreshLayout;
     private Toolbar myToolbarLow;
+
 
 
     protected void onCreate(Bundle savedInstanceState) {
@@ -121,7 +123,7 @@ public class AcceptFollowerActivity extends CustomAppCompatActivity implements M
         // TODO Auto-generated method stub
         super.onStart();
         MainController mc = MainApplication.getMainController();
-        mc.generateRequested();
+
         adapter = new UsersAdapter(this, mc.getMe().getRequested().getUsers());
         usersListView.setAdapter(adapter);
         checkOnlineStatus();
@@ -181,8 +183,7 @@ public class AcceptFollowerActivity extends CustomAppCompatActivity implements M
      */
     public void updateList(){
         MainController mc = MainApplication.getMainController();
-        mc.pullUsers();
-        mc.generateRequested();
+        mc.generateRequested(context);
         adapter = new UsersAdapter(this, mc.getMe().getRequested().getUsers());
         usersListView.setAdapter(adapter);
         checkOnlineStatus();

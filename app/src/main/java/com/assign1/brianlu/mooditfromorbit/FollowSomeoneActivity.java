@@ -118,7 +118,7 @@ public class FollowSomeoneActivity extends CustomAppCompatActivity implements MV
         // TODO Auto-generated method stub
         super.onStart();
         MainController mc = MainApplication.getMainController();
-        mc.generateRequested();
+        mc.generateRequested(context);
         adapter = new UsersAdapter(this, mc.getAllExceptMeUsers().getUsers());
         usersListView.setAdapter(adapter);
         checkOnlineStatus();
@@ -177,7 +177,7 @@ public class FollowSomeoneActivity extends CustomAppCompatActivity implements MV
      */
     public void updateList(){
         MainController mc = MainApplication.getMainController();
-        mc.pullUsers();
+        mc.pullUsers(context);
         adapter = new UsersAdapter(this, mc.getAllExceptMeUsers().getUsers());
         usersListView.setAdapter(adapter);
         checkOnlineStatus();

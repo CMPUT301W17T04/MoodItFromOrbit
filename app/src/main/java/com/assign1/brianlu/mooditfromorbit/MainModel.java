@@ -160,7 +160,7 @@ public class MainModel extends MModel<MView> {
         ServerUploader serverUploader = new ServerUploader();
         UpdateMoods updateMoods = new UpdateMoods(me);
         serverUploader.addMoodsCommunication(updateMoods, context);
-        serverUploader.execute(context);
+        serverUploader.sendCommunication(context);
     }
 
     /**
@@ -169,7 +169,7 @@ public class MainModel extends MModel<MView> {
      */
     public void communicateToServer(Context context){
         ServerUploader serverUploader = new ServerUploader();
-        serverUploader.execute(context);
+        serverUploader.sendCommunication(context);
     }
     /**
      * puts the moods of all people that the current user follows into followingMoods

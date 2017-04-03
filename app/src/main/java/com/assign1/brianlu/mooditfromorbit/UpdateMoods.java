@@ -17,6 +17,12 @@ public class UpdateMoods implements UpdateServer {
     public void execute(){
         ElasticSearchController.UpdateUsersMoodTask updateUsersMoodTask = new ElasticSearchController.UpdateUsersMoodTask();
         updateUsersMoodTask.execute(user);
+        try{
+            updateUsersMoodTask.get();
+        }
+        catch (Exception e){
+            Log.d("failed", "Failed to upload moods");
+        }
 
         Log.d("update mood user", user.getUserName());
     }
