@@ -15,6 +15,11 @@
         android:icon="@drawable/ic_add_black_24dp"
         app:showAsAction="always"/>
 
+    <item android:id="@+id/action_refresh"
+        android:title="@string/refresh"
+        android:icon="@drawable/c_refresh_button"
+        app:showAsAction="always"/>
+
     <item android:id="@+id/action_filter"
         android:title="@string/filter"
         android:icon="@drawable/ic_sort_black_24dp"

@@ -52,7 +52,6 @@ import java.util.Locale;
  */
 public class ProfileMap extends CustomAppCompatActivity implements MView<MainModel> {
     private Toolbar myToolbarLow;
-    private SwipeRefreshLayout refreshLayout;
     private MoodList moods;
     private boolean filterDist = false;
 
@@ -65,7 +64,6 @@ public class ProfileMap extends CustomAppCompatActivity implements MView<MainMod
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_map);
 
-        Log.i("--------","------------");
         getSelfMoods();
 
         initiateMap();
@@ -116,28 +114,7 @@ public class ProfileMap extends CustomAppCompatActivity implements MView<MainMod
         });
 
 
-        // taken from https://developer.android.com/training/swipe/respond-refresh-request.html
-        //March 10, 2017 4:45pm
-        /**
-         * Sets up a SwipeRefreshLayout.OnRefreshListener that is invoked when the user
-         * performs a swipe-to-refresh gesture.
-         */
-        refreshLayout = (SwipeRefreshLayout) findViewById(R.id.refreshLayout);
-        refreshLayout.setOnRefreshListener(
-                new SwipeRefreshLayout.OnRefreshListener() {
-                    @Override
-                    public void onRefresh() {
 
-                        // This method performs the actual data-refresh operation.
-                        // The method calls setRefreshing(false) when it's finished.
-
-                        mMapView.getOverlays().clear();
-                        initiateMap();
-                        refreshLayout.setRefreshing(false);
-
-                    }
-                }
-        );
     }
 
 
@@ -178,6 +155,11 @@ public class ProfileMap extends CustomAppCompatActivity implements MView<MainMod
 
             case R.id.action_filter:
                 showFilterDialog();
+                return true;
+
+            case R.id.action_refresh:
+                mMapView.getOverlays().clear();
+                initiateMap();
                 return true;
 
 
@@ -354,7 +336,7 @@ public class ProfileMap extends CustomAppCompatActivity implements MView<MainMod
      *
      * lat1, lon1 Start point lat2, lon2 End point el1 Start altitude in meters
      * el2 End altitude in meters
-     * @returns Distance in Meters
+     * @returns Distance in kiloMeters
      */
     public static double distance(double lat1, double lat2, double lon1,
                                   double lon2, double el1, double el2) {

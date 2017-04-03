@@ -12,6 +12,7 @@ import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.support.v4.view.MenuItemCompat;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.ActionBar;
 import android.os.Bundle;
 import android.support.v7.view.menu.ActionMenuItemView;
@@ -111,6 +112,8 @@ public class ProfileActivity extends CustomAppCompatActivity implements MView<Ma
                 startActivity(intent3);
             }
         });
+
+
 
         MainModel mm = MainApplication.getMainModel();
         mm.addView(this);
@@ -272,11 +275,16 @@ public class ProfileActivity extends CustomAppCompatActivity implements MView<Ma
 
     public void update(MainModel m ){
         //TODO code to redisplay the data
+        updateList();
+    }
+
+    public void updateList(){
         MainController mc = MainApplication.getMainController();
         mc.generateRequested();
         adapter.notifyDataSetChanged();
         checkOnlineStatus();
-    }
+    };
+
 
     /**
      * taken from http://stackoverflow.com/questions/26489079/evenly-spaced-menu-items-on-toolbar

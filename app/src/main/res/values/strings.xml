@@ -31,6 +31,7 @@
     <string name="follow_requests">Follower Requests</string>
     <string name="logout">Logout</string>
     <string name="closeDist">Filter moods within 5 Km. </string>
+    <string name="refresh">Refresh</string>
 
     <string-array name="Emotions_List">
         <item>Angry</item>

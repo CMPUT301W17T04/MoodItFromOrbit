@@ -10,10 +10,16 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
+
     <item android:id="@+id/action_add_mood"
         android:title="@string/action_add_mood"
         android:icon="@drawable/ic_add_black_24dp"
         app:showAsAction="always" />
+
+    <item android:id="@+id/action_refresh"
+        android:title="@string/refresh"
+        android:icon="@drawable/c_refresh_button"
+        app:showAsAction="always"/>
 
     <item android:id="@+id/action_filter"
         android:title="@string/filter"
