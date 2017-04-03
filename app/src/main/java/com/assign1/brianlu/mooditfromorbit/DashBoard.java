@@ -22,12 +22,16 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+
+import java.util.ArrayList;
 
 /**
  * this is the main view which will show the moods of people that the user is following
@@ -46,6 +50,9 @@ public class DashBoard extends CustomAppCompatActivity implements MView<MainMode
     private String searchMood;
     private String searchText;
     private Toolbar myToolbarLow;
+
+    private ArrayList<Mood> selfMoods;
+    private boolean checked = false;
 
 
 
@@ -170,28 +177,6 @@ public class DashBoard extends CustomAppCompatActivity implements MView<MainMode
         }
     }
 
-    private void showFilterDialog(){
-        AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        LayoutInflater inflater = DashBoard.this.getLayoutInflater();
-        final View v_iew=inflater.inflate(R.layout.filter_view, null);
-        builder.setView(v_iew)
-                .setPositiveButton(R.string.filter, new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        EditText stext = (EditText) v_iew.findViewById(R.id.searchText);
-                        EditText smood = (EditText) v_iew.findViewById(R.id.searchMood);
-                        searchText = stext.getText().toString();
-                        searchMood = smood.getText().toString();
-                    }
-                })
-                .setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int id) {
-                        dialog.cancel();
-                    }
-                });
-        builder.show();
-    }
 
 
     @Override
@@ -224,6 +209,98 @@ public class DashBoard extends CustomAppCompatActivity implements MView<MainMode
         checkOnlineStatus();
 
     }
+
+
+    private void showFilterDialog(){
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        LayoutInflater inflater = DashBoard.this.getLayoutInflater();
+        View view=inflater.inflate(R.layout.filter_view, null);
+        final EditText stext = (EditText) view.findViewById(R.id.searchText);
+        if(searchText != null){stext.setText(searchText);}
+        final EditText smood = (EditText) view.findViewById(R.id.searchMood);
+        if(searchMood != null){smood.setText(searchMood);}
+        final CheckBox s_sort = (CheckBox) view.findViewById(R.id.recentWeek);
+        s_sort.setChecked(checked);
+        builder.setView(view)
+                .setPositiveButton(R.string.filter, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int id) {
+
+                        searchText = stext.getText().toString();
+                        searchMood = smood.getText().toString();
+
+                        getAllSelfMoods();
+                        if(s_sort.isChecked()){
+                            checked = true;
+                            selfMoods = filterByWeek(selfMoods);
+                        }else{
+                            checked = false;
+                        }
+                        if(!searchMood.equals("")){
+                            selfMoods = filterByMood(selfMoods, searchMood);
+                        }
+                        if(!searchText.equals("")){
+                            selfMoods = filterByText(selfMoods,searchText);
+                        }
+                        adapter = new MoodListAdapter(DashBoard.this, selfMoods);
+                        moodListView.setAdapter(adapter);
+                        checkOnlineStatus();
+
+
+                    }
+                })
+                .setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int id) {
+                        dialog.cancel();
+                    }
+                });
+        builder.show();
+    }
+
+
+    private void getAllSelfMoods(){
+        Log.i("getcalled","called once");
+        MainController mc = MainApplication.getMainController();
+//        mc.generateRequested();
+        selfMoods = mc.getFollowingMoods().getMoods();
+    }
+
+    private ArrayList<Mood> filterByMood(ArrayList<Mood> moods, String emotion){
+        MoodList sortedMoods = new MoodList();
+        MainController mc = MainApplication.getMainController();
+        sortedMoods.merge(new MoodList(moods));
+        if(mc.getEmotion(emotion) != null){
+            sortedMoods.sortByEmotion(mc.getEmotion(emotion));
+            if(sortedMoods.getCount() == 0){
+                Toast.makeText(getBaseContext(), "There are now such moods!",
+                        Toast.LENGTH_LONG).show();
+            }
+            return sortedMoods.getMoods();
+        }else {
+            Toast.makeText(getBaseContext(), "Invalid mood type!",
+                    Toast.LENGTH_LONG).show();
+            return new ArrayList<Mood>();
+        }
+    }
+
+    private ArrayList<Mood> filterByWeek(ArrayList<Mood> moods){
+        MoodList sortedMoods = new MoodList();
+        sortedMoods.merge(new MoodList(moods));
+        sortedMoods.sortByRecentWeek();
+        return sortedMoods.getMoods();
+    }
+
+
+    private ArrayList<Mood> filterByText(ArrayList<Mood> moods, String text){
+        MoodList sortedMoods = new MoodList();
+        sortedMoods.merge(new MoodList(moods));
+        sortedMoods.sortByWord(text);
+        return sortedMoods.getMoods();
+    }
+
+
+
 
     /**
      * taken from http://stackoverflow.com/questions/26489079/evenly-spaced-menu-items-on-toolbar

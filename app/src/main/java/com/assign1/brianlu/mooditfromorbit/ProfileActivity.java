@@ -147,7 +147,7 @@ public class ProfileActivity extends CustomAppCompatActivity implements MView<Ma
                 return true;
 
             case R.id.action_map:
-                Intent intent2 = new Intent(ProfileActivity.this, MapActivity.class);
+                Intent intent2 = new Intent(ProfileActivity.this, ProfileMap.class);
                 startActivity(intent2);
                 return true;
 

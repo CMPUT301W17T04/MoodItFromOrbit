@@ -2,7 +2,6 @@ package com.assign1.brianlu.mooditfromorbit;
 
 import android.app.Activity;
 import android.content.Context;
-import android.location.Location;
 import android.support.test.InstrumentationRegistry;
 import android.test.ActivityInstrumentationTestCase2;
 import android.widget.EditText;
@@ -15,11 +14,11 @@ import org.junit.Test;
  * Created by brianlu on 2017-03-13.
  */
 
-public class MapActivityTest extends ActivityInstrumentationTestCase2 {
+public class ProfileMapTest extends ActivityInstrumentationTestCase2 {
 
     private Solo solo;
 
-    public MapActivityTest() {
+    public ProfileMapTest() {
         super(com.assign1.brianlu.mooditfromorbit.MoodMainActivity.class);
     }
 
@@ -50,7 +49,7 @@ public class MapActivityTest extends ActivityInstrumentationTestCase2 {
         solo.clickOnMenuItem("Profile");
         solo.assertCurrentActivity("Wrong activity", ProfileActivity.class);
         solo.clickOnMenuItem("Show Map");
-        solo.assertCurrentActivity("Wrong activity", MapActivity.class);
+        solo.assertCurrentActivity("Wrong activity", ProfileMap.class);
         solo.goBack();
     }
 

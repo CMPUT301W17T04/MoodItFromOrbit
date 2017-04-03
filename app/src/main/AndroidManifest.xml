@@ -55,7 +55,7 @@
         <activity android:name=".AddMood" />
         <activity android:name=".EditMood" />
         <activity android:name=".DashBoardMap" />
-        <activity android:name=".MapActivity" /> <!-- changed -->
+        <activity android:name=".ProfileMap" /> <!-- changed -->
         <activity android:name=".FollowSomeoneActivity" />
         <activity android:name=".AcceptFollowerActivity"></activity>
     </application>
