@@ -67,9 +67,6 @@ public class User{
         return moods.getMood(0);
     }
 
-    public void setMoods(MoodList moods){
-        this.moods = moods;
-    }
 
     public void addMood(Mood mood){
         if(moods == null){
@@ -133,11 +130,19 @@ public class User{
         requested.removeAll();
     }
 
+    /**
+     * create requested if null
+     */
     public void createRequested(){
         if(requested == null){
             requested = new UserList();
         }
     }
+
+    /**
+     * add user to requested, if null create it
+     * @param user user to add
+     */
     public void addRequestedUser(User user){
         if(requested == null){
             requested = new UserList();

@@ -42,7 +42,6 @@ public class AddMood extends AppCompatActivity implements MView<MainModel> {
     ImageView IMG;
     Bitmap imageBitmap;
     Context context;
-    private MoodListAdapter adapter;
     private int placeholder;
     String recommendation;
     String r_url;
@@ -80,7 +79,6 @@ public class AddMood extends AppCompatActivity implements MView<MainModel> {
 
 
         get_comment = (EditText) findViewById(R.id.comment);
-        //get_comment.setFilters(new InputFilter[] {new ThreeSpaceInputFilter()});
 
 
         // when done button is pressed
@@ -282,11 +280,6 @@ public class AddMood extends AppCompatActivity implements MView<MainModel> {
         return Lengthcheck;
 
         }
-
-
-
-
-
 
 
 

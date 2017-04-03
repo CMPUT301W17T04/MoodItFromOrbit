@@ -15,9 +15,6 @@ import com.google.gson.JsonSerializer;
 
 import java.lang.reflect.Type;
 
-/**
- * Created by Gregory on 2017-03-10.
- */
 
 /**
  * this is a custom json serializer for the emotion class

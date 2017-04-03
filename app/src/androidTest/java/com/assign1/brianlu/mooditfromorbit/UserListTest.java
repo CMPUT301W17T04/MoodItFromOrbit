@@ -5,6 +5,7 @@ import android.test.ActivityInstrumentationTestCase2;
 import java.util.ArrayList;
 
 /**
+ * tests the userList
  * Created by brianlu on 2017-02-24.
  */
 

@@ -38,6 +38,10 @@ public class MainController implements MController {
         return mm.getAllExceptMeUsers();
     }
 
+    /**
+     * pulls users from server
+     * @param context current application context
+     */
     public void pullUsers(Context context){
         mm.communicateToServer(context);
         mm.pullUsersFromServer();
@@ -50,27 +54,61 @@ public class MainController implements MController {
         mm.addUser(user);
         mm.setMe(user);
     }
+
+    /**
+     * adds a new follower
+     * @param user user to follow
+     */
     public void addFollower(User user){
         mm.addFollower(user);
     }
 
+    /**
+     * stops following a user
+     * @param user user to stop following
+     */
     public void removeFollowing(User user){
         mm.removeFollowing(user);
     }
 
+    /**
+     * adds a user to pending follower
+     * @param user user to add
+     */
     public void addPending(User user){
         mm.addPending(user);
     }
+
+    /**
+     * checks if already following user
+     * @param user user to check
+     * @return string on what to do
+     */
     public String checkPending(User user){
         return mm.checkPending(user);
     }
 
+    /**
+     * sends a new mood to the server
+     * @param context current application context
+     */
     public void communicateToServer(Context context){
         mm.communicateToServer(context);
     }
+
+    /**
+     * updates the moods
+     * @param context current application context
+     */
     public void updateMoodList(Context context){
         mm.updateMoodList(context);
     }
+
+    /**
+     * check if username valid
+     * @param userName username to check
+     * @return true or false
+     */
     public boolean checkSignIn(String userName){
         User me = mm.getUserByName(userName);
 
@@ -84,6 +122,10 @@ public class MainController implements MController {
         }
     }
 
+    /**
+     * generate a list of users that have requested to follow the current user
+     * @param context
+     */
     public void generateRequested(Context context){
         pullUsers(context);
         if(MainApplication.getConnectedToServer()){
@@ -93,10 +135,19 @@ public class MainController implements MController {
 
     }
 
+    /**
+     * check if user is there
+     * @param user user to check
+     * @return true or false
+     */
     public boolean checkForUser(User user){
         return mm.checkForUser(user);
     }
 
+    /**
+     * returns current user
+     * @return current user
+     */
     public User getMe(){
         return mm.getMe();
     }
@@ -114,6 +165,9 @@ public class MainController implements MController {
         return mm.getFollowingMoods();
     }
 
+    /**
+     * calls generateFollowingMoods
+     */
     public void generateFollowingMoods(){
         mm.generateFollowingMoods();
     }
