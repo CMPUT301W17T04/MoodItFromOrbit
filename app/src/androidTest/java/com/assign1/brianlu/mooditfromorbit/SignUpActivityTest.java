@@ -20,7 +20,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 
 /**
- * Created by Neil on 2017/4/2.
+ * Created by Noire on 2017/4/2.
  */
 
 public class SignUpActivityTest extends ActivityInstrumentationTestCase2<SignUpActivity> {
