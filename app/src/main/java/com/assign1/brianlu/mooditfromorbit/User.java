@@ -79,8 +79,15 @@ public class User{
         moods.sortByNewest();
     }
 
-    public void addFollowing(User user){
+    public void deleteFollowing(User user){
+        followList.removeFollowing(user.getId());
+    }
 
+    public void deleteFollower(User user){
+        followList.removeFollower(user.getId());
+    }
+
+    public void addFollowing(User user){
         followList.addFollowing(user.getId());
 
     }

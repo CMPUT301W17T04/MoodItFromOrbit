@@ -213,12 +213,6 @@ public class ProfileActivity extends CustomAppCompatActivity implements MView<Ma
 
         spinner = (Spinner) view.findViewById(R.id.emotions);
 
-
-        /*final EditText smood = (EditText) view.findViewById(R.id.searchMood);
-        if(searchMood != null){
-            smood.setText(searchMood);
-
-        }*/
         final CheckBox s_sort = (CheckBox) view.findViewById(R.id.recentWeek);
         s_sort.setChecked(checked);
         builder.setView(view)

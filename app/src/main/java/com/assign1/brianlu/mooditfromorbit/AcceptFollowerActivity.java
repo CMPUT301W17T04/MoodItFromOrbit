@@ -54,7 +54,10 @@ public class AcceptFollowerActivity extends CustomAppCompatActivity implements M
         ab.setTitle("Requests");
         setupEvenlyDistributedToolbar();
 
+        MainController mc = MainApplication.getMainController();
         checkOnlineStatus();
+        
+        mc.generateRequested(context);
 
 
         MainModel mm = MainApplication.getMainModel();
@@ -123,7 +126,6 @@ public class AcceptFollowerActivity extends CustomAppCompatActivity implements M
         // TODO Auto-generated method stub
         super.onStart();
         MainController mc = MainApplication.getMainController();
-
         adapter = new UsersAdapter(this, mc.getMe().getRequested().getUsers());
         usersListView.setAdapter(adapter);
         checkOnlineStatus();
