@@ -182,6 +182,9 @@ public class ProfileMap extends CustomAppCompatActivity implements MView<MainMod
         return super.onCreateOptionsMenu(menu);
     }
 
+
+    // reference: "https://github.com/MKergall/osmbonuspack/wiki/Tutorial_3"
+    // 5 march, 2017
     private void initiateMap(){
 
         MapController mMapController;
@@ -216,16 +219,15 @@ public class ProfileMap extends CustomAppCompatActivity implements MView<MainMod
 
             mMapView.getOverlays().add(startMarker);
         }
-        Log.i("moods2 length",Integer.toString(moods.getCount()));
         mapPoints();
 
 
     }
 
 
-
+    // reference: "https://github.com/MKergall/osmbonuspack/wiki/Tutorial_3"
+    // 5 march, 2017
     private void mapPoints(){
-        Log.i("moods1 length",Integer.toString(moods.getCount()));
         Drawable icon = ResourcesCompat.getDrawable(getResources(), R.drawable.marker_kml_point, null);
         // recursively add more marker overlays to the map
         for(int i =0;i< moods.getCount();i++){
@@ -245,6 +247,14 @@ public class ProfileMap extends CustomAppCompatActivity implements MView<MainMod
         }
     }
 
+
+    // reference: "http://stackoverflow.com/questions/9409195/how-to-get-complete-address-from-latitude-and-longitude"
+    // 20 March, 2017
+    /**
+     * @param lat
+     * @param lng
+     * @return
+     */
     private String getAddressFromGeo(double lat, double lng){
         Geocoder geocoder;
         geocoder = new Geocoder(this, Locale.getDefault());
@@ -265,7 +275,8 @@ public class ProfileMap extends CustomAppCompatActivity implements MView<MainMod
         return theAddress;
     }
 
-
+    // reference: "http://stackoverflow.com/questions/2115758/how-do-i-display-an-alert-dialog-on-android"
+    // 24 March, 2017
     private void showFilterDialog(){
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         LayoutInflater inflater = ProfileMap.this.getLayoutInflater();
@@ -285,8 +296,6 @@ public class ProfileMap extends CustomAppCompatActivity implements MView<MainMod
                         }else{
                             filterDist = false;
                         }
-
-                        Log.i("moods length",Integer.toString(moods.getCount()));
                         mMapView.getOverlays().clear();
                         initiateMap();
 
@@ -295,6 +304,10 @@ public class ProfileMap extends CustomAppCompatActivity implements MView<MainMod
                 .setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int id) {
+                        getSelfMoods();
+                        mMapView.getOverlays().clear();
+                        initiateMap();
+                        filterDist = false;
                         dialog.cancel();
                     }
                 });
@@ -310,20 +323,16 @@ public class ProfileMap extends CustomAppCompatActivity implements MView<MainMod
     private MoodList filterByDistance(MoodList moods, Location location){
         MoodList filteredM = new MoodList();
         filteredM.merge(moods);
-        Log.i("temp length",Integer.toString(filteredM.getCount()));
         for(int i = 0;i< filteredM.getCount();i++){
             Mood mood = filteredM.getMood(i);
             if(mood.getLatitude() != null && mood.getLongitude() != null){
-                Log.i("index is",Integer.toString(i));
-                Log.i("distance is in meter",Double.toString(distance(mood.getLatitude(),location.getLatitude(),mood.getLongitude(),location.getLongitude(),0.0,0.0)));
-                if(distance(mood.getLatitude(),location.getLatitude(),mood.getLongitude(),location.getLongitude(),0.0,0.0) > 5){
+                  if(distance(mood.getLatitude(),location.getLatitude(),mood.getLongitude(),location.getLongitude(),0.0,0.0) > 5){
                     filteredM.delete(mood);
 
                     i--;
                 }
             }
         }
-        Log.i("temp length",Integer.toString(filteredM.getCount()));
         return filteredM;
     }
 

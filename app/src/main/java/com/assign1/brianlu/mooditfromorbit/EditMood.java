@@ -53,7 +53,7 @@ public class EditMood extends AppCompatActivity implements MView<MainModel> {
 
         // reference : "http://stackoverflow.com/questions/5683728/convert-java-util-date-to-string"
         // April 2nd, 2017
-        DateFormat df = new SimpleDateFormat("MM-dd-yyyy HH:mm:ss");
+        DateFormat df = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
         String reportDate = df.format(mood.getDate());
 
         String moodInfo = "Created on: " + reportDate;
@@ -85,12 +85,7 @@ public class EditMood extends AppCompatActivity implements MView<MainModel> {
         if (mood.getMessage()!= null){get_comment.setText(mood.getMessage());}
 
 
-//        Switch locationswitch = (Switch) findViewById(R.id.Elocations);
-//        if(mood.getLongitude() != null && mood.getLatitude() != null){
-//            locationswitch.setChecked(true);
-//        }
 
-        mc.startLocationListen(this);
 
         //camera implementation
         Button photoEdit = (Button) findViewById(R.id.editPhoto);
@@ -143,36 +138,6 @@ public class EditMood extends AppCompatActivity implements MView<MainModel> {
                 mood.setMessage(commentstring);
                 mood.setImage(imageBitmap);
 
-
-
-
-
-                // Remove the listener you previously added
-                mc.stopLocationListener();
-
-                Location moodLocation = mc.getLocation();
-
-                //only if share location is toggled
-                //  mood.setLocation(moodLocation);
-
-
-
-
-//                Switch locationswitch = (Switch) findViewById(R.id.Elocations);
-//                locationswitch.setTextOn("On"); // displayed text of the Switch whenever it is in checked or on state
-//                locationswitch.setTextOff("Off"); // displayed text of the Switch whenever it is in unchecked i.e. off state
-//                // if true or false
-//                Boolean switchState = locationswitch.isChecked();
-//                if (switchState){
-//                    // if on locations enabled
-//                    mood.setLocation(moodLocation);
-//
-//                } else {
-//                    // if off locations disabled
-//                    mood.setLatitude(null);
-//                    mood.setLongitude(null);
-//                }
-                Log.d("location", moodLocation.toString());
                 mc.updateMoodList(context);
 
                 finish();
@@ -196,6 +161,12 @@ public class EditMood extends AppCompatActivity implements MView<MainModel> {
         mm.addView(this);
     }
 
+    /**
+     *
+     * @param s
+     * @param checkS
+     * @return
+     */
     private int getSelectedItem(Spinner s,String checkS){
         int index = 0;
 
@@ -220,7 +191,13 @@ public class EditMood extends AppCompatActivity implements MView<MainModel> {
             }
         }
     }
-
+    // reference: "http://stackoverflow.com/questions/9409195/how-to-get-complete-address-from-latitude-and-longitude"
+    // 20 March, 2017
+    /**
+     * @param lat
+     * @param lng
+     * @return
+     */
     private String getAddressFromGeo(double lat, double lng){
         Geocoder geocoder;
         geocoder = new Geocoder(this, Locale.getDefault());
@@ -231,7 +208,7 @@ public class EditMood extends AppCompatActivity implements MView<MainModel> {
             theAddress += addresses.get(0).getLocality() + ", ";
             theAddress += addresses.get(0).getAdminArea() + ", ";
             theAddress += addresses.get(0).getCountryName();
-            String postalCode = addresses.get(0).getPostalCode();
+//            String postalCode = addresses.get(0).getPostalCode();
 //            theAddress +=  addresses.get(0).getFeatureName();
         } catch (IOException e) {
             // TODO Auto-generated catch block

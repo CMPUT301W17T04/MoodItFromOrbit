@@ -195,6 +195,9 @@ public class ProfileActivity extends CustomAppCompatActivity implements MView<Ma
         }
     }
 
+
+    // reference: "http://stackoverflow.com/questions/2115758/how-do-i-display-an-alert-dialog-on-android"
+    // 24 March, 2017
     private void showFilterDialog(){
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         LayoutInflater inflater = ProfileActivity.this.getLayoutInflater();
