@@ -283,6 +283,7 @@ public class MoodTest extends ActivityInstrumentationTestCase2 {
         solo.clickOnView(deleteButton);
         solo.assertCurrentActivity("Wrong activity", ProfileActivity.class);
 
-
     }
+
+
 }

@@ -5,6 +5,7 @@ import android.content.Context;
 import android.support.test.InstrumentationRegistry;
 import android.support.test.runner.AndroidJUnit4;
 import android.test.ActivityInstrumentationTestCase2;
+import android.view.KeyEvent;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.Spinner;
@@ -104,8 +105,11 @@ public class ExampleInstrumentedTest extends ActivityInstrumentationTestCase2<Mo
         solo.enterText((EditText) solo.getView(R.id.comment), text);
 
         solo.clickOnButton("Done");
+        solo.clickOnButton("No");
         solo.assertCurrentActivity("Wrong activity", DashBoard.class);
-        solo.clickOnMenuItem("Profile");
+        solo.clickOnView(solo.getView(R.id.action_profile));
+
+       // solo.clickOnMenuItem("Profile");
 
 
         solo.goBack();
@@ -140,13 +144,69 @@ public class ExampleInstrumentedTest extends ActivityInstrumentationTestCase2<Mo
 
 
         solo.clickOnButton("Done");
+        solo.clickOnButton("No");
+
         solo.assertCurrentActivity("Wrong activity", DashBoard.class);
-        solo.clickOnMenuItem("Profile");
+        solo.clickOnView(solo.getView(R.id.action_profile));
+     //   solo.clickOnMenuItem("Profile");
 
 
         solo.goBack();
         solo.goBack();
     }
 
+    // wow factor test
+    // solo.goback() wont work for apps external to this app so i ended it there.
+    public void testWowFactor(){
+        solo.assertCurrentActivity("Wrong activity", MoodMainActivity.class);
+        solo.clickOnButton("Sign In");
+        solo.assertCurrentActivity("Wrong activity", SignInActivity.class);
+        solo.enterText((EditText) solo.getView(R.id.signInInput), "Cameron");
+        solo.clickOnButton("Log In");
 
+        solo.assertCurrentActivity("Wrong activity", DashBoard.class);
+        solo.clickOnView(solo.getView(R.id.action_add_mood));
+        solo.assertCurrentActivity("Wrong activity", AddMood.class);
+
+
+
+        // 0 is the first spinner in the layout
+        View view1 = solo.getView(Spinner.class, 0);
+        solo.clickOnView(view1);
+        solo.scrollToTop(); // I put this in here so that it always keeps the list at start
+        // select the 3rd item in the spinner
+        solo.clickOnView(solo.getView(TextView.class, 3));
+
+        String text = "I am disgusted";
+
+        View view2 = solo.getView(Spinner.class, 1);
+        //solo.scrollToTop();
+        solo.clickOnView(view2);
+        solo.clickOnView(solo.getView(TextView.class, 3));
+
+
+        solo.enterText((EditText) solo.getView(R.id.comment), text);
+
+        solo.clickOnButton("Done");
+        //solo.assertCurrentActivity("Wrong activity", DashBoard.class);
+        //solo.clickOnView(solo.getView(android.R.id.button2));
+        //solo.clickOnButton(1);
+        solo.clickOnButton("Yes take me there!");
+/*
+      //  solo.goBack();
+        solo.clickOnView(solo.getView(R.id.action_profile));
+
+        //   solo.clickOnMenuItem("Profile");
+
+
+        solo.goBack();
+
+        MainController mc = MainApplication.getMainController();
+
+        Mood mood = mc.getMe().getMoods().getMood(0);
+
+        assertEquals(text,mood.getMessage());
+
+        solo.goBack();*/
+    }
 }
