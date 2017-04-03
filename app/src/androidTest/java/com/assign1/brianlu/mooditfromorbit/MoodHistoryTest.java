@@ -151,10 +151,4 @@ public class MoodHistoryTest extends ActivityInstrumentationTestCase2 {
     }
 
 
-
-
-
-
-
-
-     }
+}
