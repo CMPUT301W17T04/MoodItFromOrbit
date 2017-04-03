@@ -18,7 +18,7 @@ import com.robotium.solo.Solo;
 import org.junit.Test;
 
 /**
- * Created by brianlu on 2017-03-13. ff
+ * Created by brianlu on 2017-03-13.
  */
 
 public class MoodTest extends ActivityInstrumentationTestCase2 {
@@ -120,7 +120,10 @@ public class MoodTest extends ActivityInstrumentationTestCase2 {
 
     // UI test *****************
 
-    // usecase: Moods US 01.01.01
+    /** usecase: Moods US 01.01.01
+     * As a participant, I want to add a mood event to my mood history, each event with the current date and time,
+     * a required emotional state, optional trigger, and optional social situation.
+     **/
     public void testCreateMood() {
         solo.assertCurrentActivity("Wrong activity", MoodMainActivity.class);
         solo.clickOnButton("Sign In");
@@ -145,8 +148,10 @@ public class MoodTest extends ActivityInstrumentationTestCase2 {
     }
 
 
-    // usecase: Moods US 01.02.01
-    public void testEmotionSpinner(){
+    /** usecase: Moods US 01.02.01,
+     * I want the emotional states to include at least: anger, confusion, disgust, fear, happiness, sadness, shame, and surprise.
+    **/
+     public void testEmotionSpinner(){
 
         solo.assertCurrentActivity("Wrong activity", MoodMainActivity.class);
         solo.clickOnButton("Sign In");
@@ -187,8 +192,10 @@ public class MoodTest extends ActivityInstrumentationTestCase2 {
     }
 
 
-    // usecase: Moods US 01.03.01
-    public void testEmotionColor(){
+    /** usecase: Moods US 01.03.01,
+     * I want consistent emoticons and colors to depict and distinguish the emotional states in any view.
+    **/
+     public void testEmotionColor(){
         solo.assertCurrentActivity("Wrong activity", MoodMainActivity.class);
         solo.clickOnButton("Sign In");
         solo.assertCurrentActivity("Wrong activity", SignInActivity.class);
@@ -249,7 +256,9 @@ public class MoodTest extends ActivityInstrumentationTestCase2 {
         }
     }
 
-    //US 01.04.01 As a participant, I want to view a given mood event and all its available details.
+    /** US 01.04.01 As a participant,
+     * I want to view a given mood event and all its available details.
+     **/
     public void testMoodDetails(){
         solo.assertCurrentActivity("Wrong activity", MoodMainActivity.class);
         solo.clickOnButton("Sign In");
@@ -274,7 +283,10 @@ public class MoodTest extends ActivityInstrumentationTestCase2 {
     }
 
 
-    // US 01.05.01 As a participant, I want to view a given mood event and all its available details.
+    /** US 01.05.01 As a participant,
+     * I want to edit the details of a given mood event of mine.
+     *
+     */
     public void testEditMood(){
         solo.assertCurrentActivity("Wrong activity", MoodMainActivity.class);
         solo.clickOnButton("Sign In");
@@ -311,7 +323,10 @@ public class MoodTest extends ActivityInstrumentationTestCase2 {
 
     }
 
-    // US 01.06.01 As a participant, I want to view a given mood event and all its available details.
+    /** US 01.06.01 As a participant, As a participant,
+     * I want to delete a given mood event of mine.
+     *
+     */
     public void testDeleteMood() {
         solo.assertCurrentActivity("Wrong activity", MoodMainActivity.class);
         solo.clickOnButton("Sign In");

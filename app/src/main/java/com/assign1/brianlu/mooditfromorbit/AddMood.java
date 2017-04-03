@@ -220,7 +220,8 @@ public class AddMood extends AppCompatActivity implements MView<MainModel> {
                 builder.setNegativeButton(R.string.close, new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
                         // User cancelled the dialog
-                        finish();
+                        Intent intent = new Intent(AddMood.this, ProfileActivity.class);
+                        startActivity(intent);
                     }
                 });
                 // Set other dialog properties
