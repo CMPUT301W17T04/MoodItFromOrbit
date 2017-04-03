@@ -33,7 +33,7 @@ public class MainController implements MController {
     }
 
     public UserList getAllExceptMeUsers(){
-        pullUsers();
+        //pullUsers();
         mm.setAllExceptMeUsers();
         return mm.getAllExceptMeUsers();
     }

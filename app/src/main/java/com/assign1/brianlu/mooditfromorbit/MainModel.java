@@ -48,6 +48,7 @@ public class MainModel extends MModel<MView> {
      * grabs all users from the server
      */
     public void pullUsersFromServer(){
+        Log.d("pulled", "Pulled from server");
         ElasticSearchController.GetUsersTask getUsersTask = new ElasticSearchController.GetUsersTask();
         getUsersTask.execute("");
 
@@ -273,12 +274,19 @@ public class MainModel extends MModel<MView> {
      * generates a UserList of all users that are requesting to follow current user
      */
     public void generateRequested(){
-        if(me.getRequested() != null){
-            me.removeRequested();
+        try{
+            if(me.getRequested() != null){
+                me.removeRequested();
+            }
+            else{
+                me.createRequested();
+            }
         }
-        else{
-            me.createRequested();
+        catch (Exception e){
+            Log.d("server issue", "the server quit accepting new users until it is cleared of all users");
+            throw e;
         }
+
 
         for(String id : me.getPendingRequests()){
             User user = users.getUserById(id);

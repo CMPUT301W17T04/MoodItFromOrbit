@@ -24,7 +24,7 @@
     <string name="searchText">Search Text</string>
     <string name="searchMood">Search Mood</string>
     <string name="filter">Filter</string>
-    <string name="cancel">Cancel</string>
+    <string name="cancel">No</string>
     <string name="server">Unable to Reach Server</string>
     <string name="all_users">All Users</string>
     <string name="recentWeek">Filter by most recent week</string>

@@ -1,6 +1,7 @@
 package com.assign1.brianlu.mooditfromorbit;
 
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -23,6 +24,7 @@ public class SignUpActivity extends CustomAppCompatActivity implements MView<Mai
 
     private EditText userName;
     private EditText confirm;
+    private Context context;
 
     @Override
     protected void onCreate(Bundle savedInstanceState){
@@ -32,7 +34,7 @@ public class SignUpActivity extends CustomAppCompatActivity implements MView<Mai
         Button logInButton = (Button) findViewById(R.id.logIn);
         userName = (EditText) findViewById(R.id.userInput);
         confirm = (EditText) findViewById(R.id.inputConfirm);
-
+        context = this.getApplicationContext();
         logInButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -54,10 +56,8 @@ public class SignUpActivity extends CustomAppCompatActivity implements MView<Mai
 
                     if(!exists){
                         updateUsers(user);
-
+                        mc.communicateToServer(context);
                         Intent intent = new Intent(SignUpActivity.this, DashBoard.class);
-
-
                         startActivity(intent);
                     }
                     else{

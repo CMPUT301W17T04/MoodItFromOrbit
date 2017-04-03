@@ -62,6 +62,15 @@ public class FollowList {
         }
     }
 
+    public Boolean containsRequest(String id){
+        if(requestList.contains(id)){
+            return true;
+        }
+        else{
+            return false;
+        }
+    }
+
     /**
      * remove from Following.follower list
      * @param id
