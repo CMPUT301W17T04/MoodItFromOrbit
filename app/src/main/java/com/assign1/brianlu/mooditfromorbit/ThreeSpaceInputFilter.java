@@ -15,7 +15,7 @@ public class ThreeSpaceInputFilter implements InputFilter {
     Pattern mPattern;
 
     public ThreeSpaceInputFilter() {
-        mPattern=Pattern.compile("[A-B-a-b-0-9]{0,20}+((\\.[0-9]{0,20})?)||(\\.)?");
+        mPattern=Pattern.compile("(([\\S]*)\\s){0,3}?");
     }
 
     @Override

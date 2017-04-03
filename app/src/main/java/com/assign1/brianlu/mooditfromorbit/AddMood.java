@@ -46,6 +46,7 @@ public class AddMood extends AppCompatActivity implements MView<MainModel> {
     private int placeholder;
     String recommendation;
     String r_url;
+    private EditText get_comment;
 
     public static final int REQUEST_CODE = 1;
     @Override
@@ -78,7 +79,8 @@ public class AddMood extends AppCompatActivity implements MView<MainModel> {
 
 
 
-
+        get_comment = (EditText) findViewById(R.id.comment);
+        //get_comment.setFilters(new InputFilter[] {new ThreeSpaceInputFilter()});
 
 
         // when done button is pressed
@@ -98,8 +100,8 @@ public class AddMood extends AppCompatActivity implements MView<MainModel> {
                 Spinner g_status = (Spinner) findViewById(R.id.groupstatus);
                 String groupstring = g_status.getSelectedItem().toString();
 
-                EditText get_comment = (EditText) findViewById(R.id.comment);
-                //get_comment.setFilters(new InputFilter[] {new ThreeSpaceInputFilter()});
+
+
                 String commentstring = get_comment.getText().toString();
 
                 // check if the input comment is larger than 3 words
