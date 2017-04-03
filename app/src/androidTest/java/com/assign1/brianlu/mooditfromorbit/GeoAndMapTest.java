@@ -106,7 +106,7 @@ public class GeoAndMapTest extends ActivityInstrumentationTestCase2 {
         solo.assertCurrentActivity("Wrong activity", ProfileActivity.class);
         solo.clickOnView(solo.getView((R.id.action_map)));
         solo.assertCurrentActivity("Wrong activity", ProfileMap.class);
-        solo.sleep(5000);
+        solo.sleep(8000);
     }
 
     /**
@@ -131,7 +131,7 @@ public class GeoAndMapTest extends ActivityInstrumentationTestCase2 {
         solo.clickOnMenuItem("Filter");
         solo.clickOnCheckBox(0);
         solo.clickOnButton(2);
-        solo.sleep(5000);
+        solo.sleep(8000);
     }
 
 }
