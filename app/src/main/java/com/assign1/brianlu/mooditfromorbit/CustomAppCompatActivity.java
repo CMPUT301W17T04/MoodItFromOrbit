@@ -12,6 +12,7 @@ import android.view.View;
 import android.widget.TextView;
 
 /**
+ * contains functions for all activities
  * Created by Gregory on 2017-03-31.
  */
 

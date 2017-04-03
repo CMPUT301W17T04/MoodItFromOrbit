@@ -234,7 +234,7 @@ public class MainModel extends MModel<MView> {
     }
 
     /**
-     * adds user to pending
+     * checks if user is already pending or following
      * @param user user that current user is trying to follow
      */
     public String checkPending(User user){
@@ -251,6 +251,10 @@ public class MainModel extends MModel<MView> {
         return null;
     }
 
+    /**
+     * adds a user to pending
+     * @param user user to add to pending
+     */
     public void addPending(User user){
         me.addPending(user);
 
@@ -267,6 +271,10 @@ public class MainModel extends MModel<MView> {
         addRequest(user);
     }
 
+    /**
+     * remove a user from following
+     * @param user user to stop following
+     */
     public void removeFollowing(User user){
         if(me.getFollowing().contains(user.getId())){
             me.deleteFollowing(user);
@@ -278,6 +286,10 @@ public class MainModel extends MModel<MView> {
         }
     }
 
+    /**
+     * removes a user from followers
+     * @param user user to remove
+     */
     private void removeFollower(User user){
         user.deleteFollower(me);
 
@@ -285,6 +297,10 @@ public class MainModel extends MModel<MView> {
         updateUsersFollowListTask.execute(user);
     }
 
+    /**
+     * removes a user from pending
+     * @param user user to remove
+     */
     private void removePending(User user){
         user.deletePending(me);
 
@@ -336,6 +352,10 @@ public class MainModel extends MModel<MView> {
         }
     }
 
+    /**
+     * removes a user from requests
+     * @param user user to remove
+     */
     private void removeRequest(User user){
         me.deleteRequest(user);
         me.removeOneRequested(user);

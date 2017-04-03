@@ -4,6 +4,7 @@ import android.icu.util.TimeUnit;
 import android.util.Log;
 
 /**
+ * part of comman pattern, sends moods to the server
  * Created by Gregory on 2017-03-31.
  */
 

@@ -133,11 +133,19 @@ public class User{
         requested.removeAll();
     }
 
+    /**
+     * create requested if null
+     */
     public void createRequested(){
         if(requested == null){
             requested = new UserList();
         }
     }
+
+    /**
+     * add user to requested, if null create it
+     * @param user user to add
+     */
     public void addRequestedUser(User user){
         if(requested == null){
             requested = new UserList();

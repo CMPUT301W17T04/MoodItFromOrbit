@@ -14,6 +14,7 @@ import android.widget.TextView;
 import java.util.ArrayList;
 
 /**
+ * adapter to display users on screen
  * Created by Gregory on 2017-04-01.
  */
 

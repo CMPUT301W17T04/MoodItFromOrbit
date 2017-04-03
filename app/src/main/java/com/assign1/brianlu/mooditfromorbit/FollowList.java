@@ -3,6 +3,7 @@ package com.assign1.brianlu.mooditfromorbit;
 import java.util.ArrayList;
 
 /**
+ * contains following and requests
  * Created by Neil on 2017/3/11.
  */
 

@@ -146,6 +146,7 @@ public class ExampleInstrumentedTest extends ActivityInstrumentationTestCase2<Mo
 
         solo.goBack();
         solo.goBack();
-
     }
+
+
 }

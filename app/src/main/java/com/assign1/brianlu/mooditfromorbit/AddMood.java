@@ -80,7 +80,6 @@ public class AddMood extends AppCompatActivity implements MView<MainModel> {
 
 
         get_comment = (EditText) findViewById(R.id.comment);
-        //get_comment.setFilters(new InputFilter[] {new ThreeSpaceInputFilter()});
 
 
         // when done button is pressed

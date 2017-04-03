@@ -28,6 +28,9 @@ import android.widget.ListView;
 
 import org.apache.commons.lang3.StringUtils;
 
+/**
+ * this activity shows all users and allows them to follow a user by clicking on them
+ */
 public class FollowSomeoneActivity extends CustomAppCompatActivity implements MView<MainModel>{
 
     private ListView usersListView;
