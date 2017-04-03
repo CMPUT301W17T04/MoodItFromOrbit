@@ -67,9 +67,6 @@ public class User{
         return moods.getMood(0);
     }
 
-    public void setMoods(MoodList moods){
-        this.moods = moods;
-    }
 
     public void addMood(Mood mood){
         if(moods == null){

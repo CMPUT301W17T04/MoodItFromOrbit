@@ -11,6 +11,7 @@ import com.robotium.solo.Solo;
 import org.junit.Test;
 
 /**
+ * tests the map of profile moods
  * Created by brianlu on 2017-03-13.
  */
 

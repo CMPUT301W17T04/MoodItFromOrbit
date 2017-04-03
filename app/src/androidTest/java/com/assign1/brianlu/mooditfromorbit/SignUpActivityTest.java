@@ -20,6 +20,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 
 /**
+ * tests signing up
  * Created by Noire on 2017/4/2.
  */
 

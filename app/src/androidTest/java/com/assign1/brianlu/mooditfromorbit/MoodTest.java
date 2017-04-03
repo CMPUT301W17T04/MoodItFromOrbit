@@ -18,6 +18,7 @@ import com.robotium.solo.Solo;
 import org.junit.Test;
 
 /**
+ * tests use cases relating to adding moods
  * Created by brianlu on 2017-03-13.
  */
 

@@ -37,6 +37,7 @@ import java.util.List;
 import java.util.Locale;
 
 /**
+ * this displays the map of the moods followed
  * Created by brianlu on 2017-03-21.
  */
 

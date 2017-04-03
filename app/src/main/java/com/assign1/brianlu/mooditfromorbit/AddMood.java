@@ -42,7 +42,6 @@ public class AddMood extends AppCompatActivity implements MView<MainModel> {
     ImageView IMG;
     Bitmap imageBitmap;
     Context context;
-    private MoodListAdapter adapter;
     private int placeholder;
     String recommendation;
     String r_url;

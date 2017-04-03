@@ -12,6 +12,7 @@ import com.robotium.solo.Solo;
 import org.junit.Test;
 
 /**
+ * tests use cases related to other details
  * Created by brianlu on 2017-04-03.
  */
 

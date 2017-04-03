@@ -36,9 +36,6 @@ public class Emotion {
         return emotion;
     }
 
-    public void setEmotion(String emotion) {
-        this.emotion = emotion;
-    }
 
     public int getColour() {
         return colour;

@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.Date;
 
 /**
+ * tests the moodList
  * Created by FENGYI on 2017-02-24.
  */
 

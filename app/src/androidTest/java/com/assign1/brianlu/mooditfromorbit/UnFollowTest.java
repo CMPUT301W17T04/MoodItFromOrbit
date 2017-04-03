@@ -11,6 +11,7 @@ import com.robotium.solo.Solo;
 import org.junit.Test;
 
 /**
+ * must be run by FollowingUsersTest
  * Created by Gregory on 2017-04-03.
  */
 
@@ -41,6 +42,10 @@ public class UnFollowTest extends ActivityInstrumentationTestCase2 {
 
         assertEquals("com.assign1.brianlu.mooditfromorbit", appContext.getPackageName());
     }
+
+    /**
+     * tests removing a follwer
+     */
     public void testRemoveFollower(){
         solo.assertCurrentActivity("Wrong activity", MoodMainActivity.class);
         solo.clickOnButton("Sign In");

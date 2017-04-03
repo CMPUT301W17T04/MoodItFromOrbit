@@ -22,6 +22,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 
 /**
+ * tests followList
  * Created by Noire on 2017/4/2.
  */
 
