@@ -48,78 +48,8 @@ public class MoodTest extends ActivityInstrumentationTestCase2 {
         assertEquals("com.assign1.brianlu.mooditfromorbit", appContext.getPackageName());
     }
 
-    // Intent test *****************
 
-    // dashboard activity to profile activity
-    public void testdashBoardToProfile(){
-        solo.assertCurrentActivity("Wrong activity", MoodMainActivity.class);
-        solo.clickOnButton("Sign In");
-        solo.assertCurrentActivity("Wrong activity", SignInActivity.class);
-        solo.enterText((EditText) solo.getView(R.id.signInInput), "blu1");
-        solo.clickOnButton("Log In");
-        solo.assertCurrentActivity("Wrong activity", DashBoard.class);
-        solo.clickOnView(solo.getView(R.id.action_profile));
-        solo.assertCurrentActivity("Wrong activity", ProfileActivity.class);
-    }
-
-    // dashboar map activity to profile activity
-    public void testDmapToProfile(){
-        solo.assertCurrentActivity("Wrong activity", MoodMainActivity.class);
-        solo.clickOnButton("Sign In");
-        solo.assertCurrentActivity("Wrong activity", SignInActivity.class);
-        solo.enterText((EditText) solo.getView(R.id.signInInput), "blu1");
-        solo.clickOnButton("Log In");
-        solo.assertCurrentActivity("Wrong activity", DashBoard.class);
-        solo.clickOnView(solo.getView(R.id.action_map));
-        solo.assertCurrentActivity("Wrong activity", DashBoardMap.class);
-        solo.clickOnView(solo.getView(R.id.action_profile));
-        solo.assertCurrentActivity("Wrong activity", ProfileActivity.class);
-    }
-
-    // profile map activity to profile activity
-    public void testPmapToProfile(){
-        solo.assertCurrentActivity("Wrong activity", MoodMainActivity.class);
-        solo.clickOnButton("Sign In");
-        solo.assertCurrentActivity("Wrong activity", SignInActivity.class);
-        solo.enterText((EditText) solo.getView(R.id.signInInput), "blu1");
-        solo.clickOnButton("Log In");
-        solo.assertCurrentActivity("Wrong activity", DashBoard.class);
-        solo.clickOnView(solo.getView(R.id.action_profile));
-        solo.assertCurrentActivity("Wrong activity", ProfileActivity.class);
-        solo.clickOnView(solo.getView(R.id.action_map));
-        solo.assertCurrentActivity("Wrong activity", ProfileMap.class);
-        solo.clickOnView(solo.getView(R.id.action_profile));
-        solo.assertCurrentActivity("Wrong activity", ProfileActivity.class);
-
-    }
-
-    // follow someone activity to profile activity
-    public void testAlltoProfile(){
-        solo.assertCurrentActivity("Wrong activity", MoodMainActivity.class);
-        solo.clickOnButton("Sign In");
-        solo.assertCurrentActivity("Wrong activity", SignInActivity.class);
-        solo.enterText((EditText) solo.getView(R.id.signInInput), "blu1");
-        solo.clickOnButton("Log In");
-        solo.assertCurrentActivity("Wrong activity", DashBoard.class);
-        solo.clickOnView(solo.getView(R.id.action_all));
-        solo.assertCurrentActivity("Wrong activity", FollowSomeoneActivity.class);
-    }
-
-    // accept request activity to profile activity
-    public void testReqtoProfile(){
-        solo.assertCurrentActivity("Wrong activity", MoodMainActivity.class);
-        solo.clickOnButton("Sign In");
-        solo.assertCurrentActivity("Wrong activity", SignInActivity.class);
-        solo.enterText((EditText) solo.getView(R.id.signInInput), "blu1");
-        solo.clickOnButton("Log In");
-        solo.assertCurrentActivity("Wrong activity", DashBoard.class);
-        solo.clickOnView(solo.getView(R.id.action_requests));
-        solo.assertCurrentActivity("Wrong activity", AcceptFollowerActivity.class);
-    }
-
-
-
-    // UI test *****************
+    // UI test for Moods
 
     /** usecase: Moods US 01.01.01
      * As a participant, I want to add a mood event to my mood history, each event with the current date and time,
