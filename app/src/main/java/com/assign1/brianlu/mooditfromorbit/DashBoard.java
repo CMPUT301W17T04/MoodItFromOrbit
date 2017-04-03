@@ -25,6 +25,7 @@ import android.view.ViewGroup;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ListView;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -53,6 +54,7 @@ public class DashBoard extends CustomAppCompatActivity implements MView<MainMode
 
     private ArrayList<Mood> selfMoods;
     private boolean checked = false;
+    private Spinner spinner;
 
 
 
@@ -217,10 +219,15 @@ public class DashBoard extends CustomAppCompatActivity implements MView<MainMode
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         LayoutInflater inflater = DashBoard.this.getLayoutInflater();
         View view=inflater.inflate(R.layout.filter_view, null);
+
         final EditText stext = (EditText) view.findViewById(R.id.searchText);
-        if(searchText != null){stext.setText(searchText);}
-        final EditText smood = (EditText) view.findViewById(R.id.searchMood);
-        if(searchMood != null){smood.setText(searchMood);}
+        if(searchText != null){
+            stext.setText(searchText);
+        }
+        spinner = (Spinner) view.findViewById(R.id.emotions);
+        /*if(searchMood != null){
+            smood.setText(searchMood);
+        }*/
         final CheckBox s_sort = (CheckBox) view.findViewById(R.id.recentWeek);
         s_sort.setChecked(checked);
         builder.setView(view)
@@ -229,7 +236,7 @@ public class DashBoard extends CustomAppCompatActivity implements MView<MainMode
                     public void onClick(DialogInterface dialog, int id) {
 
                         searchText = stext.getText().toString();
-                        searchMood = smood.getText().toString();
+                        searchMood = spinner.getSelectedItem().toString();
 
                         getAllSelfMoods();
                         if(s_sort.isChecked()){
@@ -238,7 +245,7 @@ public class DashBoard extends CustomAppCompatActivity implements MView<MainMode
                         }else{
                             checked = false;
                         }
-                        if(!searchMood.equals("")){
+                        if(!searchMood.equals("Search Mood")){
                             selfMoods = filterByMood(selfMoods, searchMood);
                         }
                         if(!searchText.equals("")){

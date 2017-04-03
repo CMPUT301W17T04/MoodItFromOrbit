@@ -290,13 +290,11 @@ public class AddMood extends AppCompatActivity implements MView<MainModel> {
 
     @Override
     public void onDestroy() {
-        Log.d("Shalom", "big shalom" );
-
         super.onDestroy();
         MainModel mm = MainApplication.getMainModel();
         mm.deleteView(this);
     }
-    public void update(MainModel mc){
+    public void update(MainModel mm){
 
     }
 
