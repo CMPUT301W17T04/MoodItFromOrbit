@@ -72,7 +72,7 @@ public class ProfileActivity extends CustomAppCompatActivity implements MView<Ma
 
         ab.setTitle("Profile");
 
-
+        checkForRequests();
 
 
         myToolbarLow.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {

@@ -71,6 +71,7 @@ public class DashBoard extends CustomAppCompatActivity implements MView<MainMode
         ab.setTitle("Dashboard");
 
         setupEvenlyDistributedToolbar();
+        checkForRequests();
 
         myToolbarLow.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {
 
@@ -111,7 +112,6 @@ public class DashBoard extends CustomAppCompatActivity implements MView<MainMode
                 new SwipeRefreshLayout.OnRefreshListener() {
                     @Override
                     public void onRefresh() {
-
                         // This method performs the actual data-refresh operation.
                         // The method calls setRefreshing(false) when it's finished.
 
@@ -205,6 +205,7 @@ public class DashBoard extends CustomAppCompatActivity implements MView<MainMode
         MainController mc = MainApplication.getMainController();
         mc.generateFollowingMoods();
         mc.generateRequested();
+        checkForRequests();
         adapter.notifyDataSetChanged();
         checkOnlineStatus();
 
