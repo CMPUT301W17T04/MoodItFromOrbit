@@ -20,6 +20,7 @@ import android.provider.MediaStore;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.InputFilter;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
@@ -98,6 +99,7 @@ public class AddMood extends AppCompatActivity implements MView<MainModel> {
                 String groupstring = g_status.getSelectedItem().toString();
 
                 EditText get_comment = (EditText) findViewById(R.id.comment);
+                //get_comment.setFilters(new InputFilter[] {new ThreeSpaceInputFilter()});
                 String commentstring = get_comment.getText().toString();
 
                 // check if the input comment is larger than 3 words

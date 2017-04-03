@@ -1,5 +1,6 @@
 package com.assign1.brianlu.mooditfromorbit;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -20,6 +21,7 @@ import android.widget.Toast;
 public class SignInActivity extends CustomAppCompatActivity implements MView<MainModel> {
 
     private EditText userName;
+    private Context context;
 
     protected void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
@@ -28,6 +30,8 @@ public class SignInActivity extends CustomAppCompatActivity implements MView<Mai
         Button logInButton = (Button) findViewById(R.id.logIn);
         TextView toSignUp = (TextView) findViewById(R.id.toSignUp);
         userName = (EditText) findViewById(R.id.signInInput);
+
+        context = this.getApplicationContext();
 
         logInButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -47,6 +51,7 @@ public class SignInActivity extends CustomAppCompatActivity implements MView<Mai
                     Toast.makeText(getBaseContext(),"Invalid User name, Please sign up!",Toast.LENGTH_SHORT).show();
                 }
                 else{
+                    mc.communicateToServer(context);
                     Intent intent = new Intent(SignInActivity.this, DashBoard.class);
                     startActivity(intent);
                 }
