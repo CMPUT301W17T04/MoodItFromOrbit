@@ -284,11 +284,6 @@ public class AddMood extends AppCompatActivity implements MView<MainModel> {
 
 
 
-
-
-
-
-
     @Override
     public void onDestroy() {
         super.onDestroy();

@@ -24,6 +24,9 @@ public abstract class CustomAppCompatActivity extends AppCompatActivity {
         context = getApplicationContext();
     }
 
+    /**
+     * checks the online status of the app
+     */
     protected void checkOnlineStatus(){
         TextView errorBox = (TextView) findViewById(R.id.error);
         if(!MainApplication.getConnectedToServer()){
@@ -34,6 +37,9 @@ public abstract class CustomAppCompatActivity extends AppCompatActivity {
         }
     }
 
+    /**
+     * check if there are follow requests, throw popup if there are
+     */
     protected void checkForRequests(){
         MainController mc = MainApplication.getMainController();
         if(!mc.getMe().getPendingRequests().isEmpty()){

@@ -62,8 +62,6 @@ public class ProfileActivity extends CustomAppCompatActivity implements MView<Ma
         Toolbar myToolbar = (Toolbar) findViewById(R.id.my_toolbar);
         setSupportActionBar(myToolbar);
 
-        /*myToolbarLow = (Toolbar) findViewById(R.id.my_toolbarLow);
-        myToolbarLow.inflateMenu(R.menu.profile_menu_low);*/
 
         setupEvenlyDistributedToolbar();
         MainController mc = MainApplication.getMainController();
@@ -261,6 +259,12 @@ public class ProfileActivity extends CustomAppCompatActivity implements MView<Ma
         selfMoods = mc.getMe().getMoods().getMoods();
     }
 
+    /**
+     * sorts by mood
+     * @param moods list of moods
+     * @param emotion emotion
+     * @return sorted list
+     */
     private ArrayList<Mood> filterByMood(ArrayList<Mood> moods, String emotion){
         MoodList sortedMoods = new MoodList();
         MainController mc = MainApplication.getMainController();
@@ -279,6 +283,11 @@ public class ProfileActivity extends CustomAppCompatActivity implements MView<Ma
         }
     }
 
+    /**
+     * sorts by week
+     * @param moods moods to sort
+     * @return sorted moods
+     */
     private ArrayList<Mood> filterByWeek(ArrayList<Mood> moods){
         MoodList sortedMoods = new MoodList();
         sortedMoods.merge(new MoodList(moods));
@@ -287,6 +296,12 @@ public class ProfileActivity extends CustomAppCompatActivity implements MView<Ma
     }
 
 
+    /**
+     * sorts by keyword
+     * @param moods moods to sort
+     * @param text text to sort by
+     * @return sorted moods
+     */
     private ArrayList<Mood> filterByText(ArrayList<Mood> moods, String text){
         MoodList sortedMoods = new MoodList();
         sortedMoods.merge(new MoodList(moods));
@@ -312,6 +327,9 @@ public class ProfileActivity extends CustomAppCompatActivity implements MView<Ma
         updateList();
     }
 
+    /**
+     * updates view
+     */
     public void updateList(){
         MainController mc = MainApplication.getMainController();
         mc.generateRequested(context);

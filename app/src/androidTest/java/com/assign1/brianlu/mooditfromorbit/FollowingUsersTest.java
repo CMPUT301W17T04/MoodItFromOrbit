@@ -21,6 +21,7 @@ import org.junit.Test;
 
 /**
  * tests adding a follower, accepting a follower and removing a follower
+ * user1 must not be following or have sent a request to user2 before starting test
  * Created by gdbaker on 2017-03-13.
  */
 
